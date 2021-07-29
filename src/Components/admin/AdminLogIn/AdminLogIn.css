@@ -1,7 +1,5 @@
-* {
-  padding: 0px;
-  margin: 0px;
-}
+@import url(../../../theme.css);
+
 body {
   height: 100vh;
   width: 100%;
@@ -9,9 +7,17 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: var(--secondary);
 }
 .login-wrapper {
+  height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
+  border-radius: 25px;
+  background-color: var(--secondary-light);
+}
+.textField-wrapper {
+  margin: 2rem 2rem;
 }

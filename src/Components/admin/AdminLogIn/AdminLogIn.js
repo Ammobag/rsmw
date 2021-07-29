@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import "./AdminLogIn.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 export default function UserLogIn() {
   const [userName, setUsername] = useState("");
@@ -19,34 +20,39 @@ export default function UserLogIn() {
   return (
     <body>
       <div className="login-wrapper">
-        <div>
-          <TextField
-            id="username"
-            label="Username"
-            type="text"
-            variant="outlined"
-            margin="dense"
-            style={{ margin: 8 }}
-            value={userName}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+        <div className="textField-wrapper">
+          <div>
+            <TextField
+              id="username"
+              label="Username"
+              type="text"
+              variant="outlined"
+              margin="dense"
+              style={{ margin: 8 }}
+              value={userName}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div>
+            <TextField
+              id="password"
+              label="Password"
+              type="password"
+              variant="outlined"
+              style={{ margin: 8 }}
+              margin="dense"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
         </div>
+
         <div>
-          <TextField
-            id="password"
-            label="Password"
-            type="password"
-            variant="outlined"
-            style={{ margin: 8 }}
-            margin="dense"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div>
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Log In
-          </Button>
+          <Link to="/admin/ledger" text-decoration="none">
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
+              Log In
+            </Button>{" "}
+          </Link>
         </div>
       </div>
     </body>
