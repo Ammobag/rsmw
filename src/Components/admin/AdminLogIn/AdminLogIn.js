@@ -10,6 +10,7 @@ export default function UserLogIn() {
     if (password && userName) {
       console.log(userName);
       console.log(password);
+      console.log("Hello!");
     } else {
       alert("Please enter a valid username and password");
     }
