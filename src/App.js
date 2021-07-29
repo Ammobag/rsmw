@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch } from "react-router-dom";
+import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
+import AdminLogIn from "./Components/admin/AdminLogIn/AdminLogIn";
+import UserLogIn from "./Components/user/UserLogIn/UserLogIn";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#2196F3",
+    },
+    secondary: {
+      main: "#E33E7F",
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MuiThemeProvider theme={theme}>
+      <div>
+        <Switch>
+          <Route path="/" component={UserLogIn} exact />
+          <Route path="/admin" component={AdminLogIn} />
+          <Route component={Error} />
+        </Switch>
+      </div>
+    </MuiThemeProvider>
   );
 }
 
