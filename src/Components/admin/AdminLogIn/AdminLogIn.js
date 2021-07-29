@@ -3,6 +3,19 @@ import "./AdminLogIn.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
+import firebase from "firebase/app";
+import "firebase/database";
+import {} from "../../firebase";
+
+var database = firebase.database();
+
+var Ref = database.ref('admin/');
+Ref.on('value', (snapshot) => {
+  const data = snapshot.val();
+  console.log(data);
+});
+
+
 export default function UserLogIn() {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
