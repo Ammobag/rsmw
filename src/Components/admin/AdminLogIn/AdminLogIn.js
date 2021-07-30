@@ -10,12 +10,11 @@ import {} from "../../firebase";
 
 var database = firebase.database();
 
-var Ref = database.ref('admin/');
-Ref.on('value', (snapshot) => {
+var Ref = database.ref("admin/");
+Ref.on("value", (snapshot) => {
   const data = snapshot.val();
   console.log(data);
 });
-
 
 export default function UserLogIn() {
   const [userName, setUsername] = useState("");
@@ -24,7 +23,6 @@ export default function UserLogIn() {
     if (password && userName) {
       console.log(userName);
       console.log(password);
-      console.log("Hello!");
     } else {
       alert("Please enter a valid username and password");
     }
@@ -62,10 +60,10 @@ export default function UserLogIn() {
         </div>
 
         <div>
-          <Link to="/admin/ledger" text-decoration="none">
+          <Link to="/dashboard" text-decoration="none">
             <Button variant="contained" color="primary" onClick={handleSubmit}>
               Log In
-            </Button>{" "}
+            </Button>
           </Link>
         </div>
       </div>

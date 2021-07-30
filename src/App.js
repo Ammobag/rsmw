@@ -2,7 +2,7 @@ import { Route, Switch } from "react-router-dom";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import AdminLogIn from "./Components/admin/AdminLogIn/AdminLogIn";
 import UserLogIn from "./Components/user/UserLogIn/UserLogIn";
-import Ledger from "./Components/admin/Ledger/Ledger";
+import Dashboard from "./Components/admin/DashBoard/DashBoard";
 
 const theme = createTheme({
   palette: {
@@ -21,8 +21,8 @@ function App() {
       <div>
         <Switch>
           <Route path="/" component={UserLogIn} exact />
-          <Route path="/admin" component={AdminLogIn} exact />
-          <Route path="/admin/ledger" component={Ledger} />
+          <Route path="/admin" component={AdminLogIn} />
+          <Route path="/dashboard" component={Dashboard} />
           <Route component={Error} />
         </Switch>
       </div>

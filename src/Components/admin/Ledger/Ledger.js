@@ -1,23 +1,47 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
 import "./Ledger.css";
-
-function Ledger() {
+export default function Ledger() {
   return (
-    <body>
-      <nav class="sidenav">
-        <menu>
-          <a href="#">Ledger</a>
-          <a href="#">Contents</a>
-          <a href="#">Notice Board</a>
-          <a href="#">Manage Users</a>
-          <a href="#">Manage Content</a>
-        </menu>
-      </nav>
-
-      <div className="main">...</div>
-    </body>
+    <div>
+      <table>
+        <tr>
+          <th>UID</th>
+          <th>Amount</th>
+          <th>Month</th>
+          <th>Year</th>
+          <th>Paid Date</th>
+        </tr>
+        <tr>
+          <td>Alfreds Futterkiste</td>
+          <td>Maria Anders</td>
+          <td>Germany</td>
+        </tr>
+        <tr>
+          <td>Centro comercial Moctezuma</td>
+          <td>Francisco Chang</td>
+          <td>Mexico</td>
+        </tr>
+        <tr>
+          <td>Ernst Handel</td>
+          <td>Roland Mendel</td>
+          <td>Austria</td>
+        </tr>
+        <tr>
+          <td>Island Trading</td>
+          <td>Helen Bennett</td>
+          <td>UK</td>
+        </tr>
+        <tr>
+          <td>Laughing Bacchus Winecellars</td>
+          <td>Yoshi Tannamuri</td>
+          <td>Canada</td>
+        </tr>
+        <tr>
+          <td>Magazzini Alimentari Riuniti</td>
+          <td>Giovanni Rovelli</td>
+          <td>Italy</td>
+        </tr>
+      </table>
+    </div>
   );
 }
-
-export default Ledger;
