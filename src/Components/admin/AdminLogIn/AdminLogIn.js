@@ -2,50 +2,60 @@ import { React, useState } from "react";
 import "./AdminLogIn.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import firebase from "firebase/app";
 import "firebase/database";
+import "firebase/auth";
 import {} from "../../firebase";
 
-var database = firebase.database();
+// var database = firebase.database();
 
-var Ref = database.ref("admin/");
-Ref.on("value", (snapshot) => {
-  const data = snapshot.val();
-  console.log(data);
-});
-
-import firebase from "firebase/app";
-import "firebase/database";
-import {} from "../../firebase";
-
-var database = firebase.database();
-
-var Ref = database.ref('admin/');
-Ref.on('value', (snapshot) => {
-  const data = snapshot.val();
-  console.log(data);
-});
+// var Ref = database.ref('admin/');
+// Ref.on('value', (snapshot) => {
+//   const data = snapshot.val();
+//   console.log(data);
+// });
 
 
 export default function UserLogIn() {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, seterror] = useState("");
+
+  const history = useHistory();
+
   const handleSubmit = (e) => {
     if (password && userName) {
       console.log(userName);
       console.log(password);
+      var user;
+      firebase.auth().signInWithEmailAndPassword(userName, password)
+      .then((userCredential) => {
+        user = userCredential.user;
+        console.log(user);
+        if(user.uid === "6cryi8fnJySKAUBgfq6gPN49Gax1"){
+          history.push("/dashboard");
+        }
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        seterror(errorMessage);
+      });
+
       console.log("Hello!");
     } else {
-      alert("Please enter a valid username and password");
+      seterror("Please enter a valid username and password");
     }
     setUsername("");
     setPassword("");
   };
+
   return (
-    <body>
+    <div className="body">
       <div className="login-wrapper">
+        <div style={{ color: "red" }}>{error}</div>
         <div className="textField-wrapper">
           <div>
             <TextField
@@ -74,13 +84,12 @@ export default function UserLogIn() {
         </div>
 
         <div>
-          <Link to="/dashboard" text-decoration="none">
             <Button variant="contained" color="primary" onClick={handleSubmit}>
               Log In
             </Button>
-          </Link>
+          
         </div>
       </div>
-    </body>
+    </div>
   );
 }

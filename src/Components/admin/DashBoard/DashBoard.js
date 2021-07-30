@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch, Link, useHistory } from "react-router-dom";
 import "./DashBoard.css";
 import Ledger from "../Ledger/Ledger";
 import Complaints from "../Complaints/Complaints";
@@ -7,9 +7,31 @@ import NoticeBoard from "../NoticeBoard/NoticeBoard";
 import ManageUsers from "../ManageUsers/ManageUsers";
 import ManageContent from "../ManageContent/ManageContent";
 
+import firebase from "firebase/app";
+import "firebase/database";
+import "firebase/auth";
+import {} from "../../firebase";
+import logout from "../../functions/logout"
+
 function Dashboard() {
+  const history = useHistory();
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      var uid = user.uid;
+      console.log("User Check : ")
+      if(uid === "6cryi8fnJySKAUBgfq6gPN49Gax1"){
+        console.log(uid)
+
+      }else{
+        history.replace("/admin");
+      }
+    }else{
+      history.replace("/admin");
+    }
+  });
+  
   return (
-    <body>
+    <div className="body">
       <nav className="sidenav">
         <menu>
           <Link to="/dashboard" style={{ textDecoration: "none" }}>
@@ -30,6 +52,7 @@ function Dashboard() {
           >
             <div>Manage Content</div>
           </Link>
+          <button type="button" onClick={()=>logout()}>Log Out</button>
         </menu>
       </nav>
       <div className="main">
@@ -45,7 +68,7 @@ function Dashboard() {
           />
         </Switch>
       </div>
-    </body>
+    </div>
   );
 }
 
