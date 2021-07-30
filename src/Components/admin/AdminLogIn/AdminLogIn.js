@@ -16,6 +16,19 @@ Ref.on("value", (snapshot) => {
   console.log(data);
 });
 
+import firebase from "firebase/app";
+import "firebase/database";
+import {} from "../../firebase";
+
+var database = firebase.database();
+
+var Ref = database.ref('admin/');
+Ref.on('value', (snapshot) => {
+  const data = snapshot.val();
+  console.log(data);
+});
+
+
 export default function UserLogIn() {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -23,6 +36,7 @@ export default function UserLogIn() {
     if (password && userName) {
       console.log(userName);
       console.log(password);
+      console.log("Hello!");
     } else {
       alert("Please enter a valid username and password");
     }
