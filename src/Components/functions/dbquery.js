@@ -48,3 +48,14 @@ export function Getname(uid){
       }
     
 }
+
+export function writeUserData(UID, name, email, phonenumber, flatno, blockno) {
+    firebase.database().ref('users/' + UID + '/').set({
+        UID: UID,
+        name: name,
+        email: email,
+        phonenumber: phonenumber,
+        flatno: flatno,
+        blockno: blockno,
+    });
+}

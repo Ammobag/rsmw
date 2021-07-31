@@ -12,6 +12,7 @@ import "firebase/database";
 import "firebase/auth";
 import {} from "../../firebase";
 import logout from "../../functions/logout"
+import AddUsers from "../AdminActions/AddUsers";
 
 function Dashboard() {
   const history = useHistory();
@@ -59,6 +60,7 @@ function Dashboard() {
         <Switch>
           <Route path="/dashboard" component={Ledger} exact />
           <Route path="/dashboard/complaints" component={Complaints} />
+          <Route path="/dashboard/adduser" component={AddUsers} />
           <Route path="/dashboard/noticeBoard" component={NoticeBoard} />
           <Route path="/dashboard/manageUsers" component={ManageUsers} />
           <Route

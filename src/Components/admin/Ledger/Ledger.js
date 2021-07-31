@@ -1,30 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useTable } from 'react-table'
 import "./Ledger.css";
 
 
+import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../../firebase";
-import Getonce, { Getname } from "../../functions/dbquery";
+import Getonce from "../../functions/dbquery";
 
 
 
 export default function Ledger() {
-
+  const [name, setname] = useState();
   var query = Getonce('maintenance/')
   var data = []
-
-  console.log(Getname('fM2LwdjpYmb7nhSn8X4KLsHfasm2'))
+  var database = firebase.database();
 
   for (const key in query) {
     if (Object.hasOwnProperty.call(query, key)) {
       const element = query[key];
+      var Ref = database.ref("users/" + element.UID + "/");
+      Ref.once('value', (snapshot) => {
+          var query = snapshot.val();
+          setname(query.name)
+      })
 
       var insert = {
         col1: element.UID,
-        col2: element.UID,
+        col2: name,
         col3: element.amount,
         col4: element.dueMonth,
         col5: element.dueYear,
@@ -37,9 +42,6 @@ export default function Ledger() {
 
     }
   }
-
-
-
 
 
   const columns = React.useMemo(
