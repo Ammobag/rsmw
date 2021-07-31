@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
-import {} from "../../firebase";
+import {} from "../firebase";
 
 // var database = firebase.database();
 
@@ -16,7 +16,6 @@ import {} from "../../firebase";
 //   const data = snapshot.val();
 //   console.log(data);
 // });
-
 
 export default function UserLogIn() {
   const [userName, setUsername] = useState("");
@@ -28,17 +27,19 @@ export default function UserLogIn() {
   const handleSubmit = (e) => {
     if (password && userName) {
       var user;
-      firebase.auth().signInWithEmailAndPassword(userName, password)
-      .then((userCredential) => {
-        user = userCredential.user;
-        if(user.uid === "6cryi8fnJySKAUBgfq6gPN49Gax1"){
-          history.push("/dashboard");
-        }
-      })
-      .catch((error) => {
-        var errorMessage = error.message;
-        seterror(errorMessage);
-      });
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(userName, password)
+        .then((userCredential) => {
+          user = userCredential.user;
+          if (user.uid === "6cryi8fnJySKAUBgfq6gPN49Gax1") {
+            history.push("/dashboard");
+          }
+        })
+        .catch((error) => {
+          var errorMessage = error.message;
+          seterror(errorMessage);
+        });
     } else {
       seterror("Please enter a valid username and password");
     }
@@ -78,10 +79,9 @@ export default function UserLogIn() {
         </div>
 
         <div>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-              Log In
-            </Button>
-          
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
+            Log In
+          </Button>
         </div>
       </div>
     </div>

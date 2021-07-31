@@ -18,7 +18,6 @@ import { writeUserData } from "../../functions/dbquery";
 //   console.log(data);
 // });
 
-
 export default function AddUsers() {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -32,30 +31,30 @@ export default function AddUsers() {
 
   const handleSubmit = (e) => {
     if (password && userName && flatno && blockno && name) {
-      
-      firebase.auth().createUserWithEmailAndPassword(userName, password)
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(userName, password)
         .then((userCredential) => {
-            // Signed in 
-            var user = userCredential.user;
-            writeUserData(user.uid, name, userName, phonenumber, flatno, blockno);
-            history.push("/dashboard/manageUsers");
-            setUsername("");
-            setPassword("");
-            setphonenumber("");
-            setName("");
-            setFlatno("");
-            setBlockno("");
-            seterror("");
+          // Signed in
+          var user = userCredential.user;
+          writeUserData(user.uid, name, userName, phonenumber, flatno, blockno);
+          history.push("/dashboard/manageUsers");
+          setUsername("");
+          setPassword("");
+          setphonenumber("");
+          setName("");
+          setFlatno("");
+          setBlockno("");
+          seterror("");
         })
         .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            seterror(errorMessage);
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          seterror(errorMessage);
         });
     } else {
       seterror("Please enter a valid username and password");
     }
-
   };
 
   return (
@@ -138,10 +137,9 @@ export default function AddUsers() {
         </div>
 
         <div>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-              Add New User
-            </Button>
-          
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
+            Add New User
+          </Button>
         </div>
       </div>
     </div>

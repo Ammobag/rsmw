@@ -1,36 +1,35 @@
 import React from "react";
 import { Route, Switch, Link, useHistory } from "react-router-dom";
 import "./DashBoard.css";
-import Ledger from "../Ledger/Ledger";
-import Complaints from "../Complaints/Complaints";
-import NoticeBoard from "../NoticeBoard/NoticeBoard";
-import ManageUsers from "../ManageUsers/ManageUsers";
-import ManageContent from "../ManageContent/ManageContent";
+import Ledger from "./Ledger";
+import Complaints from "./Complaints";
+import NoticeBoard from "./NoticeBoard";
+import ManageUsers from "./ManageUsers";
+import ManageContent from "./ManageContent";
 
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
-import {} from "../../firebase";
-import logout from "../../functions/logout"
-import AddUsers from "../AdminActions/AddUsers";
+import {} from "../firebase";
+import logout from "../functions/logout";
+import AddUsers from "./AdminActions/AddUsers";
 
 function Dashboard() {
   const history = useHistory();
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       var uid = user.uid;
-      console.log("User Check : ")
-      if(uid === "6cryi8fnJySKAUBgfq6gPN49Gax1"){
-        console.log(uid)
-
-      }else{
+      console.log("User Check : ");
+      if (uid === "6cryi8fnJySKAUBgfq6gPN49Gax1") {
+        console.log(uid);
+      } else {
         history.replace("/admin");
       }
-    }else{
+    } else {
       history.replace("/admin");
     }
   });
-  
+
   return (
     <div className="body">
       <nav className="sidenav">
@@ -53,7 +52,9 @@ function Dashboard() {
           >
             <div>Manage Content</div>
           </Link>
-          <button type="button" onClick={()=>logout()}>Log Out</button>
+          <button type="button" onClick={() => logout()}>
+            Log Out
+          </button>
         </menu>
       </nav>
       <div className="main">
@@ -63,11 +64,7 @@ function Dashboard() {
           <Route path="/dashboard/adduser" component={AddUsers} />
           <Route path="/dashboard/noticeBoard" component={NoticeBoard} />
           <Route path="/dashboard/manageUsers" component={ManageUsers} />
-          <Route
-            path="/dashboard/manageContent"
-            component={ManageContent}
-            exact
-          />
+          <Route path="/dashboard/manageContent" component={ManageContent} />
         </Switch>
       </div>
     </div>
