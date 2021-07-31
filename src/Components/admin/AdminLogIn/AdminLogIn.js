@@ -27,24 +27,18 @@ export default function UserLogIn() {
 
   const handleSubmit = (e) => {
     if (password && userName) {
-      console.log(userName);
-      console.log(password);
       var user;
       firebase.auth().signInWithEmailAndPassword(userName, password)
       .then((userCredential) => {
         user = userCredential.user;
-        console.log(user);
         if(user.uid === "6cryi8fnJySKAUBgfq6gPN49Gax1"){
           history.push("/dashboard");
         }
       })
       .catch((error) => {
-        var errorCode = error.code;
         var errorMessage = error.message;
         seterror(errorMessage);
       });
-
-      console.log("Hello!");
     } else {
       seterror("Please enter a valid username and password");
     }
