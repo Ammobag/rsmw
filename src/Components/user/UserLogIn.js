@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
-import {} from "../../firebase";
+import {} from "../firebase";
 
 
 export default function UserLogIn() {
@@ -24,7 +24,7 @@ export default function UserLogIn() {
       .then((userCredential) => {
         user = userCredential.user;
         console.log(user)
-        
+        history.push("/userDashBoard")
       })
       .catch((error) => {
         var errorMessage = error.message;
