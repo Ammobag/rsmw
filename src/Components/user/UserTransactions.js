@@ -1,6 +1,11 @@
 import React from "react";
+import UserNavigation from "./UserNavigation"
 
-export default function UserTransactions() {
-  console.log("reached")
-  return (<div>User Transactions</div>);
+export default function UserTransactions() {  
+    return( 
+      <React.Fragment>
+        <UserNavigation/>
+        <div>User Transactions</div>
+      </React.Fragment>
+    );
 }

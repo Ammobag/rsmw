@@ -3,7 +3,12 @@ import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import AdminLogIn from "./Components/admin/AdminLogIn";
 import UserLogIn from "./Components/user/UserLogIn";
 import Dashboard from "./Components/admin/DashBoard";
-import UserDashBoard from "./Components/user/UserDashBoard";
+import UserNavigation from "./Components/user/UserNavigation";
+import UserFeed from "./Components/user/UserFeed";
+import UserTransactions from "./Components/user/UserTransactions";
+import UserNoticeBoard from "./Components/user/UserNoticeBoard";
+import UserComplaints from "./Components/user/UserComplaints";
+import UserClassifiedSection from "./Components/user/UserClassifiedSection";
 
 const theme = createTheme({
   palette: {
@@ -22,9 +27,23 @@ function App() {
       <div>
         <Switch>
           <Route path="/" component={UserLogIn} exact />
-          <Route path="/userDashBoard" component={UserDashBoard} exact />
+          {/* <Route path="" component={UserDashBoard} exact /> */}
           <Route path="/admin" component={AdminLogIn} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/feed" component={UserFeed} exact />
+          <Route
+            path="/transactions"
+            component={UserTransactions}
+          />
+          <Route
+            path="/noticeBoard"
+            component={UserNoticeBoard}
+          />
+          <Route path="/complaints" component={UserComplaints} />
+          <Route
+            path="/classifiedSection"
+            component={UserClassifiedSection}
+          />
           <Route component={Error} />
         </Switch>
       </div>

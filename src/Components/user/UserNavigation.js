@@ -1,14 +1,11 @@
 import { React, useState } from "react";
 import "./UserDashBoard.css";
-import { Route, Switch, Link } from "react-router-dom";
-import UserFeed from "./UserFeed";
-import UserTransactions from "./UserTransactions";
-import UserNoticeBoard from "./UserNoticeBoard";
-import UserComplaints from "./UserComplaints";
-import UserClassifiedSection from "./UserClassifiedSection";
+import { Route, Switch, Link, useHistory } from "react-router-dom";
+import ErrorBoundary from "../functions/ErrorBoundary";
 
-export default function UserDashBoard() {
+export default function UserNavigation() {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const history = useHistory();
   const openNav = {
     width: "300px",
   };
@@ -18,6 +15,7 @@ export default function UserDashBoard() {
 
   console.log(isNavOpen);
   return (
+    <ErrorBoundary>
     <div>
       <div
         id="mySidenav"
@@ -32,42 +30,44 @@ export default function UserDashBoard() {
           X
         </div>
 
-        <Link to="/userDashBoard" style={{ textDecoration: "none" }}>
+        <Link to="/feed" style={{ textDecoration: "none" }}>
           <div>Feed</div>
         </Link>
 
         <Link
-          to="/userDashBoard/transactions"
+          to="/transactions"
           style={{ textDecoration: "none" }}
         >
           <div>Transactions</div>
         </Link>
 
         <Link
-          to="/userDashBoard/noticeBoard"
+          to="/noticeBoard"
           style={{ textDecoration: "none" }}
         >
           <div>Notice Board</div>
         </Link>
 
-        <Link to="/userDashBoard/complaints" style={{ textDecoration: "none" }}>
+        <Link to="/complaints" style={{ textDecoration: "none" }}>
           <div>Complaints</div>
         </Link>
 
         <Link
-          to="/userDashBoard/classifiedSection"
+          to="/classifiedSection"
           style={{ textDecoration: "none" }}
         >
           <div>Classified Section</div>
         </Link>
       </div>
 
-      <button type="button" onClick={() => setIsNavOpen(true)}>
-        Open
-      </button>
+      <div className="navbar">
+        <button type="button" onClick={() => setIsNavOpen(true)}>
+          Open
+        </button>
+      </div>
       <div>
         <Switch>
-          <Route path="/userDashBoard" component={UserFeed} exact />
+          {/* <Route path="" component={UserFeed} exact />
           <Route
             path="/userDashBoard/transactions"
             component={UserTransactions}
@@ -80,9 +80,10 @@ export default function UserDashBoard() {
           <Route
             path="/userDashBoard/classifiedSection"
             component={UserClassifiedSection}
-          />
+          /> */}
         </Switch>
       </div>
     </div>
+    </ErrorBoundary>
   );
 }

@@ -24,7 +24,7 @@ export default function UserLogIn() {
       .then((userCredential) => {
         user = userCredential.user;
         console.log(user)
-        history.push("/userDashBoard")
+        history.push("/feed");
       })
       .catch((error) => {
         var errorMessage = error.message;
