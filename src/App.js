@@ -9,6 +9,7 @@ import UserTransactions from "./Components/user/UserTransactions";
 import UserNoticeBoard from "./Components/user/UserNoticeBoard";
 import UserComplaints from "./Components/user/UserComplaints";
 import UserClassifiedSection from "./Components/user/UserClassifiedSection";
+import AddPost from "./Components/user/UserActions/AddPost";
 
 const theme = createTheme({
   palette: {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/admin" component={AdminLogIn} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/feed" component={UserFeed} exact />
+          <Route path="/addPost" component={AddPost} />
           <Route
             path="/transactions"
             component={UserTransactions}

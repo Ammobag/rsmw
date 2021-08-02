@@ -59,3 +59,14 @@ export function writeUserData(UID, name, email, phonenumber, flatno, blockno) {
         blockno: blockno,
     });
 }
+
+export function uploadPost(UID, body, image) {
+    var timestamp = Date. now()
+    firebase.database().ref('posts/' + timestamp + '/').set({
+        UID: UID,
+        postID: timestamp,
+        timestamp: timestamp,
+        body: body,
+        image: image,
+    });
+}
