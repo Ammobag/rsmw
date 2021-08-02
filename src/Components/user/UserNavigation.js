@@ -1,11 +1,13 @@
 import { React, useState } from "react";
-import "./UserDashBoard.css";
-import { Route, Switch, Link, useHistory } from "react-router-dom";
+import "./UserNavigation.css";
+import { Switch, Link } from "react-router-dom";
 import ErrorBoundary from "../functions/ErrorBoundary";
+import MenuIcon from "@material-ui/icons/Menu";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import Avatar from "@material-ui/core/Avatar";
 
 export default function UserNavigation() {
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const history = useHistory();
   const openNav = {
     width: "300px",
   };
@@ -16,58 +18,60 @@ export default function UserNavigation() {
   console.log(isNavOpen);
   return (
     <ErrorBoundary>
-    <div>
-      <div
-        id="mySidenav"
-        className="sidenav"
-        style={isNavOpen ? openNav : closeNav}
-      >
+      <div>
         <div
-          className="closebtn"
-          onClick={() => setIsNavOpen(false)}
-          style={{ cursor: "pointer" }}
+          id="mySidenav"
+          className="sidenav"
+          style={isNavOpen ? openNav : closeNav}
         >
-          X
+          <ArrowBackIcon
+            className="closebtn"
+            onClick={() => setIsNavOpen(false)}
+            style={{ cursor: "pointer", color: "#ffffff" }}
+          />
+
+          <Link to="/feed" style={{ textDecoration: "none" }}>
+            <div>Feed</div>
+          </Link>
+
+          <Link to="/transactions" style={{ textDecoration: "none" }}>
+            <div>Transactions</div>
+          </Link>
+
+          <Link to="/noticeBoard" style={{ textDecoration: "none" }}>
+            <div>Notice Board</div>
+          </Link>
+
+          <Link to="/complaints" style={{ textDecoration: "none" }}>
+            <div>Complaints</div>
+          </Link>
+
+          <Link to="/classifiedSection" style={{ textDecoration: "none" }}>
+            <div>Classified Section</div>
+          </Link>
         </div>
 
-        <Link to="/feed" style={{ textDecoration: "none" }}>
-          <div>Feed</div>
-        </Link>
-
-        <Link
-          to="/transactions"
-          style={{ textDecoration: "none" }}
-        >
-          <div>Transactions</div>
-        </Link>
-
-        <Link
-          to="/noticeBoard"
-          style={{ textDecoration: "none" }}
-        >
-          <div>Notice Board</div>
-        </Link>
-
-        <Link to="/complaints" style={{ textDecoration: "none" }}>
-          <div>Complaints</div>
-        </Link>
-
-        <Link
-          to="/classifiedSection"
-          style={{ textDecoration: "none" }}
-        >
-          <div>Classified Section</div>
-        </Link>
-      </div>
-
-      <div className="navbar">
-        <button type="button" onClick={() => setIsNavOpen(true)}>
-          Open
-        </button>
-      </div>
-      <div>
-        <Switch>
-          {/* <Route path="" component={UserFeed} exact />
+        <div className="navbar">
+          <div className="navbarContent">
+            <div className="hamburger">
+              <MenuIcon
+                onClick={() => setIsNavOpen(true)}
+                style={{
+                  color: "#ffffff",
+                }}
+              />
+            </div>
+            <div className="avatar">
+              <Avatar
+                alt="pic"
+                src="https://randomuser.me/api/portraits/med/men/58.jpg"
+              />
+            </div>
+          </div>
+        </div>
+        <div>
+          <Switch>
+            {/* <Route path="" component={UserFeed} exact />
           <Route
             path="/userDashBoard/transactions"
             component={UserTransactions}
@@ -81,9 +85,9 @@ export default function UserNavigation() {
             path="/userDashBoard/classifiedSection"
             component={UserClassifiedSection}
           /> */}
-        </Switch>
+          </Switch>
+        </div>
       </div>
-    </div>
     </ErrorBoundary>
   );
 }
