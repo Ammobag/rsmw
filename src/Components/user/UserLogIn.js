@@ -16,6 +16,16 @@ export default function UserLogIn() {
   const [error, seterror] = useState("");
 
   const history = useHistory();
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      var uid = user.uid;
+      console.log("User Check : ");
+      if (uid !== undefined) {
+        console.log(uid);
+        history.replace("/feed");
+      } 
+    } 
+  });
 
   const handleSubmit = (e) => {
     if (password && userName) {

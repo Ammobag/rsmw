@@ -3,9 +3,28 @@ import "./UserDashBoard.css";
 import { Route, Switch, Link, useHistory } from "react-router-dom";
 import ErrorBoundary from "../functions/ErrorBoundary";
 
+import firebase from "firebase/app";
+import "firebase/database";
+import "firebase/auth";
+import {} from "../firebase";
+import logout from "../functions/logout";
+
 export default function UserNavigation() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const history = useHistory();
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      var uid = user.uid;
+      console.log("User Check : ");
+      if (uid !== undefined) {
+        console.log(uid);
+      } else {
+        history.replace("/");
+      }
+    } else {
+      history.replace("/");
+    }
+  });
   const openNav = {
     width: "300px",
   };
@@ -63,6 +82,9 @@ export default function UserNavigation() {
       <div className="navbar">
         <button type="button" onClick={() => setIsNavOpen(true)}>
           Open
+        </button>
+        <button type="button" onClick={() => logout()}>
+          Log Out
         </button>
       </div>
       <div>
