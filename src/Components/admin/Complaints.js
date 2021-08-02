@@ -75,22 +75,12 @@ export default function Complaints() {
     useTable({ columns, data });
 
   return (
-    <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
+    <table {...getTableProps()}>
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
-              <th
-                {...column.getHeaderProps()}
-                style={{
-                  borderBottom: "solid 3px red",
-                  background: "aliceblue",
-                  color: "black",
-                  fontWeight: "bold",
-                }}
-              >
-                {column.render("Header")}
-              </th>
+              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
             ))}
           </tr>
         ))}
@@ -106,8 +96,8 @@ export default function Complaints() {
                     {...cell.getCellProps()}
                     style={{
                       padding: "10px",
-                      border: "solid 1px gray",
-                      background: "papayawhip",
+                      border: "solid 0px gray",
+                      background: "#ffffff",
                     }}
                   >
                     {cell.render("Cell")}
