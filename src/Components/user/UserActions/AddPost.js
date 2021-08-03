@@ -1,6 +1,6 @@
 import { React, useState } from "react";
-import "../style.css";
-import TextField from "@material-ui/core/TextField";
+import "./AddPost.css";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
 import "firebase/database";
@@ -102,56 +102,52 @@ export default function AddPost() {
 
   return (
     <div className="body">
-      <div className="login-wrapper">
+      <div className="wrapper">
         <h2>Add New Post</h2>
-        <div style={{ color: "red" }}>{error}</div>
-        {status === 0 && (
+        {error && (
           <div>
-            <div className="textField-wrapper">
-              <div>
-                <TextField
-                  id="message"
-                  label="Message"
-                  type="text"
-                  variant="outlined"
-                  margin="dense"
-                  style={{ margin: 8 }}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                />
-              </div>
-              <div>
-                <input
-                  id="file"
-                  label="Upload Image"
-                  type="file"
-                  variant="outlined"
-                  style={{ margin: 8 }}
-                  margin="dense"
-                  onChange={handleImage}
-                />
-              </div>
+            <h3 style={{ color: "red" }}>{error}</h3>
+          </div>
+        )}
+        {status === 0 && (
+          <section>
+            <TextareaAutosize
+              minRows={8}
+              aria-label="maximum height"
+              placeholder="Message"
+              onChange={(e) => setMessage(e.target.value)}
+              value={message}
+            />
+            <input
+              id="file"
+              label="Upload Image"
+              type="file"
+              variant="outlined"
+              style={{ margin: 8 }}
+              onChange={handleImage}
+            />
+            {displayImage && (
               <img src={displayImage} style={{ width: 400 }} alt={"pic"} />
-            </div>
-
-            <div>
+            )}
+            <div className="buttonWrapper">
               <Button
                 variant="contained"
                 color="primary"
                 onClick={handleSubmit}
+                disableElevation
               >
                 Upload Post
               </Button>
             </div>
-          </div>
+          </section>
         )}
 
         {status === 1 && (
           <div style={{ padding: 50 }}>
             <div>Uploading Files ...</div>
-            <div class="progress">
-              <div class="bar" style={{ width: progress + "%" }}>
-                <p class="percent">{progress}%</p>
+            <div className="progress">
+              <div className="bar" style={{ width: progress + "%" }}>
+                <p className="percent">{progress}%</p>
               </div>
             </div>
           </div>
