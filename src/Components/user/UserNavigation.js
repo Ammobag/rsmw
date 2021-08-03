@@ -17,6 +17,7 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
+import logout from "../functions/logout";
 
 export default function UserNavigation() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -160,7 +161,7 @@ export default function UserNavigation() {
                           onKeyDown={handleListKeyDown}
                         >
                           <MenuItem onClick={handleClose}>My Profile</MenuItem>
-                          <MenuItem onClick={handleClose}>Logout</MenuItem>
+                          <MenuItem onClick={() => logout()}>Logout</MenuItem>
                         </MenuList>
                       </ClickAwayListener>
                     </Paper>

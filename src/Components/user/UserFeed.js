@@ -7,7 +7,8 @@ import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
 import { useState, useEffect } from "react";
-import Getonce, { likePost } from "../functions/dbquery"
+import { likePost } from "../functions/dbquery"
+import { commentPost } from "../functions/dbquery";
 
 export default function UserFeed() {
   return (
@@ -340,16 +341,13 @@ class PostObj {
     //   this.updateParentState();
     // }, Math.round(730 - 0.5 + Math.random() * (1650 - 730 + 0.5)));
     this.likeCounter = setTimeout(() => {
-      console.log("Get Likes")
       var database = firebase.database();
       var Ref = database.ref('posts/' + this.id + '/likes/');
       Ref.once('value', (snapshot) => {
           var data = snapshot.val();
-          console.log(data)
           for (const key in data) {
             if (Object.hasOwnProperty.call(data, key)) {
                 const element = data[key];
-                console.log(element)
                 if(element.status){
                   this.likes++;
                 }
@@ -367,6 +365,34 @@ class PostObj {
       })
     },10);
 
+    this.getComment = setTimeout(() => {
+      console.log("Get Comment")
+      var database = firebase.database();
+      var Ref = database.ref('posts/' + this.id + '/comments/');
+      Ref.once('value', (snapshot) => {
+          var data = snapshot.val();
+          console.log(data)
+          for (const key in data) {
+            if (Object.hasOwnProperty.call(data, key)) {
+                const element = data[key];
+                console.log(element)
+                var Ref = database.ref("users/" + element.UID + "/");
+                Ref.once("value", (snapshot) => {
+                  var query = snapshot.val();
+                  this.comments.push({
+                    userLength: query.name,
+                    avatar:
+                      "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
+                    text: element.comments,
+                    type: "user",
+                  });  
+                });
+                           
+            }
+          }
+          this.updateParentState();
+      })
+    },10);
     
     this.viewTimer = setInterval(() => {
       if (this.views >= this.maxViews) clearInterval(this.viewTimer);
@@ -447,13 +473,26 @@ class PostObj {
       form.text.value = "";
       return;
     }
-    this.comments.push({
-      userLength: 75,
-      avatar:
-        "https://justmonk.github.io/react-news-feed-spa-demo/img/user-avatar.jpg",
-      text: commentText,
-      type: "user",
-    });
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        var database = firebase.database();
+        commentPost(user.uid, this.id ,commentText)
+        var Ref = database.ref("users/" + user.uid + "/");
+        Ref.once("value", (snapshot) => {
+          var query = snapshot.val();
+          this.comments.push({
+            userLength: query.name,
+            avatar:
+            "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
+            text: commentText,
+            type: "user",
+          });
+        });
+        
+      }
+    })
+    
     form.text.value = "";
     this.updateParentState();
   }
@@ -815,7 +854,7 @@ class ShowNewPosts extends React.Component {
 class Post extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { commentsExpanded: true };
+    this.state = { commentsExpanded: false };
     this.showComments = this.showComments.bind(this);
     this.hideComment = this.hideComment.bind(this);
     this.addCommentDecorator = this.addCommentDecorator.bind(this);
@@ -890,9 +929,7 @@ class Comments extends React.Component {
           </div>
           <div className="user-data">
             <div className="username">
-              <svg width={val.userLength} height="10">
-                <rect width="100%" height="100%" style={{ fill: "#dbdbdb" }} />
-              </svg>
+              {val.userLength}
             </div>
 
             <div className="comment-text">{val.text}</div>

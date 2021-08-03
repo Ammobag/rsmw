@@ -26,7 +26,6 @@
 }
 .feed-page {
   margin-top: 50px;
-  height: 100vh;
   width: 50vw;
   background-color: var(--secondary);
   margin-left: auto;

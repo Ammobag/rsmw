@@ -77,3 +77,12 @@ export function likePost(UID, postID, value) {
         status: value,
     });
 }
+
+export function commentPost(UID, postID, message) {
+  var timestamp = Date.now();
+  firebase.database().ref('posts/' + postID + '/comments/' + timestamp + "/").set({
+      UID: UID,
+      timestamp: timestamp,
+      comments: message,
+  });
+}
