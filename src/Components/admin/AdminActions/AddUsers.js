@@ -102,7 +102,7 @@ export default function AddUsers() {
             <TextField
               id="phonenumber"
               label="Phone Number"
-              type="text"
+              type="tel"
               variant="outlined"
               margin="dense"
               style={{ margin: 8 }}

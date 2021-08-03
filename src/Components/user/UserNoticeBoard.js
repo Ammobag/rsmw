@@ -1,8 +1,6 @@
 import React from "react";
 import UserNavigation from "./UserNavigation";
-import "./style.css";
 import "./UserNoticeBoard.css";
-
 import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
@@ -35,7 +33,7 @@ export default function UserNoticeBoard() {
   ));
 
   return (
-    <div className="main-body">
+    <div>
       <UserNavigation />
       <div className="feed-page">{NoticeBoard}</div>
     </div>
