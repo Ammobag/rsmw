@@ -11,7 +11,9 @@
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
-
+.sidenav section {
+  margin-left: 2rem;
+}
 /* The navigation menu links */
 .sidenav div {
   padding: 8px 8px 8px 32px;
@@ -23,11 +25,6 @@
   cursor: pointer;
 }
 
-/* When you mouse over the navigation links, change their color */
-.sidenav div:hover {
-  color: #f1f1f1;
-}
-
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
   position: absolute;
@@ -37,10 +34,9 @@
   margin-left: 50px;
 }
 
-.navbar-right{
+.navbar-right {
   display: flex;
   flex-direction: row;
-
 }
 
 .navbar {
