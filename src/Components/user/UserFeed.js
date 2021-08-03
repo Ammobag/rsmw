@@ -7,7 +7,7 @@ import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
 import { useState, useEffect } from "react";
-import Getonce from "../functions/dbquery"
+import Getonce, { likePost } from "../functions/dbquery"
 
 export default function UserFeed() {
   return (
@@ -334,11 +334,40 @@ class PostObj {
     this.maxViews = Math.round(277 - 0.5 + Math.random() * (1770 - 277 + 0.5));
 
     //timers
-    this.likeTimer = setInterval(() => {
-      if (this.likes >= this.maxLikes) clearInterval(this.likeTimer);
-      this.likes++;
-      this.updateParentState();
-    }, Math.round(730 - 0.5 + Math.random() * (1650 - 730 + 0.5)));
+    // this.likeTimer = setInterval(() => {
+    //   if (this.likes >= this.maxLikes) clearInterval(this.likeTimer);
+    //   this.likes++;
+    //   this.updateParentState();
+    // }, Math.round(730 - 0.5 + Math.random() * (1650 - 730 + 0.5)));
+    this.likeCounter = setTimeout(() => {
+      console.log("Get Likes")
+      var database = firebase.database();
+      var Ref = database.ref('posts/' + this.id + '/likes/');
+      Ref.once('value', (snapshot) => {
+          var data = snapshot.val();
+          console.log(data)
+          for (const key in data) {
+            if (Object.hasOwnProperty.call(data, key)) {
+                const element = data[key];
+                console.log(element)
+                if(element.status){
+                  this.likes++;
+                }
+                firebase.auth().onAuthStateChanged((user) => {
+                  if (user) {
+                    if(key === user.uid){
+                      this.isLiked = true
+                    }
+                  }
+                })
+                
+            }
+          }
+          this.updateParentState();
+      })
+    },10);
+
+    
     this.viewTimer = setInterval(() => {
       if (this.views >= this.maxViews) clearInterval(this.viewTimer);
       this.views++;
@@ -355,18 +384,49 @@ class PostObj {
     return this.comments.length;
   }
 
+  likeCount(e){
+    e.preventDefault();
+    console.log("Getting likes")
+    var database = firebase.database();
+    var Ref = database.ref('posts/' + this.id + '/likes/');
+    Ref.once('value', (snapshot) => {
+        var data = snapshot.val();
+        var count = 0;
+        for (const key in data) {
+          if (Object.hasOwnProperty.call(data, key)) {
+              const element = data[key];
+              console.log(element)
+              if(element.status){
+                count++;
+              }
+          }
+        }
+        console.log(count)
+        this.updateParentState();
+        return count;
+    })
+  }
+
   likeHandler(e) {
     e.preventDefault();
-    let button = e.target.closest(".likes");
-    if (!this.isLiked) {
-      button.classList.toggle("liked");
-      this.likes++;
-    } else {
-      button.classList.toggle("liked");
-      this.likes--;
-    }
-    this.isLiked = !this.isLiked;
-    this.updateParentState();
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        var uid = user.uid;
+        let button = e.target.closest(".likes");
+        if (!this.isLiked) {
+          button.classList.toggle("liked");
+          likePost(uid, this.id, true)
+          this.likes++;
+        } else {
+          button.classList.toggle("liked");
+          likePost(uid, this.id, false)
+          this.likes--;
+        }
+        this.isLiked = !this.isLiked;
+        this.updateParentState();
+      }
+    });
+    
   }
 
   deleteHandler(e) {

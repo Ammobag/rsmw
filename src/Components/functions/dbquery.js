@@ -70,3 +70,9 @@ export function uploadPost(UID, body, image) {
         image: image,
     });
 }
+
+export function likePost(UID, postID, value) {
+    firebase.database().ref('posts/' + postID + '/likes/' + UID + "/").set({
+        status: value,
+    });
+}

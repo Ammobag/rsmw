@@ -14,6 +14,8 @@ import Getonce from "../functions/dbquery";
 
 export default function UserComplaints() {
   const [token, settoken] = useState("");
+  const [uid, setuid] = useState(null);
+  const [error, seterror] = useState(null);
   const [complaint, setcomplaint] = useState(null);
   const history = useHistory();
 
@@ -23,15 +25,26 @@ export default function UserComplaints() {
 
   const handleSubmit = (e) => {
     if (token) {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          var uid = user.uid;
+          setuid(uid)
+        }
+      });
       var reference = "complaints/"+token;
       var database = firebase.database();
       var Ref = database.ref(reference);
         Ref.once('value', (snapshot) => {
             var query = snapshot.val();
-            if(query != null){
-              setcomplaint(query)
+            if(query != null ){
+              if(query.UID === uid){
+                setcomplaint(query)
+              }else{
+                seterror("This Complaint Token is not owned by You.")
+              }
             }else{
               setcomplaint(null)
+              seterror("No Complaint Found.")
             }
         })
       
@@ -62,7 +75,10 @@ export default function UserComplaints() {
           <Button variant="contained" color="primary" onClick={handleSubmit}>
               Check Status
             </Button>
-        </div> <br/><br/>
+        </div> 
+        <br/>
+        <div style={{ color: "red" }}>{error}</div>
+        <br/>
         {complaint != null &&
           <div className="complaint">
            
