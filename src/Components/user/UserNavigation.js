@@ -18,7 +18,7 @@ export default function UserNavigation() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const history = useHistory();
   const location = useLocation();
-  console.log(location.pathname);
+
 
   const handleAddPost = (e) => {
     history.replace("/addPost");
@@ -27,9 +27,9 @@ export default function UserNavigation() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       var uid = user.uid;
-      console.log("User Check : ");
+
       if (uid !== undefined) {
-        console.log(uid);
+
       } else {
         history.replace("/");
       }
@@ -44,7 +44,6 @@ export default function UserNavigation() {
     width: "0px",
   };
 
-  console.log(isNavOpen);
   return (
     <div>
       <div className="sidenav" style={isNavOpen ? openNav : closeNav}>

@@ -2,6 +2,13 @@ import React from "react";
 import UserNavigation from "./UserNavigation";
 import "./style.css";
 
+import firebase from "firebase/app";
+import "firebase/database";
+import "firebase/auth";
+import {} from "../firebase";
+import { useState, useEffect } from "react";
+import Getonce from "../functions/dbquery"
+
 export default function UserFeed() {
   return (
     <div className="main-body">
@@ -69,7 +76,6 @@ class ScrollTopButton extends React.Component {
   }
 
   resizeHandler() {
-    console.log(`resize`);
     if (this.isThrottled === undefined) this.isThrottled = false;
     if (this.isQueueEmpty === undefined) this.isQueueEmpty = true;
 
@@ -307,7 +313,7 @@ class PostObj {
     this.id = options.id;
     this.avatar = options.avatar;
     this.nameLength = options.nameLength || 67;
-    let dateNow = new Date();
+    let dateNow = new Date(options.id);
     this.date = `${dateNow.toLocaleString("en", {
       day: "2-digit",
     })} ${dateNow.toLocaleString("en", {
@@ -318,6 +324,7 @@ class PostObj {
       second: "2-digit",
     })}`;
     this.img = options.img;
+    this.message = options.message;
     this.likes = 0;
     this.maxLikes = Math.round(7 - 0.5 + Math.random() * (153 - 7 + 0.5));
     this.isLiked = false;
@@ -456,11 +463,50 @@ class PostWall extends React.Component {
 
         if (Object.keys(this.localList).length < this.maxPostCount) {
           this.localList[this.idCounter] = postObject;
+
           this.idCounter++;
         }
 
         this.wallUpdate();
       });
+  }
+
+  addPosts(){
+    var database = firebase.database();
+    var reference = "posts/"
+    var Ref = database.ref(reference);
+        Ref.once('value', (snapshot) => {
+        var query = snapshot.val();
+        for (const key in query) {
+          if (Object.hasOwnProperty.call(query, key)) {
+              const element = query[key];
+
+              var Ref = database.ref("users/" + element.UID + "/");
+              Ref.once('value', (snapshot) => {
+                  var user = snapshot.val();
+                  console.log(user.name);
+                  if(user){
+                    let postObject = new PostObj({
+                      list: this.localList,
+                      update: this.updateState,
+                      id: element.postID,
+                      avatar: "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
+                      nameLength: user.name,
+                      img: element.image,
+                      message: element.body,
+                    });     
+                    
+                    if (Object.keys(this.localList).length < this.maxPostCount) {
+                      this.localList[this.idCounter] = postObject;
+            
+                      this.idCounter++;
+                    }
+                  }
+              })
+              
+          }
+        }
+    })
   }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
@@ -598,9 +644,11 @@ class PostWall extends React.Component {
       this.idCounter++;
     }
 
-    this.timerId = setInterval(() => {
-      this.addRandomPost();
-    }, 4000);
+    this.addPosts()
+
+    // this.timerId = setInterval(() => {
+    //   this.addRandomPost();
+    // }, 4000);
   }
   componentWillUnmount() {
     clearInterval(this.timerId);
@@ -732,7 +780,7 @@ class Post extends React.Component {
     return (
       <div className="post" id={this.props.id}>
         <div className="post-wrapper">
-          <div className="delete-button">
+          {/* <div className="delete-button">
             <a
               href="#"
               title="Delete this from history"
@@ -740,13 +788,15 @@ class Post extends React.Component {
             >
               <i className="far fa-window-close"></i>
             </a>
-          </div>
+          </div> */}
           <UserInfo
             userAvatar={this.props.args.avatar}
             date={this.props.args.date}
             username={this.props.args.nameLength}
           />
+          <div style={{margin: 10}}>{this.props.args.message}</div>
           <PostContent content={this.props.args.img} />
+          
           <PostInfo
             likes={this.props.args.likes}
             views={this.props.args.views}
@@ -818,9 +868,7 @@ class UserInfo extends React.Component {
 
         <div className="user-data">
           <div className="username">
-            <svg width={this.props.username.toString()} height="10">
-              <rect width="100%" height="100%" style={{ fill: "#dbdbdb" }} />
-            </svg>
+            {this.props.username.toString()}              
           </div>
 
           <div className="post-date">{this.props.date}</div>

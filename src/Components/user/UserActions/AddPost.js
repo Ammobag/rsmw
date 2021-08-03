@@ -31,6 +31,7 @@ export default function AddPost() {
   };
 
   const handleSubmit = (e) => {
+    
     if (image && message) {
       setstatus(1);
       console.log(image);
@@ -121,6 +122,7 @@ export default function AddPost() {
             <input
               id="file"
               label="Upload Image"
+              accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
               type="file"
               variant="outlined"
               style={{ margin: 8 }}
