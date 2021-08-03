@@ -1,10 +1,10 @@
 import { React, useState } from "react";
 import "./UserNavigation.css";
 import { useHistory } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
-import { Switch, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ErrorBoundary from "../functions/ErrorBoundary";
 import MenuIcon from "@material-ui/icons/Menu";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -14,7 +14,6 @@ import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
-import logout from "../functions/logout";
 
 export default function UserNavigation() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -24,8 +23,7 @@ export default function UserNavigation() {
 
   const handleAddPost = (e) => {
     history.replace("/addPost");
-  }
-
+  };
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -94,11 +92,15 @@ export default function UserNavigation() {
               />
             </div>
             <div className="navbar-right">
-              {location.pathname==="/feed" && 
-                <Button variant="contained" color="primary" onClick={handleAddPost}>
+              {location.pathname === "/feed" && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleAddPost}
+                >
                   Add Post
                 </Button>
-              }
+              )}
               <div className="avatar">
                 <Avatar
                   alt="pic"
