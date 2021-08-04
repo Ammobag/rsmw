@@ -6,8 +6,7 @@ import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
-import { useState, useEffect } from "react";
-import { likePost } from "../functions/dbquery"
+import { likePost } from "../functions/dbquery";
 import { commentPost } from "../functions/dbquery";
 
 export default function UserFeed() {
@@ -342,58 +341,56 @@ class PostObj {
     // }, Math.round(730 - 0.5 + Math.random() * (1650 - 730 + 0.5)));
     this.likeCounter = setTimeout(() => {
       var database = firebase.database();
-      var Ref = database.ref('posts/' + this.id + '/likes/');
-      Ref.once('value', (snapshot) => {
-          var data = snapshot.val();
-          for (const key in data) {
-            if (Object.hasOwnProperty.call(data, key)) {
-                const element = data[key];
-                if(element.status){
-                  this.likes++;
-                }
-                firebase.auth().onAuthStateChanged((user) => {
-                  if (user) {
-                    if(key === user.uid && element.status){
-                      this.isLiked = true
-                    }
-                  }
-                })
-                
+      var Ref = database.ref("posts/" + this.id + "/likes/");
+      Ref.once("value", (snapshot) => {
+        var data = snapshot.val();
+        for (const key in data) {
+          if (Object.hasOwnProperty.call(data, key)) {
+            const element = data[key];
+            if (element.status) {
+              this.likes++;
             }
+            firebase.auth().onAuthStateChanged((user) => {
+              if (user) {
+                if (key === user.uid && element.status) {
+                  this.isLiked = true;
+                }
+              }
+            });
           }
-          this.updateParentState();
-      })
-    },10);
+        }
+        this.updateParentState();
+      });
+    }, 10);
 
     this.getComment = setTimeout(() => {
-      console.log("Get Comment")
+      console.log("Get Comment");
       var database = firebase.database();
-      var Ref = database.ref('posts/' + this.id + '/comments/');
-      Ref.once('value', (snapshot) => {
-          var data = snapshot.val();
-          console.log(data)
-          for (const key in data) {
-            if (Object.hasOwnProperty.call(data, key)) {
-                const element = data[key];
-                console.log(element)
-                var Ref = database.ref("users/" + element.UID + "/");
-                Ref.once("value", (snapshot) => {
-                  var query = snapshot.val();
-                  this.comments.push({
-                    userLength: query.name,
-                    avatar:
-                      "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
-                    text: element.comments,
-                    type: "user",
-                  });  
-                });
-                           
-            }
+      var Ref = database.ref("posts/" + this.id + "/comments/");
+      Ref.once("value", (snapshot) => {
+        var data = snapshot.val();
+        console.log(data);
+        for (const key in data) {
+          if (Object.hasOwnProperty.call(data, key)) {
+            const element = data[key];
+            console.log(element);
+            var Ref = database.ref("users/" + element.UID + "/");
+            Ref.once("value", (snapshot) => {
+              var query = snapshot.val();
+              this.comments.push({
+                userLength: query.name,
+                avatar:
+                  "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
+                text: element.comments,
+                type: "user",
+              });
+            });
           }
-          this.updateParentState();
-      })
-    },10);
-    
+        }
+        this.updateParentState();
+      });
+    }, 10);
+
     this.viewTimer = setInterval(() => {
       if (this.views >= this.maxViews) clearInterval(this.viewTimer);
       this.views++;
@@ -418,18 +415,17 @@ class PostObj {
         let button = e.target.closest(".likes");
         if (!this.isLiked) {
           button.classList.toggle("liked");
-          likePost(uid, this.id, true)
+          likePost(uid, this.id, true);
           this.likes++;
         } else {
           button.classList.toggle("liked");
-          likePost(uid, this.id, false)
+          likePost(uid, this.id, false);
           this.likes--;
         }
         this.isLiked = !this.isLiked;
         this.updateParentState();
       }
     });
-    
   }
 
   deleteHandler(e) {
@@ -454,22 +450,21 @@ class PostObj {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         var database = firebase.database();
-        commentPost(user.uid, this.id ,commentText)
+        commentPost(user.uid, this.id, commentText);
         var Ref = database.ref("users/" + user.uid + "/");
         Ref.once("value", (snapshot) => {
           var query = snapshot.val();
           this.comments.push({
             userLength: query.name,
             avatar:
-            "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
+              "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
             text: commentText,
             type: "user",
           });
         });
-        
       }
-    })
-    
+    });
+
     form.text.value = "";
     this.updateParentState();
   }
@@ -905,9 +900,7 @@ class Comments extends React.Component {
             <img src={val.avatar} alt="author avatar"></img>
           </div>
           <div className="user-data">
-            <div className="username">
-              {val.userLength}
-            </div>
+            <div className="username">{val.userLength}</div>
 
             <div className="comment-text">{val.text}</div>
           </div>

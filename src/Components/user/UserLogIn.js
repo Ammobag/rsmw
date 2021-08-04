@@ -1,14 +1,13 @@
 import { React, useState } from "react";
-
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
-
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
-
+import loginImage from "../../Assets/loginImage.jpg";
+import "./UserLogIn.css";
 
 export default function UserLogIn() {
   const [userName, setUsername] = useState("");
@@ -23,23 +22,25 @@ export default function UserLogIn() {
       if (uid !== undefined) {
         console.log(uid);
         history.replace("/feed");
-      } 
-    } 
+      }
+    }
   });
 
   const handleSubmit = (e) => {
     if (password && userName) {
       var user;
-      firebase.auth().signInWithEmailAndPassword(userName, password)
-      .then((userCredential) => {
-        user = userCredential.user;
-        console.log(user)
-        history.push("/feed");
-      })
-      .catch((error) => {
-        var errorMessage = error.message;
-        seterror(errorMessage);
-      });
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(userName, password)
+        .then((userCredential) => {
+          user = userCredential.user;
+          console.log(user);
+          history.push("/feed");
+        })
+        .catch((error) => {
+          var errorMessage = error.message;
+          seterror(errorMessage);
+        });
     } else {
       seterror("Please enter a valid username and password");
     }
@@ -48,43 +49,58 @@ export default function UserLogIn() {
   };
 
   return (
-    <div className="body">
-      <div className="login-wrapper">
-        <div style={{ color: "red" }}>{error}</div>
-        <div className="textField-wrapper">
-          <div>
-            <TextField
-              id="username"
-              label="Username"
-              type="text"
-              variant="outlined"
-              margin="dense"
-              style={{ margin: 8 }}
-              value={userName}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              id="password"
-              label="Password"
-              type="password"
-              variant="outlined"
-              style={{ margin: 8 }}
-              margin="dense"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+    <div className="master">
+      <section className="loginImage">
+        <img src={loginImage} alt="Login goes here" />
+      </section>
+      <section className="loginSection">
+        <div className="userLoginBody">
+          <div className="userLogin-wrapper">
+            <div style={{ color: "red" }}>{error}</div>
+            <div className="loginTextField-wrapper">
+              <div>
+                <h1>John Doe Apartment</h1>
+                <input
+                  placeholder="Username"
+                  type="email"
+                  value={userName}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="inputField"
+                />
+              </div>
+              <div style={{ borderRadius: 10 }}>
+                <input
+                  placeholder="Password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="inputField"
+                />
+              </div>
+            </div>
+            <div>
+              <button
+                className="loginButton"
+                style={{
+                  width: 250,
+                  height: 70,
+                  backgroundColor: "rgba(33, 150, 243, 1)",
+                  borderRadius: 25,
+                  border: "none",
+                  color: "white",
+                  fontSize: "1.5rem",
+                }}
+                onClick={handleSubmit}
+              >
+                Log In
+              </button>
+            </div>
+            <p className="forgotPassword">
+              Forgot password? <span>Click here.</span>
+            </p>
           </div>
         </div>
-
-        <div>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-              Log In
-            </Button>
-          
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
