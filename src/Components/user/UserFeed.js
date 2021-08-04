@@ -353,7 +353,7 @@ class PostObj {
                 }
                 firebase.auth().onAuthStateChanged((user) => {
                   if (user) {
-                    if(key === user.uid){
+                    if(key === user.uid && element.status){
                       this.isLiked = true
                     }
                   }
@@ -408,29 +408,6 @@ class PostObj {
 
   get commentsCount() {
     return this.comments.length;
-  }
-
-  likeCount(e){
-    e.preventDefault();
-    console.log("Getting likes")
-    var database = firebase.database();
-    var Ref = database.ref('posts/' + this.id + '/likes/');
-    Ref.once('value', (snapshot) => {
-        var data = snapshot.val();
-        var count = 0;
-        for (const key in data) {
-          if (Object.hasOwnProperty.call(data, key)) {
-              const element = data[key];
-              console.log(element)
-              if(element.status){
-                count++;
-              }
-          }
-        }
-        console.log(count)
-        this.updateParentState();
-        return count;
-    })
   }
 
   likeHandler(e) {

@@ -86,3 +86,15 @@ export function commentPost(UID, postID, message) {
       comments: message,
   });
 }
+
+export function postTransaction(UID, amount, month, year) {
+  var timestamp = Date.now();
+  firebase.database().ref('maintenance/' + timestamp + "/").set({
+      UID: UID,
+      amount: amount,
+      dueYear: year,
+      dueMonth: month,
+      paidDate: "-",
+      status: "Not Paid"
+  });
+}

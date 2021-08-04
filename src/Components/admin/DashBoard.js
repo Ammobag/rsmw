@@ -7,12 +7,14 @@ import NoticeBoard from "./NoticeBoard";
 import ManageUsers from "./ManageUsers";
 import ManageContent from "./ManageContent";
 
+
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
 import logout from "../functions/logout";
 import AddUsers from "./AdminActions/AddUsers";
+import AddTransaction from "./AdminActions/AddTransaction";
 
 function Dashboard() {
   const history = useHistory();
@@ -62,6 +64,7 @@ function Dashboard() {
           <Route path="/dashboard" component={Ledger} exact />
           <Route path="/dashboard/complaints" component={Complaints} />
           <Route path="/dashboard/adduser" component={AddUsers} />
+          <Route path="/dashboard/addTransaction" component={AddTransaction} />
           <Route path="/dashboard/noticeBoard" component={NoticeBoard} />
           <Route path="/dashboard/manageUsers" component={ManageUsers} />
           <Route path="/dashboard/manageContent" component={ManageContent} />

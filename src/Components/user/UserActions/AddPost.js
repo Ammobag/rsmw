@@ -8,6 +8,7 @@ import "firebase/auth";
 import "firebase/storage";
 import {} from "../../firebase";
 import { uploadPost } from "../../functions/dbquery";
+import { useHistory } from "react-router-dom";
 
 // var database = firebase.database();
 
@@ -24,6 +25,8 @@ export default function AddPost() {
   const [status, setstatus] = useState(0);
   const [progress, setprogress] = useState(0);
   const [error, seterror] = useState("");
+
+  const history = useHistory()
 
   const handleImage = (e) => {
     setdisplayImage(URL.createObjectURL(e.target.files[0]));
@@ -88,6 +91,9 @@ export default function AddPost() {
                 var uid = user.uid;
                 uploadPost(uid, message, downloadURL);
                 setstatus(2);
+                setTimeout(() => {
+                  history.replace("/feed")
+                }, 2000);
               } else {
                 // User is signed out
                 // ...
@@ -122,7 +128,7 @@ export default function AddPost() {
             <input
               id="file"
               label="Upload Image"
-              accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
+              accept=".jpg, .png, .jpeg, .jfif, .gif, .bmp, .tif, .tiff|image/*"
               type="file"
               variant="outlined"
               style={{ margin: 8 }}

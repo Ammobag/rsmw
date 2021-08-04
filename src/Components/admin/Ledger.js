@@ -6,35 +6,47 @@ import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
 import Getonce from "../functions/dbquery";
+import Button from "@material-ui/core/Button";
+import { useHistory } from "react-router-dom";
+import sizeObject from "../functions/dataHandling";
+
 
 export default function Ledger() {
-  const [name, setname] = useState();
+
   var query = Getonce("maintenance/");
-  var data = [];
+  const[data, setdata] = useState([])
+  var list = [];
   var database = firebase.database();
+  const history = useHistory()
 
   for (const key in query) {
     if (Object.hasOwnProperty.call(query, key)) {
       const element = query[key];
       var Ref = database.ref("users/" + element.UID + "/");
       Ref.once("value", (snapshot) => {
-        var query = snapshot.val();
-        setname(query.name);
+        var user = snapshot.val();
+        var insert = {
+          col1: element.UID,
+          col2: user.name,
+          col3: element.amount,
+          col4: element.dueMonth,
+          col5: element.dueYear,
+          col6: element.status,
+          col7: element.paidDate,
+        };
+  
+        list.push(insert);
+       
+        if(list.length === sizeObject(query)){
+          setdata(list)
+        }
       });
 
-      var insert = {
-        col1: element.UID,
-        col2: name,
-        col3: element.amount,
-        col4: element.dueMonth,
-        col5: element.dueYear,
-        col6: element.status,
-        col7: element.paidDate,
-      };
-
-      data.push(insert);
+      
     }
   }
+
+
 
   const columns = React.useMemo(
     () => [
@@ -70,43 +82,57 @@ export default function Ledger() {
     []
   );
 
+  const handleAdd = (e) => {
+    history.push("/dashboard/addTransaction");
+  };
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
 
   return (
-    <table {...getTableProps()}>
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
-                return (
-                  <td
-                    {...cell.getCellProps()}
-                    style={{
-                      padding: "10px",
-                      border: "solid 0px gray",
-                      background: "#ffffff",
-                    }}
-                  >
-                    {cell.render("Cell")}
-                  </td>
-                );
-              })}
+    <React.Fragment>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleAdd}
+        disableElevation
+      >
+        Add New Transaction
+      </Button>
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+              ))}
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return (
+                    <td
+                      {...cell.getCellProps()}
+                      style={{
+                        padding: "10px",
+                        border: "solid 0px gray",
+                        background: "#ffffff",
+                      }}
+                    >
+                      {cell.render("Cell")}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </React.Fragment>
   );
 }

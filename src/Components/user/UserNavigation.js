@@ -62,15 +62,19 @@ export default function UserNavigation() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       var uid = user.uid;
-
-      if (uid !== undefined) {
+      
+      if (uid !== "6cryi8fnJySKAUBgfq6gPN49Gax1") {
+        
       } else {
+        logout();
         history.replace("/");
       }
     } else {
+      logout()
       history.replace("/");
     }
   });
+
   const openNav = {
     width: "400px",
   };
