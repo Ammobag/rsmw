@@ -15,6 +15,7 @@ import {} from "../firebase";
 import logout from "../functions/logout";
 import AddUsers from "./AdminActions/AddUsers";
 import AddTransaction from "./AdminActions/AddTransaction";
+import AddNotification from "./AdminActions/AddNotification";
 
 function Dashboard() {
   const history = useHistory();
@@ -65,6 +66,7 @@ function Dashboard() {
           <Route path="/dashboard/complaints" component={Complaints} />
           <Route path="/dashboard/adduser" component={AddUsers} />
           <Route path="/dashboard/addTransaction" component={AddTransaction} />
+          <Route path="/dashboard/addNotification" component={AddNotification} />
           <Route path="/dashboard/noticeBoard" component={NoticeBoard} />
           <Route path="/dashboard/manageUsers" component={ManageUsers} />
           <Route path="/dashboard/manageContent" component={ManageContent} />

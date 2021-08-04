@@ -7,6 +7,7 @@ import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
 import Getonce from "../functions/dbquery";
+import ComplaintStatus from "./AdminActions/handleComplaintStatus";
 
 export default function Complaints() {
   const [name, setname] = useState();
@@ -23,12 +24,18 @@ export default function Complaints() {
         setname(query.name);
       });
 
+      const Stat = () => {
+        return(
+          <ComplaintStatus token={key} defaults={element.status} />
+        )
+      }
+
       var insert = {
         col1: element.UID,
         col2: name,
         col3: element.subject,
         col4: element.body,
-        col5: element.status,
+        col5: Stat(),
         col6: element.dateOpened,
         col7: element.dateClosed,
       };
@@ -98,6 +105,7 @@ export default function Complaints() {
                       padding: "10px",
                       border: "solid 0px gray",
                       background: "#ffffff",
+                      maxWidth: "600px"
                     }}
                   >
                     {cell.render("Cell")}

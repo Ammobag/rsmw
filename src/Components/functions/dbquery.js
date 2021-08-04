@@ -98,3 +98,16 @@ export function postTransaction(UID, amount, month, year) {
       status: "Not Paid"
   });
 }
+
+export function postNotification(issuer, designation, subject, body) {
+  var timestamp = Date.now();
+  const d = new Date();
+  var i = d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear()
+  firebase.database().ref('notices/' + timestamp + "/").set({
+    body: body,
+    date: i,
+    issuerDesignation: designation,
+    issuerName: issuer,
+    subject: subject,
+  });
+}
