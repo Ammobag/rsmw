@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import "./AddPost.css";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import ImageIcon from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
 import "firebase/database";
@@ -26,7 +26,7 @@ export default function AddPost() {
   const [progress, setprogress] = useState(0);
   const [error, seterror] = useState("");
 
-  const history = useHistory()
+  const history = useHistory();
 
   const handleImage = (e) => {
     setdisplayImage(URL.createObjectURL(e.target.files[0]));
@@ -34,7 +34,6 @@ export default function AddPost() {
   };
 
   const handleSubmit = (e) => {
-    
     if (image && message) {
       setstatus(1);
       console.log(image);
@@ -92,7 +91,7 @@ export default function AddPost() {
                 uploadPost(uid, message, downloadURL);
                 setstatus(2);
                 setTimeout(() => {
-                  history.replace("/feed")
+                  history.replace("/feed");
                 }, 2000);
               } else {
                 // User is signed out
@@ -110,7 +109,7 @@ export default function AddPost() {
   return (
     <div className="body">
       <div className="wrapper">
-        <h2>Add New Post</h2>
+        <h2>Create a post</h2>
         {error && (
           <div>
             <h3 style={{ color: "red" }}>{error}</h3>
@@ -118,22 +117,28 @@ export default function AddPost() {
         )}
         {status === 0 && (
           <section>
-            <TextareaAutosize
-              minRows={8}
-              aria-label="maximum height"
-              placeholder="Message"
-              onChange={(e) => setMessage(e.target.value)}
-              value={message}
-            />
-            <input
-              id="file"
-              label="Upload Image"
-              accept=".jpg, .png, .jpeg, .jfif, .gif, .bmp, .tif, .tiff|image/*"
-              type="file"
-              variant="outlined"
-              style={{ margin: 8 }}
-              onChange={handleImage}
-            />
+            <form>
+              <textarea
+                placeholder="What's on your mind?"
+                onChange={(e) => setMessage(e.target.value)}
+                value={message}
+              ></textarea>
+            </form>
+            <div className="imageSelection">
+              <p>Add a Image:</p>
+              <label class="filebutton">
+                <ImageIcon fontSize="large" />
+                <span>
+                  <input
+                    type="file"
+                    id="myfile"
+                    name="myfile"
+                    accept=".jpg, .png, .jpeg, .jfif, .gif, .bmp, .tif, .tiff|image/*"
+                    onChange={handleImage}
+                  />
+                </span>
+              </label>
+            </div>
             {displayImage && (
               <img src={displayImage} style={{ width: 400 }} alt={"pic"} />
             )}
