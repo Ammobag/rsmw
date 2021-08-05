@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import UserNavigation from "./UserNavigation"
+import UserNavigation from "./UserNavigation";
 import { useTable } from "react-table";
-import "./style.css";
-
+import "./UserTransactions.css";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
@@ -11,28 +10,27 @@ import Getonce from "../functions/dbquery";
 import sizeObject from "../functions/dataHandling";
 import { useHistory } from "react-router-dom";
 
-export default function UserTransactions() { 
-  
+export default function UserTransactions() {
   var query = Getonce("maintenance/");
   // const[data, setdata] = useState([])
-  var data = []
-  const[tempdata, settempdata] = useState([])
-  const[user, setuser] = useState("")
-  const[fetch, setfetch] = useState(false)
+  var data = [];
+  const [tempdata, settempdata] = useState([]);
+  const [user, setuser] = useState("");
+  const [fetch, setfetch] = useState(false);
   var list = [];
   var temp = [];
-  
+
   var amount = 0;
   var c = 0;
   var database = firebase.database();
-  const history = useHistory()
+  const history = useHistory();
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      setuser(user.uid)
+      setuser(user.uid);
     }
-  })
-  if(data.length === 0 || data[0].col4 == "No Records" || fetch == false) {
+  });
+  if (data.length === 0 || data[0].col4 == "No Records" || fetch == false) {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         c++;
@@ -40,7 +38,7 @@ export default function UserTransactions() {
         var Ref = database.ref("users/" + element.UID + "/");
         Ref.once("value", (snapshot) => {
           var user = snapshot.val();
-          console.log(fetch)
+          console.log(fetch);
           setfetch(true);
           var insert = {
             col1: element.UID,
@@ -53,37 +51,34 @@ export default function UserTransactions() {
           };
 
           list.push(insert);
-        
-          if(list.length === sizeObject(query) && fetch == false){
-            settempdata(list)
+
+          if (list.length === sizeObject(query) && fetch == false) {
+            settempdata(list);
           }
         });
       }
     }
 
-    var temp = []
+    var temp = [];
     for (let index = 0; index < tempdata.length; index++) {
-      
       const element = tempdata[index];
-      
-      if(element.col1 == user){
-        temp.push(element)
-        console.log(element)
-        amount = amount + Number(element.col3)
+
+      if (element.col1 == user) {
+        temp.push(element);
+        console.log(element);
+        amount = amount + Number(element.col3);
       }
-    
     }
 
-    console.log(temp)
-    data = temp
-    
+    console.log(temp);
+    data = temp;
 
-  if(data.length === 0){
-      data =  [
+    if (data.length === 0) {
+      data = [
         {
           col4: "No Records",
-        }
-      ]
+        },
+      ];
     }
   }
 
@@ -124,59 +119,51 @@ export default function UserTransactions() {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
 
-    return( 
-      <div className="main-body"> 
-        <UserNavigation/>
-        <div className="feed-page">
-          <div className="dueSection">
-            <div className="due">Amount Due : </div>
-            <div className="dueAmount">₹ {amount}</div>
-          </div>
-          <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      {...column.getHeaderProps()}
-                      style={{
-                        borderBottom: "solid 3px red",
-                        background: "aliceblue",
-                        color: "black",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td
-                          {...cell.getCellProps()}
-                          style={{
-                            padding: "10px",
-                            border: "solid 1px gray",
-                            background: "papayawhip",
-                          }}
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+  return (
+    <div className="userTransactions">
+      <UserNavigation />
+      <div className="transactionsWrapper">
+        <div className="dueSection">
+          <div className="due">Amount Due : </div>
+          <div className="dueAmount">₹ {amount}</div>
         </div>
+        <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td
+                        {...cell.getCellProps()}
+                        style={{
+                          padding: "10px",
+                          border: "solid 0px gray",
+                          background: "#ffffff",
+                        }}
+                      >
+                        {cell.render("Cell")}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
-    );
+    </div>
+  );
 }

@@ -1,9 +1,14 @@
-@import url(../../theme.css);
-
+.userTransactions {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+}
+.transactionsWrapper {
+  margin: auto;
+}
 table {
   border-collapse: collapse;
   width: 100%;
-  border: none;
 }
 
 th {
