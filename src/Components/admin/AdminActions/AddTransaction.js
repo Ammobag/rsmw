@@ -75,8 +75,16 @@ export default function AddTransaction() {
 
   const handleSubmit = (e) => {
     if (value && amount && month && year) {
-      postTransaction(value[0].value, amount, month[0].name, year[0].name);
-      history.replace("/dashboard")
+      if(value.length === 0){
+        postTransaction(value[0].value, amount, month[0].name, year[0].name);
+        history.replace("/dashboard")
+      }else{
+        for (let i = 0; i < value.length; i++) {
+          const element = value[i];
+          postTransaction(element.value, amount, month[0].name, year[0].name);
+        }
+        history.replace("/dashboard")
+      }
     } else {
       seterror("Please enter a valid username and password");
     }
