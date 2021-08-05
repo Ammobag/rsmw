@@ -88,6 +88,7 @@ export default function AddTransaction() {
         <div style={{ color: "red" }}>{error}</div>
         <div className="textField-wrapper">
           <Select
+            multi
             style={{width: 300}}
             placeholder="Select Resident"
             color={"#000"}

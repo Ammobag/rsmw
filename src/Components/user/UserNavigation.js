@@ -59,6 +59,10 @@ export default function UserNavigation() {
     history.replace("/addPost");
   };
 
+  const handleViewProfile = (e) => {
+    history.replace("/userProfile");
+  };
+
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       var uid = user.uid;
@@ -164,7 +168,7 @@ export default function UserNavigation() {
                           id="menu-list-grow"
                           onKeyDown={handleListKeyDown}
                         >
-                          <MenuItem onClick={handleClose}>My Profile</MenuItem>
+                          <MenuItem onClick={handleViewProfile}>My Profile</MenuItem>
                           <MenuItem onClick={() => logout()}>Logout</MenuItem>
                         </MenuList>
                       </ClickAwayListener>
