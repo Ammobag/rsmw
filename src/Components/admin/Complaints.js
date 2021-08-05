@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
 import { useTable } from "react-table";
+import ReactTable from "react-table";  
+
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 import firebase from "firebase/app";
 import "firebase/database";
@@ -8,40 +12,84 @@ import "firebase/auth";
 import {} from "../firebase";
 import Getonce from "../functions/dbquery";
 import ComplaintStatus from "./AdminActions/handleComplaintStatus";
+import sizeObject from "../functions/dataHandling";
 
 export default function Complaints() {
-  const [name, setname] = useState();
+  const [searchInput, setsearchInput] = useState();
+  const [alldata, setalldata] = useState([]);
   var query = Getonce("complaints/");
-  var data = [];
+  const [data, setdata] = useState([]);
+  var list = [];
   var database = firebase.database();
 
-  for (const key in query) {
-    if (Object.hasOwnProperty.call(query, key)) {
-      const element = query[key];
-      var Ref = database.ref("users/" + element.UID + "/");
-      Ref.once("value", (snapshot) => {
-        var query = snapshot.val();
-        setname(query.name);
-      });
+  if(data.length != sizeObject(query) && !searchInput){
+    for (const key in query) {
 
-      const Stat = () => {
-        return(
-          <ComplaintStatus token={key} defaults={element.status} />
-        )
+      if (Object.hasOwnProperty.call(query, key)) {
+        const element = query[key];
+        var Ref = database.ref("users/" + element.UID + "/");
+        Ref.once("value", (snapshot) => {
+          var user = snapshot.val();
+          const Stat = () => {
+            return(
+              <ComplaintStatus token={key} defaults={element.status} />
+            )
+          }
+    
+          var insert = {
+            col1: element.UID,
+            col2: user.name,
+            col3: element.subject,
+            col4: element.body,
+            col5: Stat(),
+            col6: element.dateOpened,
+            col7: element.dateClosed,
+            col8: "status:"+element.status,
+          };
+    
+          list.push(insert);
+          console.log(list.length, sizeObject(query))
+          if(list.length === sizeObject(query)){
+            setdata(list)
+            setalldata(list)
+          }
+        });
+
+        
       }
-
-      var insert = {
-        col1: element.UID,
-        col2: name,
-        col3: element.subject,
-        col4: element.body,
-        col5: Stat(),
-        col6: element.dateOpened,
-        col7: element.dateClosed,
-      };
-
-      data.push(insert);
     }
+  }
+
+  const globalSearch = () => {
+    let filteredData = []
+    if (searchInput) {
+      for (let i = 0; i < alldata.length; i++) {
+        const element = alldata[i];
+        console.log(element.col8, searchInput)
+        if(
+          element.col1.toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col2.toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col3.toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col4.toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col6.toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col7.toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col8.toLowerCase() === (searchInput.toLowerCase()) 
+
+        ){
+          filteredData.push(element)
+        }
+      }
+      setdata(filteredData)
+    }
+  };
+
+
+  if (data.length === 0) {
+    setdata( [
+      {
+        col4: "No Records Found",
+      },
+    ])
   }
 
   const columns = React.useMemo(
@@ -82,6 +130,22 @@ export default function Complaints() {
     useTable({ columns, data });
 
   return (
+    <React.Fragment>
+    <div>
+      <TextField
+        id="search"
+        label="Search"
+        type="text"
+        variant="outlined"
+        margin="dense"
+        style={{ margin: 8 }}
+        value={searchInput}
+        onChange={(e) => setsearchInput(e.target.value)}
+      />
+      <Button variant="contained" color="primary" onClick={globalSearch}>
+           Search
+      </Button>
+    </div>
     <table {...getTableProps()}>
       <thead>
         {headerGroups.map((headerGroup) => (
@@ -117,5 +181,6 @@ export default function Complaints() {
         })}
       </tbody>
     </table>
+    </React.Fragment>
   );
 }

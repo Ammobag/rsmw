@@ -6,43 +6,50 @@ import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
 import Getonce from "../functions/dbquery";
+
+import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+
 import { useHistory } from "react-router-dom";
 import sizeObject from "../functions/dataHandling";
 
 
 export default function Ledger() {
-
+  const [searchInput, setsearchInput] = useState();
+  const [alldata, setalldata] = useState([]);
   var query = Getonce("maintenance/");
   const[data, setdata] = useState([])
   var list = [];
   var database = firebase.database();
   const history = useHistory()
 
-  for (const key in query) {
-    if (Object.hasOwnProperty.call(query, key)) {
-      const element = query[key];
-      var Ref = database.ref("users/" + element.UID + "/");
-      Ref.once("value", (snapshot) => {
-        var user = snapshot.val();
-        var insert = {
-          col1: element.UID,
-          col2: user.name,
-          col3: element.amount,
-          col4: element.dueMonth,
-          col5: element.dueYear,
-          col6: element.status,
-          col7: element.paidDate,
-        };
-  
-        list.push(insert);
-       
-        if(list.length === sizeObject(query)){
-          setdata(list)
-        }
-      });
+  if(data.length != sizeObject(query) && !searchInput){
+    for (const key in query) {
+      if (Object.hasOwnProperty.call(query, key)) {
+        const element = query[key];
+        var Ref = database.ref("users/" + element.UID + "/");
+        Ref.once("value", (snapshot) => {
+          var user = snapshot.val();
+          var insert = {
+            col1: element.UID,
+            col2: user.name,
+            col3: element.amount,
+            col4: element.dueMonth,
+            col5: element.dueYear,
+            col6: element.status,
+            col7: element.paidDate,
+          };
+    
+          list.push(insert);
+        
+          if(list.length === sizeObject(query)){
+            setdata(list)
+            setalldata(list)
+          }
+        });
 
-      
+        
+      }
     }
   }
 
@@ -82,6 +89,30 @@ export default function Ledger() {
     []
   );
 
+  const globalSearch = () => {
+    let filteredData = []
+    
+    if (searchInput) {
+      for (let i = 0; i < alldata.length; i++) {
+        const element = alldata[i];
+        console.log(element);
+        console.log(element.col1, searchInput)
+        if(
+          element.col1.toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col2.toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col3.toString().toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col4.toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col6.toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col7.toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col5.toString().toLowerCase().includes(searchInput.toLowerCase())
+        ){
+          filteredData.push(element)
+        }
+      }
+      setdata(filteredData)
+    }
+  };
+
   const handleAdd = (e) => {
     history.push("/dashboard/addTransaction");
   };
@@ -99,6 +130,21 @@ export default function Ledger() {
       >
         Add New Transaction
       </Button>
+      <div>
+        <TextField
+          id="search"
+          label="Search"
+          type="text"
+          variant="outlined"
+          margin="dense"
+          style={{ margin: 8 }}
+          value={searchInput}
+          onChange={(e) => setsearchInput(e.target.value)}
+        />
+        <Button variant="contained" color="primary" onClick={globalSearch}>
+            Search
+        </Button>
+      </div>
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (

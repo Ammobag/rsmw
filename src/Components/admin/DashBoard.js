@@ -26,11 +26,10 @@ function Dashboard() {
       if (uid === "6cryi8fnJySKAUBgfq6gPN49Gax1") {
         console.log(uid);
       } else {
+        console.log("User : " + user.uid);
         history.replace("/admin");
       }
-    } else {
-      history.replace("/admin");
-    }
+    } 
   });
 
   return (
