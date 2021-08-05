@@ -1,7 +1,5 @@
 import { React, useState } from "react";
 import "./AdminLogIn.css";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
 
 import firebase from "firebase/app";
@@ -49,39 +47,47 @@ export default function UserLogIn() {
 
   return (
     <div className="body">
-      <div className="login-wrapper">
-        <div style={{ color: "red" }}>{error}</div>
-        <div className="textField-wrapper">
-          <div>
-            <TextField
-              id="username"
-              label="Username"
-              type="text"
-              variant="outlined"
-              margin="dense"
-              style={{ margin: 8 }}
-              value={userName}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+      <div style={{ color: "red" }}>{error}</div>
+      <div className="adminLoginBody">
+        <div className="adminLogin-wrapper">
+          <div style={{ color: "red" }}>{error}</div>
+          <div className="loginTextField-wrapper">
+            <div>
+              <input
+                placeholder="Username"
+                type="email"
+                value={userName}
+                onChange={(e) => setUsername(e.target.value)}
+                className="inputField"
+              />
+            </div>
+            <div>
+              <input
+                placeholder="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="inputField"
+              />
+            </div>
           </div>
           <div>
-            <TextField
-              id="password"
-              label="Password"
-              type="password"
-              variant="outlined"
-              style={{ margin: 8 }}
-              margin="dense"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <button
+              className="loginButton"
+              style={{
+                width: 250,
+                height: 70,
+                backgroundColor: "rgba(33, 150, 243, 1)",
+                borderRadius: 25,
+                border: "none",
+                color: "white",
+                fontSize: "1.5rem",
+              }}
+              onClick={handleSubmit}
+            >
+              Log In
+            </button>
           </div>
-        </div>
-
-        <div>
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Log In
-          </Button>
         </div>
       </div>
     </div>

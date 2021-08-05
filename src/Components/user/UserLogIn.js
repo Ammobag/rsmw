@@ -1,6 +1,4 @@
 import { React, useState } from "react";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/database";
@@ -58,8 +56,8 @@ export default function UserLogIn() {
           <div className="userLogin-wrapper">
             <div style={{ color: "red" }}>{error}</div>
             <div className="loginTextField-wrapper">
+              <h1>John Doe Apartment</h1>
               <div>
-                <h1>John Doe Apartment</h1>
                 <input
                   placeholder="Username"
                   type="email"
@@ -68,7 +66,7 @@ export default function UserLogIn() {
                   className="inputField"
                 />
               </div>
-              <div style={{ borderRadius: 10 }}>
+              <div>
                 <input
                   placeholder="Password"
                   type="password"
