@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { useTable } from "react-table";
-
+import styles from "./Complaints.module.css";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
@@ -25,10 +25,8 @@ export default function Complaints() {
       });
 
       const Stat = () => {
-        return(
-          <ComplaintStatus token={key} defaults={element.status} />
-        )
-      }
+        return <ComplaintStatus token={key} defaults={element.status} />;
+      };
 
       var insert = {
         col1: element.UID,
@@ -82,40 +80,48 @@ export default function Complaints() {
     useTable({ columns, data });
 
   return (
-    <table {...getTableProps()}>
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
+    <div className={styles.main}>
+      <section>
+        <div className={styles.tableWrapper}>
+          <table {...getTableProps()}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th {...column.getHeaderProps()}>
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row) => {
+                prepareRow(row);
                 return (
-                  <td
-                    {...cell.getCellProps()}
-                    style={{
-                      padding: "10px",
-                      border: "solid 0px gray",
-                      background: "#ffffff",
-                      maxWidth: "600px"
-                    }}
-                  >
-                    {cell.render("Cell")}
-                  </td>
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      return (
+                        <td
+                          {...cell.getCellProps()}
+                          style={{
+                            padding: "10px",
+                            border: "solid 0px gray",
+                            background: "#ffffff",
+                            maxWidth: "600px",
+                          }}
+                        >
+                          {cell.render("Cell")}
+                        </td>
+                      );
+                    })}
+                  </tr>
                 );
               })}
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
   );
 }

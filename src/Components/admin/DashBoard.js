@@ -1,13 +1,11 @@
 import React from "react";
 import { Route, Switch, Link, useHistory } from "react-router-dom";
-import "./DashBoard.css";
+import styles from "./DashBoard.module.css";
 import Ledger from "./Ledger";
 import Complaints from "./Complaints";
 import NoticeBoard from "./NoticeBoard";
 import ManageUsers from "./ManageUsers";
 import ManageContent from "./ManageContent";
-
-
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
@@ -34,8 +32,8 @@ function Dashboard() {
   });
 
   return (
-    <div className="body">
-      <nav className="sidenav">
+    <div className={styles.body}>
+      <nav className={styles.sidenav}>
         <menu>
           <Link to="/dashboard" style={{ textDecoration: "none" }}>
             <div>Ledger</div>
@@ -60,13 +58,16 @@ function Dashboard() {
           </button>
         </menu>
       </nav>
-      <div className="main">
+      <div className={styles.main}>
         <Switch>
           <Route path="/dashboard" component={Ledger} exact />
           <Route path="/dashboard/complaints" component={Complaints} />
           <Route path="/dashboard/adduser" component={AddUsers} />
           <Route path="/dashboard/addTransaction" component={AddTransaction} />
-          <Route path="/dashboard/addNotification" component={AddNotification} />
+          <Route
+            path="/dashboard/addNotification"
+            component={AddNotification}
+          />
           <Route path="/dashboard/noticeBoard" component={NoticeBoard} />
           <Route path="/dashboard/manageUsers" component={ManageUsers} />
           <Route path="/dashboard/manageContent" component={ManageContent} />

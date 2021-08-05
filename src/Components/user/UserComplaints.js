@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import UserNavigation from "./UserNavigation";
 import { useHistory } from "react-router-dom";
-import "./UserComplaints.css";
+import "./UserComplaints.module.css";
 
 import firebase from "firebase/app";
 import "firebase/database";
@@ -12,7 +12,6 @@ import {} from "../firebase";
 
 export default function UserComplaints() {
   const [token, settoken] = useState("");
-  const [uid, setuid] = useState(null);
   const [error, seterror] = useState(null);
   const [complaint, setcomplaint] = useState(null);
   const history = useHistory();
@@ -26,36 +25,34 @@ export default function UserComplaints() {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           var uid = user.uid;
-          var reference = "complaints/"+token;
+          var reference = "complaints/" + token;
           var database = firebase.database();
           var Ref = database.ref(reference);
-            Ref.once('value', (snapshot) => {
-                var query = snapshot.val();
-              
-                if(query != null ){
-                  console.log(query.UID , uid)
-                  if(query.UID === uid){
-                    setcomplaint(query)
-                  }else{
-                    seterror("This Complaint Token is not owned by You.")
-                  }
-                }else{
-                  setcomplaint(null)
-                  seterror("No Complaint Found.")
-                }
-            })
-          
+          Ref.once("value", (snapshot) => {
+            var query = snapshot.val();
+
+            if (query != null) {
+              console.log(query.UID, uid);
+              if (query.UID === uid) {
+                setcomplaint(query);
+              } else {
+                seterror("This Complaint Token is not owned by You.");
+              }
+            } else {
+              setcomplaint(null);
+              seterror("No Complaint Found.");
+            }
+          });
         }
         console.log(complaint);
-        
       });
     }
   };
-  
+
   return (
     <div>
       <UserNavigation />
-      <div className="feed-page">
+      <div className="wrapper">
         <Button
           variant="contained"
           color="primary"
@@ -78,13 +75,13 @@ export default function UserComplaints() {
             onChange={(e) => settoken(e.target.value)}
           />
           <Button variant="contained" color="primary" onClick={handleSubmit}>
-              Check Status
-            </Button>
-        </div> 
-        <br/>
+            Check Status
+          </Button>
+        </div>
+        <br />
         <div style={{ color: "red" }}>{error}</div>
-        <br/>
-        {complaint != null &&
+        <br />
+        {complaint != null && (
           <div className="complaint">
             <div className="info">
               <div className="issuer">
@@ -98,7 +95,7 @@ export default function UserComplaints() {
 
             <div className="message">{complaint.body}</div>
           </div>
-        }
+        )}
       </div>
     </div>
   );
@@ -106,10 +103,10 @@ export default function UserComplaints() {
 
 function Status({ status }) {
   if (status === "open") {
-    return <span class="status green">Open</span>;
+    return <span className="status green">Open</span>;
   } else if (status === "processing") {
-    return <span class="status yellow">Processing</span>;
+    return <span className="status yellow">Processing</span>;
   } else if (status === "closed") {
-    return <span class="status red">Closed</span>;
+    return <span className="status red">Closed</span>;
   }
 }

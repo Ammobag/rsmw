@@ -1,5 +1,5 @@
 import { React, useState, useRef, useEffect } from "react";
-import "./UserNavigation.css";
+import "./UserNavigation.module.css";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Button from "@material-ui/core/Button";
@@ -66,15 +66,14 @@ export default function UserNavigation() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       var uid = user.uid;
-      
+
       if (uid !== "6cryi8fnJySKAUBgfq6gPN49Gax1") {
-        
       } else {
         logout();
         history.replace("/");
       }
     } else {
-      logout()
+      logout();
       history.replace("/");
     }
   });
@@ -168,7 +167,9 @@ export default function UserNavigation() {
                           id="menu-list-grow"
                           onKeyDown={handleListKeyDown}
                         >
-                          <MenuItem onClick={handleViewProfile}>My Profile</MenuItem>
+                          <MenuItem onClick={handleViewProfile}>
+                            My Profile
+                          </MenuItem>
                           <MenuItem onClick={() => logout()}>Logout</MenuItem>
                         </MenuList>
                       </ClickAwayListener>

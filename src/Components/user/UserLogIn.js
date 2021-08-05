@@ -5,7 +5,7 @@ import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
 import loginImage from "../../Assets/loginImage.jpg";
-import "./UserLogIn.css";
+import "./UserLogIn.module.css";
 
 export default function UserLogIn() {
   const [userName, setUsername] = useState("");

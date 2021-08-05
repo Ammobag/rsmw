@@ -1,10 +1,10 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 import firebase from "firebase/app";
 import "firebase/database";
@@ -21,13 +21,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ComplaintStatus({token, defaults}) {
+export default function ComplaintStatus({ token, defaults }) {
   const classes = useStyles();
   const [status, setStatus] = React.useState(defaults);
 
   const handleChange = (event) => {
     setStatus(event.target.value);
-    firebase.database().ref('complaints/' + token + "/").child("status").set(event.target.value);
+    firebase
+      .database()
+      .ref("complaints/" + token + "/")
+      .child("status")
+      .set(event.target.value);
   };
 
   return (

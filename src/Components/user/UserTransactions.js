@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import UserNavigation from "./UserNavigation";
 import { useTable } from "react-table";
-import "./UserTransactions.css";
+import "./UserTransactions.module.css";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";

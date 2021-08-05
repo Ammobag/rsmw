@@ -8,7 +8,7 @@
   justify-content: center;
   align-items: center;
 }
-.adminLoginBody {
+.adminLogInBody {
   padding: 3rem;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@
   background-color: var(--table-background);
   border-radius: 100px;
 }
-.adminLogin-wrapper {
+.wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,4 +41,11 @@
 }
 .loginButton {
   cursor: pointer;
+  width: 250px;
+  height: 70px;
+  background-color: rgba(33, 150, 243, 1);
+  border-radius: 25px;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
 }

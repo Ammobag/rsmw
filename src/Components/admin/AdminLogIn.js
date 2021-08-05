@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import "./AdminLogIn.css";
+import styles from "./AdminLogIn.module.css";
 import { useHistory } from "react-router-dom";
 
 import firebase from "firebase/app";
@@ -46,19 +46,19 @@ export default function UserLogIn() {
   };
 
   return (
-    <div className="body">
+    <div className={styles.body}>
       <div style={{ color: "red" }}>{error}</div>
-      <div className="adminLoginBody">
-        <div className="adminLogin-wrapper">
+      <div className={styles.adminLogInBody}>
+        <div className={styles.wrapper}>
           <div style={{ color: "red" }}>{error}</div>
-          <div className="loginTextField-wrapper">
+          <div>
             <div>
               <input
                 placeholder="Username"
                 type="email"
                 value={userName}
                 onChange={(e) => setUsername(e.target.value)}
-                className="inputField"
+                className={styles.inputField}
               />
             </div>
             <div>
@@ -67,24 +67,12 @@ export default function UserLogIn() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="inputField"
+                className={styles.inputField}
               />
             </div>
           </div>
           <div>
-            <button
-              className="loginButton"
-              style={{
-                width: 250,
-                height: 70,
-                backgroundColor: "rgba(33, 150, 243, 1)",
-                borderRadius: 25,
-                border: "none",
-                color: "white",
-                fontSize: "1.5rem",
-              }}
-              onClick={handleSubmit}
-            >
+            <button className={styles.loginButton} onClick={handleSubmit}>
               Log In
             </button>
           </div>

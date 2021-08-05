@@ -1,6 +1,6 @@
 import React from "react";
 import UserNavigation from "./UserNavigation";
-import "./UserNoticeBoard.css";
+import "./UserNoticeBoard.module.css";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";

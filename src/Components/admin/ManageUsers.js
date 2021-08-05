@@ -2,7 +2,7 @@ import React from "react";
 
 import { useTable } from "react-table";
 import Button from "@material-ui/core/Button";
-
+import styles from "./ManageUsers.module.css";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
@@ -64,50 +64,56 @@ export default function ManageUsers() {
     useTable({ columns, data });
 
   return (
-    <React.Fragment>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleAdd}
-        disableElevation
-      >
-        Add User
-      </Button>
-
-      <table {...getTableProps()} style={{ marginTop: "2rem" }}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+    <div className={styles.main}>
+      <section>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleAdd}
+          disableElevation
+        >
+          Add User
+        </Button>
+        <div className={styles.tableWrapper}>
+          {" "}
+          <table {...getTableProps()} style={{ marginTop: "2rem" }}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th {...column.getHeaderProps()}>
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td
-                      {...cell.getCellProps()}
-                      style={{
-                        padding: "10px",
-                        border: "solid 0px gray",
-                        background: "#ffffff",
-                      }}
-                    >
-                      {cell.render("Cell")}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </React.Fragment>
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      return (
+                        <td
+                          {...cell.getCellProps()}
+                          style={{
+                            padding: "10px",
+                            border: "solid 0px gray",
+                            background: "#ffffff",
+                          }}
+                        >
+                          {cell.render("Cell")}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
   );
 }

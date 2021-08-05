@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import "./AddPost.css";
+import "./AddPost.module.css";
 import ImageIcon from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";

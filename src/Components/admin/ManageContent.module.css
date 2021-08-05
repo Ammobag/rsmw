@@ -1,8 +1,17 @@
-@import url(../../theme.css);
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.main section Button {
+  margin: 1rem;
+}
 
 table {
   border-collapse: collapse;
   width: 100%;
+  border: none;
 }
 
 th {
@@ -11,8 +20,4 @@ th {
   text-align: left;
   padding: 8px;
   border: 1px solid var(--th-background);
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
 }

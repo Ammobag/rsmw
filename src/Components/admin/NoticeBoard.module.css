@@ -1,0 +1,23 @@
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.main section Button {
+  margin: 1rem;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border: none;
+}
+
+th {
+  background-color: var(--th-background);
+  color: var(--th-text);
+  text-align: left;
+  padding: 8px;
+  border: 1px solid var(--th-background);
+}

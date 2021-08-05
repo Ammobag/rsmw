@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import "./styles.css";
+import "./styles.module.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
@@ -8,10 +8,12 @@ import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../../firebase";
-import Getonce, { postNotification, postTransaction, writeUserData } from "../../functions/dbquery";
-import Select from 'react-dropdown-select';
-
-
+import Getonce, {
+  postNotification,
+  postTransaction,
+  writeUserData,
+} from "../../functions/dbquery";
+import Select from "react-dropdown-select";
 
 // var database = firebase.database();
 
@@ -29,10 +31,7 @@ export default function AddNotification() {
   const [error, seterror] = useState("");
   const history = useHistory();
 
-  const designations = [
-    {name: 'Owner'},
-    {name: 'Secretary'},
-  ]
+  const designations = [{ name: "Owner" }, { name: "Secretary" }];
 
   var d = new Date();
   var currentYear = d.getFullYear();
@@ -40,7 +39,7 @@ export default function AddNotification() {
   const handleSubmit = (e) => {
     if (issuer && designation && subject && body) {
       postNotification(issuer, designation[0].name, subject, body);
-      history.replace("/dashboard/noticeBoard")
+      history.replace("/dashboard/noticeBoard");
     } else {
       seterror("Please enter all the fields");
     }
@@ -56,20 +55,20 @@ export default function AddNotification() {
             label="Issuer Name"
             type="text"
             variant="outlined"
-            style={{width: 300}}
+            style={{ width: 300 }}
             margin="dense"
             value={issuer}
             onChange={(e) => setissuer(e.target.value)}
           />
           <Select
-            style={{width: 300}}
+            style={{ width: 300 }}
             placeholder="Select Designation"
             color={"#000"}
             labelField={"name"}
             valueField={"name"}
             options={designations}
             dropdownGap={5}
-            onChange={values => setdesignation(values)}
+            onChange={(values) => setdesignation(values)}
             noDataLabel="No matches found"
           />
           <TextField
@@ -77,24 +76,23 @@ export default function AddNotification() {
             label="Subject"
             type="text"
             variant="outlined"
-            style={{width: 300}}
+            style={{ width: 300 }}
             margin="dense"
             value={subject}
             onChange={(e) => setsubject(e.target.value)}
-          /><br/>
+          />
+          <br />
           <TextField
             id="body"
             label="Body"
             type="text"
             variant="outlined"
-            style={{width: 300}}
+            style={{ width: 300 }}
             margin="dense"
             value={body}
             onChange={(e) => setbody(e.target.value)}
           />
         </div>
-
-
 
         <div>
           <Button variant="contained" color="primary" onClick={handleSubmit}>
