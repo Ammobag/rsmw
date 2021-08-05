@@ -18,7 +18,7 @@ export default function UserComplaints() {
   const history = useHistory();
 
   const handleNewComplaints = (e) => {
-    history.replace("/feed");
+    history.replace("/addComplaint");
   };
 
   const handleSubmit = (e) => {
@@ -26,29 +26,32 @@ export default function UserComplaints() {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           var uid = user.uid;
-          setuid(uid)
+          var reference = "complaints/"+token;
+          var database = firebase.database();
+          var Ref = database.ref(reference);
+            Ref.once('value', (snapshot) => {
+                var query = snapshot.val();
+              
+                if(query != null ){
+                  console.log(query.UID , uid)
+                  if(query.UID === uid){
+                    setcomplaint(query)
+                  }else{
+                    seterror("This Complaint Token is not owned by You.")
+                  }
+                }else{
+                  setcomplaint(null)
+                  seterror("No Complaint Found.")
+                }
+            })
+          
         }
+        console.log(complaint);
+        
       });
-      var reference = "complaints/"+token;
-      var database = firebase.database();
-      var Ref = database.ref(reference);
-        Ref.once('value', (snapshot) => {
-            var query = snapshot.val();
-            if(query != null ){
-              if(query.UID === uid){
-                setcomplaint(query)
-              }else{
-                seterror("This Complaint Token is not owned by You.")
-              }
-            }else{
-              setcomplaint(null)
-              seterror("No Complaint Found.")
-            }
-        })
-      
     }
-    console.log(complaint);
   };
+  
   return (
     <div>
       <UserNavigation />

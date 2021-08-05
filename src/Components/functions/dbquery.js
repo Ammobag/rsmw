@@ -111,3 +111,16 @@ export function postNotification(issuer, designation, subject, body) {
     subject: subject,
   });
 }
+
+export function postComplaint(uid, subject, body, timestamp) {
+  const d = new Date();
+  var i = d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear()
+  firebase.database().ref('complaints/' + timestamp + "/").set({
+    UID: uid,
+    body: body,
+    dateClosed: "-",
+    dateOpened: i,
+    status: "open",
+    subject: subject,
+  });
+}

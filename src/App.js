@@ -10,6 +10,7 @@ import UserComplaints from "./Components/user/UserComplaints";
 import UserClassifiedSection from "./Components/user/UserClassifiedSection";
 import AddPost from "./Components/user/UserActions/AddPost";
 import UserProfile from "./Components/user/UserProfile";
+import AddComplaint from "./Components/user/UserActions/AddComplaint";
 
 const theme = createTheme({
   palette: {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/feed" component={UserFeed} exact />
           <Route path="/addPost" component={AddPost} />
+          <Route path="/addComplaint" component={AddComplaint} />
           <Route path="/userProfile" component={UserProfile} />
           <Route path="/transactions" component={UserTransactions} />
           <Route path="/noticeBoard" component={UserNoticeBoard} />
