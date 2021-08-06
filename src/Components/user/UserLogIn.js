@@ -5,7 +5,7 @@ import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
 import loginImage from "../../Assets/loginImage.jpg";
-import "./UserLogIn.module.css";
+import styles from "./UserLogIn.module.css";
 
 export default function UserLogIn() {
   const [userName, setUsername] = useState("");
@@ -47,15 +47,15 @@ export default function UserLogIn() {
   };
 
   return (
-    <div className="master">
-      <section className="loginImage">
+    <div className={styles.main}>
+      <section className={styles.loginImage}>
         <img src={loginImage} alt="Login goes here" />
       </section>
-      <section className="loginSection">
-        <div className="userLoginBody">
-          <div className="userLogin-wrapper">
+      <section className={styles.loginSection}>
+        <div className={styles.userLoginBody}>
+          <div className={styles.wrapper}>
             <div style={{ color: "red" }}>{error}</div>
-            <div className="loginTextField-wrapper">
+            <div className={styles.textFieldWrapper}>
               <h1>John Doe Apartment</h1>
               <div>
                 <input
@@ -63,7 +63,7 @@ export default function UserLogIn() {
                   type="email"
                   value={userName}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="inputField"
+                  className={styles.inputField}
                 />
               </div>
               <div>
@@ -72,28 +72,16 @@ export default function UserLogIn() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="inputField"
+                  className={styles.inputField}
                 />
               </div>
             </div>
             <div>
-              <button
-                className="loginButton"
-                style={{
-                  width: 250,
-                  height: 70,
-                  backgroundColor: "rgba(33, 150, 243, 1)",
-                  borderRadius: 25,
-                  border: "none",
-                  color: "white",
-                  fontSize: "1.5rem",
-                }}
-                onClick={handleSubmit}
-              >
+              <button className={styles.loginButton} onClick={handleSubmit}>
                 Log In
               </button>
             </div>
-            <p className="forgotPassword">
+            <p className={styles.forgotPassword}>
               Forgot password? <span>Click here.</span>
             </p>
           </div>

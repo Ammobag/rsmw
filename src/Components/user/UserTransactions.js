@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import UserNavigation from "./UserNavigation";
 import { useTable } from "react-table";
-import "./UserTransactions.module.css";
+import styles from "./UserTransactions.module.css";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
@@ -52,7 +52,7 @@ export default function UserTransactions() {
 
           list.push(insert);
 
-          if (list.length === sizeObject(query) && fetch == false) {
+          if (list.length === sizeObject(query) && fetch === false) {
             settempdata(list);
           }
         });
@@ -120,12 +120,12 @@ export default function UserTransactions() {
     useTable({ columns, data });
 
   return (
-    <div className="userTransactions">
+    <div className={styles.UserTransactions}>
       <UserNavigation />
-      <div className="transactionsWrapper">
-        <div className="dueSection">
-          <div className="due">Amount Due : </div>
-          <div className="dueAmount">₹ {amount}</div>
+      <div className={styles.transactionsWrapper}>
+        <div className={styles.dueSection}>
+          <div className={styles.due}>Amount Due : </div>
+          <div className={styles.dueAmount}>₹ {amount}</div>
         </div>
         <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
           <thead>

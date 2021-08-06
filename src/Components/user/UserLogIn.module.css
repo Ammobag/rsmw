@@ -1,18 +1,18 @@
-.master {
+.main {
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: row;
 }
-.master .loginImage {
+.loginImage {
   width: 50%;
   height: 100%;
   overflow: hidden;
 }
-.master .loginImage img {
+.loginImage img {
   height: 100%;
 }
-.master .loginSection {
+.loginSection {
   width: 50%;
   height: 100%;
 }
@@ -25,17 +25,17 @@
   align-items: center;
   background-color: var(--table-background);
 }
-.userLogin-wrapper {
+.wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   border-radius: 25px;
 }
-.loginTextField-wrapper {
+.textFieldWrapper {
   margin: 2rem 2rem;
 }
-.loginTextField-wrapper h1 {
+.textFieldWrapper h1 {
   text-align: center;
 }
 .inputField {
@@ -65,4 +65,14 @@
 .forgotPassword span:hover {
   color: #0000f2;
   cursor: pointer;
+}
+.loginButton {
+  cursor: pointer;
+  width: 250px;
+  height: 70px;
+  background-color: rgba(33, 150, 243, 1);
+  border-radius: 25px;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
 }

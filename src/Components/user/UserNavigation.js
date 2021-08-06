@@ -1,5 +1,5 @@
 import { React, useState, useRef, useEffect } from "react";
-import "./UserNavigation.module.css";
+import styles from "./UserNavigation.module.css";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Button from "@material-ui/core/Button";
@@ -87,9 +87,9 @@ export default function UserNavigation() {
 
   return (
     <div>
-      <div className="sidenav" style={isNavOpen ? openNav : closeNav}>
+      <div className={styles.sidenav} style={isNavOpen ? openNav : closeNav}>
         <ArrowBackIcon
-          className="closebtn"
+          className={styles.closebtn}
           onClick={() => setIsNavOpen(false)}
           style={{ cursor: "pointer", color: "#ffffff" }}
         />
@@ -116,9 +116,9 @@ export default function UserNavigation() {
         </section>
       </div>
 
-      <div className="navbar">
-        <div className="navbarContent">
-          <div className="hamburger">
+      <div className={styles.navbar}>
+        <div className={styles.navbarContent}>
+          <div className={styles.hamburger}>
             <MenuIcon
               onClick={() => setIsNavOpen(true)}
               style={{
@@ -126,7 +126,7 @@ export default function UserNavigation() {
               }}
             />
           </div>
-          <div className="navbar-right">
+          <div className={styles.navbarRight}>
             {location.pathname === "/feed" && (
               <Button
                 variant="contained"
@@ -136,7 +136,7 @@ export default function UserNavigation() {
                 Add Post
               </Button>
             )}
-            <div className="avatar">
+            <div className={styles.avatar}>
               <Avatar
                 alt="pic"
                 src="https://randomuser.me/api/portraits/med/men/58.jpg"
