@@ -90,13 +90,13 @@ export default function UserComplaints() {
         <div style={{ color: "red" }}>{error}</div>
         <br />
         {complaint != null && (
-          <div className="complaint">
-            <div className="info">
-              <div className="issuer">
-                <div className="subject">{complaint.subject}</div>
+          <div className={styles.complaint}>
+            <div className={styles.info}>
+              <div className={styles.issuer}>
+                <div className={styles.subject}>{complaint.subject}</div>
                 <Status status={complaint.status} />
               </div>
-              <div className="date">
+              <div className={styles.date}>
                 {complaint.dateOpened} to {complaint.dateClosed}
               </div>
             </div>
@@ -111,10 +111,12 @@ export default function UserComplaints() {
 
 function Status({ status }) {
   if (status === "open") {
-    return <span className="status green">Open</span>;
+    return <span className={`${styles.status} ${styles.green}`}>Open</span>;
   } else if (status === "processing") {
-    return <span className="status yellow">Processing</span>;
+    return (
+      <span className={`${styles.status} ${styles.yellow}`}>Processing</span>
+    );
   } else if (status === "closed") {
-    return <span className="status red">Closed</span>;
+    return <span className={`${styles.status} ${styles.red}`}>Closed</span>;
   }
 }
