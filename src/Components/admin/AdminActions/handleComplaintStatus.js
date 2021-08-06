@@ -27,11 +27,14 @@ export default function ComplaintStatus({ token, defaults }) {
 
   const handleChange = (event) => {
     setStatus(event.target.value);
-    firebase
-      .database()
-      .ref("complaints/" + token + "/")
-      .child("status")
-      .set(event.target.value);
+    const d = new Date();
+    var i = d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear()
+    firebase.database().ref('complaints/' + token + "/").child("status").set(event.target.value);
+    if(event.target.value === "closed") {
+      firebase.database().ref('complaints/' + token + "/").child("dateClosed").set(i);
+    }else{
+      firebase.database().ref('complaints/' + token + "/").child("dateClosed").set("-");
+    }
   };
 
   return (

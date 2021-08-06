@@ -1,32 +1,78 @@
-import React from "react";
 import { useTable } from "react-table";
 import styles from "./NoticeBoard.module.css";
+import React, { useState } from "react";
+
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+
 import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
 import Getonce from "../functions/dbquery";
-import Button from "@material-ui/core/Button";
+
+import sizeObject from "../functions/dataHandling";
 import { useHistory } from "react-router-dom";
 
 export default function NoticeBoard() {
+  const [searchInput, setsearchInput] = useState();
+  const [alldata, setalldata] = useState([]);
+  const [data, setdata] = useState([]);
   var query = Getonce("notices/");
-  var data = [];
-  const history = useHistory();
 
-  for (const key in query) {
-    if (Object.hasOwnProperty.call(query, key)) {
-      const element = query[key];
+  var list = [];
+  const history = useHistory()
 
-      var insert = {
-        col1: element.issuerName,
-        col2: element.issuerDesignation,
-        col3: element.subject,
-        col4: element.body,
-        col5: element.date,
-      };
+  if(data.length != sizeObject(query) && !searchInput){
+    for (const key in query) {
+      if (Object.hasOwnProperty.call(query, key)) {
+        const element = query[key];
+        
+        var insert = {
+          col1: element.issuerName,
+          col2: element.issuerDesignation,
+          col3: element.subject,
+          col4: element.body,
+          col5: element.date,
+        };
 
-      data.push(insert);
+        list.push(insert)
+        console.log(list.length, sizeObject(query))
+        if(list.length === sizeObject(query)){
+          setdata(list)
+          setalldata(list)
+        }
+      }
     }
+  }
+
+  const globalSearch = () => {
+    let filteredData = []
+    if (searchInput) {
+      for (let i = 0; i < alldata.length; i++) {
+        const element = alldata[i];
+        console.log(element.col8, searchInput)
+        if(
+          element.col1.toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col2.toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col3.toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col4.toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col5.toLowerCase().includes(searchInput.toLowerCase()) 
+          
+
+        ){
+          filteredData.push(element)
+        }
+      }
+      setdata(filteredData)
+    }
+  };
+
+  if (data.length === 0) {
+    setdata( [
+      {
+        col4: "No Records Found",
+      },
+    ])
   }
 
   const columns = React.useMemo(
@@ -73,18 +119,34 @@ export default function NoticeBoard() {
         >
           Add New Notice
         </Button>
-        <div className={styles.tableWrapper}>
-          <table {...getTableProps()}>
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()}>
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
+        <div>
+        <TextField
+          id="search"
+          label="Search"
+          type="text"
+          variant="outlined"
+          margin="dense"
+          style={{ margin: 8 }}
+          value={searchInput}
+          onChange={(e) => setsearchInput(e.target.value)}
+        />
+        <Button variant="contained" color="primary" onClick={globalSearch}>
+            Search
+        </Button>
+      </div>
+      <div className={styles.tableWrapper}>
+        
+
+
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
               ))}
+              </tr>
+          ))}
             </thead>
             <tbody {...getTableBodyProps()}>
               {rows.map((row) => {
