@@ -1,6 +1,6 @@
 import React from "react";
 import UserNavigation from "./UserNavigation";
-import "./UserNoticeBoard.module.css";
+import styles from "./UserNoticeBoard.module.css";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
@@ -19,23 +19,25 @@ export default function UserNoticeBoard() {
   }
 
   const NoticeBoard = data.map((value) => (
-    <div className="notice">
-      <div className="info">
-        <div className="issuer">
-          <div className="issuername">{value.issuerName}</div>
-          <div className="issuerDesignation">{value.issuerDesignation}</div>
+    <div className={styles.notice}>
+      <div className={styles.info}>
+        <div className={styles.issuer}>
+          <div>{value.issuerName}</div>
+          <div className={styles.issuerDesignation}>
+            {value.issuerDesignation}
+          </div>
         </div>
-        <div className="date">{value.date}</div>
+        <div className={styles.date}>{value.date}</div>
       </div>
-      <div className="subject">{value.subject}</div>
-      <div className="message">{value.body}</div>
+      <div className={styles.subject}>{value.subject}</div>
+      <div className={styles.message}>{value.body}</div>
     </div>
   ));
 
   return (
     <div>
       <UserNavigation />
-      <div className="feed-page">{NoticeBoard}</div>
+      <div className={styles.feedPage}>{NoticeBoard}</div>
     </div>
   );
 }

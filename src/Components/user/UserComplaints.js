@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import UserNavigation from "./UserNavigation";
 import { useHistory } from "react-router-dom";
-import "./UserComplaints.module.css";
+import styles from "./UserComplaints.module.css";
 
 import firebase from "firebase/app";
 import "firebase/database";
@@ -52,18 +52,21 @@ export default function UserComplaints() {
   return (
     <div>
       <UserNavigation />
-      <div className="wrapper">
+      <div className={styles.feedPage}>
         <Button
           variant="contained"
           color="primary"
           onClick={handleNewComplaints}
+          style={{ margin: "1rem" }}
         >
           Lodge new Complaint
         </Button>
         <br />
         <br />
         <div>
-          <h2>Check Complaint Status</h2>
+          <h2 style={{ textAlign: "center", margin: "1rem" }}>
+            Check Complaint Status
+          </h2>
           <TextField
             id="token"
             label="Complaint Token"
@@ -74,7 +77,12 @@ export default function UserComplaints() {
             value={token}
             onChange={(e) => settoken(e.target.value)}
           />
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit}
+            style={{ margin: 8 }}
+          >
             Check Status
           </Button>
         </div>

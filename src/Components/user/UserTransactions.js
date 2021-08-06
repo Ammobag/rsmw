@@ -30,7 +30,7 @@ export default function UserTransactions() {
       setuser(user.uid);
     }
   });
-  if (data.length === 0 || data[0].col4 == "No Records" || fetch == false) {
+  if (data.length === 0 || data[0].col4 === "No Records" || fetch === false) {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         c++;
@@ -120,7 +120,7 @@ export default function UserTransactions() {
     useTable({ columns, data });
 
   return (
-    <div className={styles.UserTransactions}>
+    <div className={styles.userTransactions}>
       <UserNavigation />
       <div className={styles.transactionsWrapper}>
         <div className={styles.dueSection}>
