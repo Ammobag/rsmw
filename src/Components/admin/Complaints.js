@@ -10,6 +10,7 @@ import {} from "../firebase";
 import Getonce from "../functions/dbquery";
 import ComplaintStatus from "./AdminActions/handleComplaintStatus";
 import sizeObject from "../functions/dataHandling";
+import SearchIcon from "@material-ui/icons/Search";
 
 export default function Complaints() {
   const [searchInput, setsearchInput] = useState();
@@ -121,7 +122,7 @@ export default function Complaints() {
 
   return (
     <div className={styles.main}>
-      <div>
+      <div className={styles.actions}>
         <TextField
           id="search"
           label="Search"
@@ -133,7 +134,7 @@ export default function Complaints() {
           onChange={(e) => setsearchInput(e.target.value)}
         />
         <Button variant="contained" color="primary" onClick={globalSearch}>
-          Search
+          <SearchIcon />
         </Button>
       </div>
       <section>

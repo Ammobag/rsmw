@@ -7,7 +7,11 @@
 .main section Button {
   margin: 1rem;
 }
-
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 table {
   border-collapse: collapse;
   width: 100%;

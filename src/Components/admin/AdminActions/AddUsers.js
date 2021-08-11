@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import "./styles.module.css";
+import styles from "./AddUsers.module.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
@@ -26,6 +26,8 @@ export default function AddUsers() {
   const [blockno, setBlockno] = useState("");
   const [name, setName] = useState("");
   const [error, seterror] = useState("");
+  const img =
+    "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44";
 
   const history = useHistory();
 
@@ -37,7 +39,16 @@ export default function AddUsers() {
         .then((userCredential) => {
           // Signed in
           var user = userCredential.user;
-          writeUserData(user.uid, name, userName, phonenumber, flatno, blockno);
+
+          writeUserData(
+            user.uid,
+            name,
+            userName,
+            phonenumber,
+            flatno,
+            blockno,
+            img
+          );
           history.push("/dashboard/manageUsers");
           setUsername("");
           setPassword("");
@@ -58,89 +69,87 @@ export default function AddUsers() {
   };
 
   return (
-    <div className="body">
-      <div className="login-wrapper">
-        <div style={{ color: "red" }}>{error}</div>
-        <div className="textField-wrapper">
-          <div>
-            <TextField
-              id="username"
-              label="Email"
-              type="email"
-              variant="outlined"
-              margin="dense"
-              style={{ margin: 8 }}
-              value={userName}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              id="password"
-              label="Password"
-              type="password"
-              variant="outlined"
-              style={{ margin: 8 }}
-              margin="dense"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              id="name"
-              label="Name"
-              type="text"
-              variant="outlined"
-              margin="dense"
-              style={{ margin: 8 }}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              id="phonenumber"
-              label="Phone Number"
-              type="tel"
-              variant="outlined"
-              margin="dense"
-              style={{ margin: 8 }}
-              value={phonenumber}
-              onChange={(e) => setphonenumber(e.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              id="Flatno"
-              label="Flat Number"
-              type="text"
-              variant="outlined"
-              style={{ margin: 8 }}
-              margin="dense"
-              value={flatno}
-              onChange={(e) => setFlatno(e.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              id="Blockno"
-              label="Block Number"
-              type="text"
-              variant="outlined"
-              style={{ margin: 8 }}
-              margin="dense"
-              value={blockno}
-              onChange={(e) => setBlockno(e.target.value)}
-            />
-          </div>
-        </div>
-
+    <div className={styles.main}>
+      <div style={{ color: "red" }}>{error}</div>
+      <div className={styles.wrapper}>
         <div>
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Add New User
-          </Button>
+          <TextField
+            id="username"
+            label="Email"
+            type="email"
+            variant="outlined"
+            margin="dense"
+            style={{ margin: 8 }}
+            value={userName}
+            onChange={(e) => setUsername(e.target.value)}
+          />
         </div>
+        <div>
+          <TextField
+            id="password"
+            label="Password"
+            type="password"
+            variant="outlined"
+            style={{ margin: 8 }}
+            margin="dense"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div>
+          <TextField
+            id="name"
+            label="Name"
+            type="text"
+            variant="outlined"
+            margin="dense"
+            style={{ margin: 8 }}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div>
+          <TextField
+            id="phonenumber"
+            label="Phone Number"
+            type="tel"
+            variant="outlined"
+            margin="dense"
+            style={{ margin: 8 }}
+            value={phonenumber}
+            onChange={(e) => setphonenumber(e.target.value)}
+          />
+        </div>
+        <div>
+          <TextField
+            id="Flatno"
+            label="Flat Number"
+            type="text"
+            variant="outlined"
+            style={{ margin: 8 }}
+            margin="dense"
+            value={flatno}
+            onChange={(e) => setFlatno(e.target.value)}
+          />
+        </div>
+        <div>
+          <TextField
+            id="Blockno"
+            label="Block Number"
+            type="text"
+            variant="outlined"
+            style={{ margin: 8 }}
+            margin="dense"
+            value={blockno}
+            onChange={(e) => setBlockno(e.target.value)}
+          />
+        </div>
+      </div>
+
+      <div>
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
+          Add New User
+        </Button>
       </div>
     </div>
   );

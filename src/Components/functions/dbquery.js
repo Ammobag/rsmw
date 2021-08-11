@@ -44,7 +44,16 @@ export function Getname(uid) {
   }
 }
 
-export function writeUserData(UID, name, email, phonenumber, flatno, blockno) {
+export function writeUserData(
+  UID,
+  name,
+  email,
+  phonenumber,
+  flatno,
+  blockno,
+  img
+) {
+  console.log("in writeuserdata");
   firebase
     .database()
     .ref("users/" + UID + "/")
@@ -55,6 +64,7 @@ export function writeUserData(UID, name, email, phonenumber, flatno, blockno) {
       phonenumber: phonenumber,
       flatno: flatno,
       blockno: blockno,
+      image: img,
     });
 }
 
@@ -73,54 +83,69 @@ export function uploadPost(UID, body, image) {
 }
 
 export function likePost(UID, postID, value) {
-    firebase.database().ref('posts/' + postID + '/likes/' + UID + "/").set({
-        status: value,
+  firebase
+    .database()
+    .ref("posts/" + postID + "/likes/" + UID + "/")
+    .set({
+      status: value,
     });
 }
 
 export function commentPost(UID, postID, message) {
   var timestamp = Date.now();
-  firebase.database().ref('posts/' + postID + '/comments/' + timestamp + "/").set({
+  firebase
+    .database()
+    .ref("posts/" + postID + "/comments/" + timestamp + "/")
+    .set({
       UID: UID,
       timestamp: timestamp,
       comments: message,
-  });
+    });
 }
 
 export function postTransaction(UID, amount, month, year) {
   var timestamp = Date.now();
-  firebase.database().ref('maintenance/' + timestamp + "/").set({
+  firebase
+    .database()
+    .ref("maintenance/" + timestamp + "/")
+    .set({
       UID: UID,
       amount: amount,
       dueYear: year,
       dueMonth: month,
       paidDate: "-",
-      status: "Not Paid"
-  });
+      status: "Not Paid",
+    });
 }
 
 export function postNotification(issuer, designation, subject, body) {
   var timestamp = Date.now();
   const d = new Date();
-  var i = d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear()
-  firebase.database().ref('notices/' + timestamp + "/").set({
-    body: body,
-    date: i,
-    issuerDesignation: designation,
-    issuerName: issuer,
-    subject: subject,
-  });
+  var i = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+  firebase
+    .database()
+    .ref("notices/" + timestamp + "/")
+    .set({
+      body: body,
+      date: i,
+      issuerDesignation: designation,
+      issuerName: issuer,
+      subject: subject,
+    });
 }
 
 export function postComplaint(uid, subject, body, timestamp) {
   const d = new Date();
-  var i = d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear()
-  firebase.database().ref('complaints/' + timestamp + "/").set({
-    UID: uid,
-    body: body,
-    dateClosed: "-",
-    dateOpened: i,
-    status: "open",
-    subject: subject,
-  });
+  var i = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+  firebase
+    .database()
+    .ref("complaints/" + timestamp + "/")
+    .set({
+      UID: uid,
+      body: body,
+      dateClosed: "-",
+      dateOpened: i,
+      status: "open",
+      subject: subject,
+    });
 }

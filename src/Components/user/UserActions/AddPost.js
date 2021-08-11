@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import "./AddPost.module.css";
+import styles from "./AddPost.module.css";
 import ImageIcon from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
@@ -107,8 +107,8 @@ export default function AddPost() {
   };
 
   return (
-    <div className="body">
-      <div className="wrapper">
+    <div className={styles.body}>
+      <div className={styles.wrapper}>
         <h2>Create a post</h2>
         {error && (
           <div>
@@ -124,9 +124,9 @@ export default function AddPost() {
                 value={message}
               ></textarea>
             </form>
-            <div className="imageSelection">
+            <div className={styles.imageSelection}>
               <p>Add a Image:</p>
-              <label class="filebutton">
+              <label className={styles.filebutton}>
                 <ImageIcon fontSize="large" />
                 <span>
                   <input
@@ -142,7 +142,7 @@ export default function AddPost() {
             {displayImage && (
               <img src={displayImage} style={{ width: 400 }} alt={"pic"} />
             )}
-            <div className="buttonWrapper">
+            <div className={styles.buttonWrapper}>
               <Button
                 variant="contained"
                 color="primary"
@@ -158,9 +158,9 @@ export default function AddPost() {
         {status === 1 && (
           <div style={{ padding: 50 }}>
             <div>Uploading Files ...</div>
-            <div className="progress">
-              <div className="bar" style={{ width: progress + "%" }}>
-                <p className="percent">{progress}%</p>
+            <div className={styles.progress}>
+              <div className={styles.bar} style={{ width: progress + "%" }}>
+                <p className={styles.percent}>{progress}%</p>
               </div>
             </div>
           </div>

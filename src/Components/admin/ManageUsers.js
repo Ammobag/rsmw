@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import SearchIcon from "@material-ui/icons/Search";
 import { useTable } from "react-table";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -19,7 +19,7 @@ export default function ManageUsers() {
   const history = useHistory();
   var list = [];
 
-  if(data.length != sizeObject(query) && !searchInput){
+  if (data.length !== sizeObject(query) && !searchInput) {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
@@ -32,44 +32,57 @@ export default function ManageUsers() {
           col5: element.blockno,
         };
 
-        list.push(insert)
-        console.log(list.length, sizeObject(query))
-        if(list.length === sizeObject(query)){
-          setdata(list)
-          setalldata(list)
+        list.push(insert);
+        console.log(list.length, sizeObject(query));
+        if (list.length === sizeObject(query)) {
+          setdata(list);
+          setalldata(list);
         }
       }
     }
   }
 
   const globalSearch = () => {
-    let filteredData = []
+    let filteredData = [];
     if (searchInput) {
       for (let i = 0; i < alldata.length; i++) {
         const element = alldata[i];
-        console.log(element.col8, searchInput)
-        if(
-          element.col1.toString().toLowerCase().includes(searchInput.toLowerCase()) ||
-          element.col2.toString().toLowerCase().includes(searchInput.toLowerCase()) ||
-          element.col3.toString().toLowerCase().includes(searchInput.toLowerCase()) ||
-          element.col4.toString().toLowerCase().includes(searchInput.toLowerCase()) ||
-          element.col5.toString().toLowerCase().includes(searchInput.toLowerCase()) 
-          
-
-        ){
-          filteredData.push(element)
+        console.log(element.col8, searchInput);
+        if (
+          element.col1
+            .toString()
+            .toLowerCase()
+            .includes(searchInput.toLowerCase()) ||
+          element.col2
+            .toString()
+            .toLowerCase()
+            .includes(searchInput.toLowerCase()) ||
+          element.col3
+            .toString()
+            .toLowerCase()
+            .includes(searchInput.toLowerCase()) ||
+          element.col4
+            .toString()
+            .toLowerCase()
+            .includes(searchInput.toLowerCase()) ||
+          element.col5
+            .toString()
+            .toLowerCase()
+            .includes(searchInput.toLowerCase())
+        ) {
+          filteredData.push(element);
         }
       }
-      setdata(filteredData)
+      setdata(filteredData);
     }
   };
 
   if (data.length === 0) {
-    setdata( [
+    setdata([
       {
         col4: "No Records Found",
       },
-    ])
+    ]);
   }
 
   const columns = React.useMemo(
@@ -108,40 +121,44 @@ export default function ManageUsers() {
   return (
     <div className={styles.main}>
       <section>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleAdd}
-          disableElevation
-        >
-          Add User
-        </Button>
-        <div>
-        <TextField
-          id="search"
-          label="Search"
-          type="text"
-          variant="outlined"
-          margin="dense"
-          style={{ margin: 8 }}
-          value={searchInput}
-          onChange={(e) => setsearchInput(e.target.value)}
-        />
-        <Button variant="contained" color="primary" onClick={globalSearch}>
-            Search
-        </Button>
-      </div>
-        <div className={styles.tableWrapper}>
+        <div className={styles.actions}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <TextField
+              id="search"
+              label="Search"
+              type="text"
+              variant="outlined"
+              margin="dense"
+              style={{ margin: 8 }}
+              value={searchInput}
+              onChange={(e) => setsearchInput(e.target.value)}
+            />
+            <Button variant="contained" color="primary" onClick={globalSearch}>
+              <SearchIcon />
+            </Button>
+          </div>
 
-      <table {...getTableProps()} style={{ marginTop: "2rem" }}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleAdd}
+            disableElevation
+          >
+            Add User
+          </Button>
+        </div>
+        <div className={styles.tableWrapper}>
+          <table {...getTableProps()} style={{ marginTop: "2rem" }}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th {...column.getHeaderProps()}>
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
               ))}
-              </tr>
-          ))}
             </thead>
             <tbody {...getTableBodyProps()}>
               {rows.map((row) => {

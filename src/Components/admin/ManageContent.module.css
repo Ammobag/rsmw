@@ -7,13 +7,21 @@
 .main section Button {
   margin: 1rem;
 }
-
+.actions {
+  display: flex;
+  align-items: center;
+}
 table {
   border-collapse: collapse;
   width: 100%;
   border: none;
 }
-
+.searchIcon {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--primary);
+  padding: 0.25rem;
+}
 th {
   background-color: var(--th-background);
   color: var(--th-text);

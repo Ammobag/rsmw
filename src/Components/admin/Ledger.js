@@ -6,10 +6,9 @@ import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
 import Getonce from "../functions/dbquery";
-
+import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-
 import { useHistory } from "react-router-dom";
 import sizeObject from "../functions/dataHandling";
 
@@ -22,7 +21,7 @@ export default function Ledger() {
   var database = firebase.database();
   const history = useHistory();
 
-  if(data.length != sizeObject(query) && !searchInput){
+  if (data.length !== sizeObject(query) && !searchInput) {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
@@ -38,16 +37,14 @@ export default function Ledger() {
             col6: element.status,
             col7: element.paidDate,
           };
-    
+
           list.push(insert);
-        
-          if(list.length === sizeObject(query)){
-            setdata(list)
-            setalldata(list)
+
+          if (list.length === sizeObject(query)) {
+            setdata(list);
+            setalldata(list);
           }
         });
-
-        
       }
     }
   }
@@ -87,26 +84,32 @@ export default function Ledger() {
   );
 
   const globalSearch = () => {
-    let filteredData = []
-    
+    let filteredData = [];
+
     if (searchInput) {
       for (let i = 0; i < alldata.length; i++) {
         const element = alldata[i];
         console.log(element);
-        console.log(element.col1, searchInput)
-        if(
+        console.log(element.col1, searchInput);
+        if (
           element.col1.toLowerCase().includes(searchInput.toLowerCase()) ||
           element.col2.toLowerCase().includes(searchInput.toLowerCase()) ||
-          element.col3.toString().toLowerCase().includes(searchInput.toLowerCase()) ||
+          element.col3
+            .toString()
+            .toLowerCase()
+            .includes(searchInput.toLowerCase()) ||
           element.col4.toLowerCase().includes(searchInput.toLowerCase()) ||
           element.col6.toLowerCase().includes(searchInput.toLowerCase()) ||
           element.col7.toLowerCase().includes(searchInput.toLowerCase()) ||
-          element.col5.toString().toLowerCase().includes(searchInput.toLowerCase())
-        ){
-          filteredData.push(element)
+          element.col5
+            .toString()
+            .toLowerCase()
+            .includes(searchInput.toLowerCase())
+        ) {
+          filteredData.push(element);
         }
       }
-      setdata(filteredData)
+      setdata(filteredData);
     }
   };
 
@@ -120,39 +123,45 @@ export default function Ledger() {
   return (
     <div className={styles.main}>
       <section>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleAdd}
-          disableElevation
-        >
-          Add New Transaction
-        </Button>
-        <div>
-        <TextField
-          id="search"
-          label="Search"
-          type="text"
-          variant="outlined"
-          margin="dense"
-          style={{ margin: 8 }}
-          value={searchInput}
-          onChange={(e) => setsearchInput(e.target.value)}
-        />
-        <Button variant="contained" color="primary" onClick={globalSearch}>
-            Search
-        </Button>
-      </div>
+        <div className={styles.actions}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <TextField
+              id="search"
+              label="Search"
+              type="text"
+              variant="outlined"
+              margin="dense"
+              style={{ margin: 8 }}
+              value={searchInput}
+              onChange={(e) => setsearchInput(e.target.value)}
+            />
+            <Button variant="contained" color="primary" onClick={globalSearch}>
+              <SearchIcon />
+            </Button>
+          </div>
+
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleAdd}
+            disableElevation
+          >
+            Add New Transaction
+          </Button>
+        </div>
+
         <div className={styles.tableWrapper}>
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+          <table {...getTableProps()}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th {...column.getHeaderProps()}>
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
               ))}
-              </tr>
-          ))}
             </thead>
             <tbody {...getTableBodyProps()}>
               {rows.map((row) => {

@@ -1,18 +1,13 @@
 import { React, useState } from "react";
-import "./styles.module.css";
+import styles from "./AddNotification.module.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
 
-import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../../firebase";
-import Getonce, {
-  postNotification,
-  postTransaction,
-  writeUserData,
-} from "../../functions/dbquery";
+import { postNotification } from "../../functions/dbquery";
 import Select from "react-dropdown-select";
 
 // var database = firebase.database();
@@ -46,59 +41,54 @@ export default function AddNotification() {
   };
 
   return (
-    <div className="body">
-      <div className="login-wrapper">
-        <div style={{ color: "red" }}>{error}</div>
-        <div className="textField-wrapper">
-          <TextField
-            id="issuer"
-            label="Issuer Name"
-            type="text"
-            variant="outlined"
-            style={{ width: 300 }}
-            margin="dense"
-            value={issuer}
-            onChange={(e) => setissuer(e.target.value)}
-          />
-          <Select
-            style={{ width: 300 }}
-            placeholder="Select Designation"
-            color={"#000"}
-            labelField={"name"}
-            valueField={"name"}
-            options={designations}
-            dropdownGap={5}
-            onChange={(values) => setdesignation(values)}
-            noDataLabel="No matches found"
-          />
-          <TextField
-            id="subject"
-            label="Subject"
-            type="text"
-            variant="outlined"
-            style={{ width: 300 }}
-            margin="dense"
-            value={subject}
-            onChange={(e) => setsubject(e.target.value)}
-          />
-          <br />
-          <TextField
-            id="body"
-            label="Body"
-            type="text"
-            variant="outlined"
-            style={{ width: 300 }}
-            margin="dense"
+    <div className={styles.main}>
+      <div style={{ color: "red" }}>{error}</div>
+      <div className={styles.wrapper}>
+        <TextField
+          id="issuer"
+          label="Issuer Name"
+          type="text"
+          variant="outlined"
+          style={{ width: 300 }}
+          margin="dense"
+          value={issuer}
+          onChange={(e) => setissuer(e.target.value)}
+        />
+        <Select
+          style={{ width: 300 }}
+          placeholder="Select Designation"
+          color={"#000"}
+          labelField={"name"}
+          valueField={"name"}
+          options={designations}
+          dropdownGap={5}
+          onChange={(values) => setdesignation(values)}
+          noDataLabel="No matches found"
+        />
+        <TextField
+          id="subject"
+          label="Subject"
+          type="text"
+          variant="outlined"
+          style={{ width: 300 }}
+          margin="dense"
+          value={subject}
+          onChange={(e) => setsubject(e.target.value)}
+        />
+        <br />
+        <form>
+          <textarea
+            placeholder="Add a Notice Body..."
             value={body}
             onChange={(e) => setbody(e.target.value)}
-          />
-        </div>
+          ></textarea>
+        </form>
+      </div>
 
-        <div>
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Add Notice
-          </Button>
-        </div>
+      <div>
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
+          Add Notice
+        </Button>
       </div>
     </div>
   );

@@ -39,7 +39,7 @@ menu {
 
 /* Style page content */
 .main {
-  height: auto;
+  height: 100vh;
   margin-left: 250px; /* Same as the width of the sidebar */
   padding: 0px 10px;
 }
