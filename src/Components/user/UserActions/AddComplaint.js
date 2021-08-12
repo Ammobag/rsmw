@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import "./AddComplaint.module.css";
+import styles from "./AddComplaint.module.css";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
 import "firebase/database";
@@ -40,16 +40,16 @@ export default function AddComplaint() {
   };
 
   return (
-    <div className="body">
-      <div className="wrapper">
-        <h2>Create a Complaint</h2>
+    <div className={styles.main}>
+      <div>
+        <h2 style={{ textAlign: "center" }}>Create a Complaint</h2>
         {error && (
           <div>
             <h3 style={{ color: "red" }}>{error}</h3>
           </div>
         )}
         {status === 0 && (
-          <section>
+          <section className={styles.wrapper}>
             <TextField
               id="subject"
               label="Complaint Subject"
@@ -69,7 +69,7 @@ export default function AddComplaint() {
               ></textarea>
             </form>
 
-            <div className="buttonWrapper">
+            <div>
               <Button
                 variant="contained"
                 color="primary"
