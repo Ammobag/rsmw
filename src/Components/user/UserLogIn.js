@@ -52,38 +52,30 @@ export default function UserLogIn() {
         <img src={loginImage} alt="Login goes here" />
       </section>
       <section className={styles.loginSection}>
-        <div className={styles.userLoginBody}>
-          <div className={styles.wrapper}>
-            <div style={{ color: "red" }}>{error}</div>
-            <div className={styles.textFieldWrapper}>
-              <h1>John Doe Apartment</h1>
-              <div>
-                <input
-                  placeholder="Username"
-                  type="email"
-                  value={userName}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className={styles.inputField}
-                />
-              </div>
-              <div>
-                <input
-                  placeholder="Password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className={styles.inputField}
-                />
-              </div>
-            </div>
-            <div>
-              <button className={styles.loginButton} onClick={handleSubmit}>
-                Log In
-              </button>
-            </div>
-            <p className={styles.forgotPassword}>
-              Forgot password? <span>Click here.</span>
-            </p>
+        <div className={styles.wrapper}>
+          <div style={{ color: "red" }}>{error}</div>
+          <h1>John Doe Apartment</h1>
+          <div style={{ height: 30 }} />
+          <input
+            placeholder="Username"
+            type="email"
+            value={userName}
+            onChange={(e) => setUsername(e.target.value)}
+            className={styles.inputField}
+          />
+          <div style={{ height: 30 }} />
+          <input
+            placeholder="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={styles.inputField}
+          />
+          <div>
+            <div style={{ height: 30 }} />
+            <button className={styles.loginButton} onClick={handleSubmit}>
+              Log In
+            </button>
           </div>
         </div>
       </section>
