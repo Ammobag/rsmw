@@ -8,7 +8,6 @@ import "firebase/auth";
 import {} from "../firebase";
 import { likePost } from "../functions/dbquery";
 import { commentPost } from "../functions/dbquery";
-import Button from "@material-ui/core/Button";
 
 export default function UserFeed() {
   const history = useHistory();

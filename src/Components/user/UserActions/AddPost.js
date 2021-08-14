@@ -9,7 +9,7 @@ import "firebase/storage";
 import {} from "../../firebase";
 import { uploadPost } from "../../functions/dbquery";
 import { useHistory } from "react-router-dom";
-
+import UserNavigation from "../UserNavigation";
 // var database = firebase.database();
 
 // var Ref = database.ref('admin/');
@@ -20,8 +20,8 @@ import { useHistory } from "react-router-dom";
 
 export default function AddPost() {
   const [message, setMessage] = useState("");
-  const [image, setImage] = useState("");
-  const [displayImage, setdisplayImage] = useState("");
+  const [image, setImage] = useState(null);
+  const [displayImage, setdisplayImage] = useState(null);
   const [status, setstatus] = useState(0);
   const [progress, setprogress] = useState(0);
   const [error, seterror] = useState("");
@@ -29,6 +29,7 @@ export default function AddPost() {
   const history = useHistory();
 
   const handleImage = (e) => {
+    console.log("in handle image");
     setdisplayImage(URL.createObjectURL(e.target.files[0]));
     setImage(e.target.files[0]);
   };
@@ -107,70 +108,76 @@ export default function AddPost() {
   };
 
   return (
-    <div className={styles.body}>
-      <div className={styles.wrapper}>
-        <h2>Create a post</h2>
-        {error && (
-          <div>
-            <h3 style={{ color: "red" }}>{error}</h3>
-          </div>
-        )}
-        {status === 0 && (
-          <section>
-            <form>
-              <textarea
-                placeholder="What's on your mind?"
-                onChange={(e) => setMessage(e.target.value)}
-                value={message}
-              ></textarea>
-            </form>
-            <div className={styles.imageSelection}>
-              <p>Add a Image:</p>
-              <label className={styles.filebutton}>
-                <ImageIcon fontSize="large" />
-                <span>
-                  <input
-                    type="file"
-                    id="myfile"
-                    name="myfile"
-                    accept=".jpg, .png, .jpeg, .jfif, .gif, .bmp, .tif, .tiff|image/*"
-                    onChange={handleImage}
-                  />
-                </span>
-              </label>
+    <div>
+      <UserNavigation />
+      <div className={styles.body}>
+        <div className={styles.wrapper}>
+          <h2>Create a post</h2>
+          {error && (
+            <div>
+              <h3 style={{ color: "red" }}>{error}</h3>
             </div>
-            {displayImage && (
-              <img src={displayImage} style={{ width: 400 }} alt={"pic"} />
-            )}
-            <div className={styles.buttonWrapper}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSubmit}
-                disableElevation
-              >
-                Upload Post
-              </Button>
-            </div>
-          </section>
-        )}
+          )}
+          {status === 0 && (
+            <section>
+              <form>
+                <textarea
+                  placeholder="What's on your mind?"
+                  onChange={(e) => setMessage(e.target.value)}
+                  value={message}
+                ></textarea>
+              </form>
+              <div style={{ height: 30 }} />
+              <div className={styles.imageSelection}>
+                <p>Add a Image:</p>
+                <label className={styles.filebutton}>
+                  <ImageIcon fontSize="large" />
+                  <span>
+                    <input
+                      type="file"
+                      id="myfile"
+                      name="myfile"
+                      accept=".jpg, .png, .jpeg, .jfif, .gif, .bmp, .tif, .tiff|image/*"
+                      onChange={handleImage}
+                    />
+                  </span>
+                </label>
+              </div>
+              <div style={{ height: 30 }} />
+              {displayImage && (
+                <img src={displayImage} style={{ width: 400 }} alt={"pic"} />
+              )}
+              <div style={{ height: 30 }} />
+              <div className={styles.buttonWrapper}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                  disableElevation
+                >
+                  Upload Post
+                </Button>
+              </div>
+            </section>
+          )}
 
-        {status === 1 && (
-          <div style={{ padding: 50 }}>
-            <div>Uploading Files ...</div>
-            <div className={styles.progress}>
-              <div className={styles.bar} style={{ width: progress + "%" }}>
-                <p className={styles.percent}>{progress}%</p>
+          {status === 1 && (
+            <div style={{ padding: 50 }}>
+              <div>Uploading Files ...</div>
+              <div className={styles.progress}>
+                <div className={styles.bar} style={{ width: progress + "%" }}>
+                  <p className={styles.percent}>{progress}%</p>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {status === 2 && (
-          <div>
-            <h3 style={{ color: "green" }}>Uploaded Successfully</h3>
-          </div>
-        )}
+          {status === 2 && (
+            <div>
+              <h3 style={{ color: "green" }}>Uploaded Successfully</h3>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
