@@ -2,7 +2,6 @@ import { React, useState, useRef, useEffect } from "react";
 import styles from "./UserNavigation.module.css";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -127,15 +126,6 @@ export default function UserNavigation() {
             />
           </div>
           <div className={styles.navbarRight}>
-            {location.pathname === "/feed" && (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleAddPost}
-              >
-                Add Post
-              </Button>
-            )}
             <div className={styles.avatar}>
               <Avatar
                 alt="pic"

@@ -1,18 +1,26 @@
 import React from "react";
 import UserNavigation from "./UserNavigation";
 import "./UserFeed.css";
-
+import { useHistory } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
 import { likePost } from "../functions/dbquery";
 import { commentPost } from "../functions/dbquery";
+import Button from "@material-ui/core/Button";
 
 export default function UserFeed() {
+  const history = useHistory();
+  const handleAddPost = (e) => {
+    history.push("/addPost");
+  };
   return (
     <div className="main-body">
       <UserNavigation />
+      <button type="button" onClick={handleAddPost} className="addPostBtn">
+        +
+      </button>
       <div className="feed-page">
         <Application />
       </div>

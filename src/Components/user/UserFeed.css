@@ -10,34 +10,48 @@
   justify-content: center;
   align-items: center;
 }
+.addPostBtn {
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(33, 150, 243, 1);
+  border-radius: 50px;
+  border: none;
+  color: white;
+  font-size: 1.3rem;
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  z-index: 1;
+}
 
 .progress {
-  margin:20px auto;
-  padding:0;
+  margin: 20px auto;
+  padding: 0;
   width: 400px;
-  height:30px;
-  overflow:hidden;
-  background:#e5e5e5;
-  border-radius:6px;
+  height: 30px;
+  overflow: hidden;
+  background: #e5e5e5;
+  border-radius: 6px;
 }
 
 .bar {
-	position:relative;
-  float:left;
-  min-width:1%;
-  height:100%;
-  background:cornflowerblue;
+  position: relative;
+  float: left;
+  min-width: 1%;
+  height: 100%;
+  background: cornflowerblue;
 }
 
 .percent {
-	position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  margin:0;
-  font-family:tahoma,arial,helvetica;
-  font-size:12px;
-  color:white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-family: tahoma, arial, helvetica;
+  font-size: 12px;
+  color: white;
 }
 
 @import url("https://use.fontawesome.com/releases/v5.7.2/css/all.css");
@@ -243,7 +257,6 @@ body {
   width: 100%;
   max-height: 700px;
   overflow: hidden;
-  
 }
 
 .post-content img {
