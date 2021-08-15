@@ -130,18 +130,18 @@ export default function AddPost() {
               <div style={{ height: 30 }} />
               <div className={styles.imageSelection}>
                 <p>Add a Image:</p>
-                <label className={styles.filebutton}>
-                  <ImageIcon fontSize="large" />
-                  <span>
-                    <input
-                      type="file"
-                      id="myfile"
-                      name="myfile"
-                      accept=".jpg, .png, .jpeg, .jfif, .gif, .bmp, .tif, .tiff|image/*"
-                      onChange={handleImage}
-                    />
-                  </span>
+
+                <label for="myfile">
+                  <ImageIcon />
                 </label>
+
+                <input
+                  type="file"
+                  id="myfile"
+                  name="myfile"
+                  accept=".jpg, .png, .jpeg, .jfif, .gif, .bmp, .tif, .tiff|image/*"
+                  onChange={handleImage}
+                />
               </div>
               <div style={{ height: 30 }} />
               {displayImage && (

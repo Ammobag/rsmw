@@ -52,11 +52,20 @@
   align-items: center;
   justify-content: center;
 }
-.wrapper section .imageSelection {
+.imageSelection {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+.imageSelection label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+.imageSelection input {
+  display: none;
 }
 .wrapper section form {
   width: 90%;
@@ -81,21 +90,6 @@ label.filebutton {
   position: relative;
 }
 
-label span input {
-  z-index: 999;
-  line-height: 0;
-  font-size: 50px;
-  position: absolute;
-  top: -2px;
-  left: -700px;
-  opacity: 0;
-  filter: alpha(opacity = 0);
-  -ms-filter: "alpha(opacity=0)";
-  cursor: pointer;
-  cursor: hand;
-  margin: 0;
-  padding: 0;
-}
 @media only screen and (max-width: 600px) {
   .wrapper {
     height: 100vh;

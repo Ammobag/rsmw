@@ -7,8 +7,9 @@ import "firebase/database";
 import "firebase/auth";
 import "firebase/storage";
 import {} from "../firebase";
-import { uploadPost } from "../functions/dbquery";
 import { useHistory } from "react-router-dom";
+import UserNavigation from "./UserNavigation";
+import styles from "./UserProfile.module.css";
 
 // var database = firebase.database();
 
@@ -140,79 +141,87 @@ export default function UserProfile() {
   };
 
   return (
-    <div className="body">
-      <div className="wrapper">
-        <h2>User Profile</h2>
-        {error && (
-          <div>
-            <h3 style={{ color: "red" }}>{error}</h3>
-          </div>
-        )}
-        {status === 0 && (
-          <section>
-            {displayImage && (
-              <img
-                src={displayImage}
-                style={{ width: 200, height: 200, borderRadius: "50%" }}
-                alt={"pic"}
-              />
-            )}
-            <div className="imageSelection">
-              <p>Change your Profile Picture:</p>
-              <label class="filebutton">
-                <ImageIcon fontSize="large" />
-                <span>
-                  <input
-                    type="file"
-                    id="myfile"
-                    name="myfile"
-                    accept=".jpg, .png, .jpeg, .jfif, .gif, .bmp, .tif, .tiff|image/*"
-                    onChange={handleImage}
-                  />
-                </span>
-              </label>
-            </div>
-
+    <div>
+      <UserNavigation />
+      <div className={styles.body}>
+        <div className={styles.wrapper}>
+          <h2>User Profile</h2>
+          {error && (
             <div>
+              <h3 style={{ color: "red" }}>{error}</h3>
+            </div>
+          )}
+          {status === 0 && (
+            <section>
+              {displayImage && (
+                <img
+                  src={displayImage}
+                  style={{ width: 200, height: 200, borderRadius: "50%" }}
+                  alt={"pic"}
+                />
+              )}
+              <div style={{ height: 30 }} />
+              <div className={styles.imageSelection}>
+                <p>Change your Profile Picture:</p>
+                <label for="myfile">
+                  <ImageIcon />
+                </label>
+
+                <input
+                  type="file"
+                  id="myfile"
+                  name="myfile"
+                  accept=".jpg, .png, .jpeg, .jfif, .gif, .bmp, .tif, .tiff|image/*"
+                  onChange={handleImage}
+                />
+              </div>
+              <div style={{ height: 30 }} />
               {user && (
                 <div>
-                  Name : {user.name} <br />
-                  Email : {user.email} <br />
-                  Block No : {user.blockno} <br />
-                  Flat No : {user.flatno} <br />
+                  <div>Name : {user.name} </div>
+                  <div style={{ height: 30 }} />
+                  <div> Email : {user.email}</div>
+                  <div style={{ height: 30 }} />
+                  <div>Block No : {user.blockno}</div>
+                  <div style={{ height: 30 }} />
+                  <div> Flat No : {user.flatno}</div>
+                  <div style={{ height: 30 }} />
                 </div>
               )}
-            </div>
-            <div>Phone Number : </div>
-            <input
-              className="inputField"
-              value={phonenumber}
-              onChange={(e) => setphonenumber(e.target.value)}
-            />
+              <div className={styles.phoneNumberWrapper}>
+                <div>Phone Number : </div>
+                <input
+                  className="inputField"
+                  typr="tel"
+                  value={phonenumber}
+                  onChange={(e) => setphonenumber(e.target.value)}
+                />
+              </div>
+              <div style={{ height: 30 }} />
+              <div className="buttonWrapper">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                  disableElevation
+                >
+                  Update Profile
+                </Button>
+              </div>
+            </section>
+          )}
 
-            <div className="buttonWrapper">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSubmit}
-                disableElevation
-              >
-                Update Profile
-              </Button>
-            </div>
-          </section>
-        )}
-
-        {status === 1 && (
-          <div style={{ padding: 50 }}>
-            <div>Uploading Files ...</div>
-            <div className="progress">
-              <div className="bar" style={{ width: progress + "%" }}>
-                <p className="percent">{progress}%</p>
+          {status === 1 && (
+            <div style={{ padding: 50 }}>
+              <div>Uploading Files ...</div>
+              <div className="progress">
+                <div className="bar" style={{ width: progress + "%" }}>
+                  <p className="percent">{progress}%</p>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
