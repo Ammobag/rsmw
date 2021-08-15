@@ -47,7 +47,7 @@ export default function UserTransactions() {
 
   const __DEV__ = document.domain === 'localhost'
 
-  async function displayRazorpay(amount, id, user) {   
+  async function displayRazorpay(amount, id, users) {   
 
       const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
       
@@ -69,6 +69,7 @@ export default function UserTransactions() {
       })
       
       const {REACT_APP_RAZ_TEST_KEY_ID, REACT_APP_RAZ_PRODUCTION_KEY_ID} = process.env;
+      console.log("User :", users)
 
       const options = {
           key: __DEV__ ? REACT_APP_RAZ_TEST_KEY_ID : REACT_APP_RAZ_PRODUCTION_KEY_ID,
@@ -84,24 +85,24 @@ export default function UserTransactions() {
             firebase.database().ref("maintenance/" + id + "/").child("signature").set(response.razorpay_signature);
             firebase.database().ref("maintenance/" + id + "/").child("paidDate").set(i);
             firebase.database().ref("maintenance/" + id + "/").child("status").set("Paid");
-            history.replace("/transaction")
+            history.replace("/feed")
           }, 
           prefill: {
-              name : user.name,
-              email: user.email,
+              name : users.name,
+              email: users.email,
           }
       }
       const paymentObject = new window.Razorpay(options);
       paymentObject.open()
   }
 
-  const payButton=(status, amount, id, user) => {
+  const payButton=(status, amount, id, users) => {
     if(status != "Paid"){
       return(
           <Button
             variant="contained"
             color="primary"
-            onClick={(e) => displayRazorpay(amount, id, user)}
+            onClick={(e) => displayRazorpay(amount, id, users)}
             style={{ margin: 8 }}
           >
             Pay Now
@@ -125,18 +126,18 @@ export default function UserTransactions() {
         
         var Ref = database.ref("users/" + element.UID + "/");
         Ref.once("value", (snapshot) => {
-          var user = snapshot.val();
+          var users = snapshot.val();
           console.log(fetch);
           setfetch(true);
           var insert = {
             col1: element.UID,
-            col2: user.name,
+            col2: users.name,
             col3: element.amount,
             col4: element.dueMonth,
             col5: element.dueYear,
             col6: element.status,
             col7: element.paidDate,
-            col8: payButton(element.status, element.amount, key, user),
+            col8: payButton(element.status, element.amount, key, users),
           };
 
           list.push(insert);

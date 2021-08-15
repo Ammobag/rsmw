@@ -15,7 +15,7 @@
   justify-content: center;
   align-items: center;
   background-color: var(--table-background);
-  border-radius: 100px;
+  border-radius: 30px;
 }
 .wrapper {
   display: flex;

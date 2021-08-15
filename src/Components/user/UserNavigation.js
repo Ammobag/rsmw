@@ -20,6 +20,7 @@ import logout from "../functions/logout";
 
 export default function UserNavigation() {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [user, setUser] = useState(null)
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
   const history = useHistory();
@@ -84,6 +85,17 @@ export default function UserNavigation() {
     width: "0px",
   };
 
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      var database = firebase.database();
+      var Ref = database.ref("users/" + user.uid + "/");
+      Ref.once("value", (snapshot) => {
+        var query = snapshot.val();
+        setUser(query);
+      });
+    }
+  });
+
   return (
     <div>
       <div className={styles.sidenav} style={isNavOpen ? openNav : closeNav}>
@@ -127,14 +139,18 @@ export default function UserNavigation() {
           </div>
           <div className={styles.navbarRight}>
             <div className={styles.avatar}>
-              <Avatar
-                alt="pic"
-                src="https://randomuser.me/api/portraits/med/men/58.jpg"
-                ref={anchorRef}
-                aria-controls={open ? "menu-list-grow" : undefined}
-                aria-haspopup="true"
-                onClick={handleToggle}
-              />
+              <div style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                <div style={{margin: 8, color: "#ffffff"}}>{user ? user.name: ""}</div>
+                <Avatar
+                  alt="pic"
+                  src={user ? user.image : "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44"}
+                  style={{objectFit:"cover"}}
+                  ref={anchorRef}
+                  aria-controls={open ? "menu-list-grow" : undefined}
+                  aria-haspopup="true"
+                  onClick={handleToggle}
+                />
+              </div>
               <Popper
                 open={open}
                 anchorEl={anchorRef.current}
