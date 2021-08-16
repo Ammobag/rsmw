@@ -76,7 +76,7 @@
   cursor: pointer;
   width: 250px;
   height: 70px;
-  background-color: rgba(33, 150, 243, 1);
+  background-color: var(--primary);
   border-radius: 25px;
   border: none;
   color: white;
@@ -109,7 +109,7 @@
     cursor: pointer;
     width: 40vw;
     height: 7vh;
-    background-color: rgba(33, 150, 243, 1);
+    background-color: var(--primary);
     border-radius: 25px;
     border: none;
     color: white;

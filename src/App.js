@@ -15,7 +15,7 @@ import AddComplaint from "./Components/user/UserActions/AddComplaint";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#2196F3",
+      main: "#FFB740",
     },
     secondary: {
       main: "#F2F2F2",
