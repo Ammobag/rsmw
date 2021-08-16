@@ -43,14 +43,10 @@ export default function UserTransactions() {
 
   const __DEV__ = document.domain === "localhost";
 
-<<<<<<< HEAD
-  async function displayRazorpay(amount, id, user) {
+  async function displayRazorpay(amount, id, users) {
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
-=======
-  async function displayRazorpay(amount, id, users) {   
->>>>>>> 4.0AppSI
 
     if (!res) {
       alert("Razorpay SDK failed to load. Are you online?");
