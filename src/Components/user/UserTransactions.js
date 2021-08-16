@@ -43,10 +43,14 @@ export default function UserTransactions() {
 
   const __DEV__ = document.domain === "localhost";
 
+<<<<<<< HEAD
   async function displayRazorpay(amount, id, user) {
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
+=======
+  async function displayRazorpay(amount, id, users) {   
+>>>>>>> 4.0AppSI
 
     if (!res) {
       alert("Razorpay SDK failed to load. Are you online?");
@@ -61,74 +65,52 @@ export default function UserTransactions() {
       amount: cartAmount,
     };
 
-    const query = await axios.post("http://localhost:8080/pay", {
-      amount: cartAmount,
-    });
+      const query = await axios.post("http://localhost:8080/pay", {
+        amount : cartAmount,
+      })
+      
+      const {REACT_APP_RAZ_TEST_KEY_ID, REACT_APP_RAZ_PRODUCTION_KEY_ID} = process.env;
+      console.log("User :", users)
 
-    const { REACT_APP_RAZ_TEST_KEY_ID, REACT_APP_RAZ_PRODUCTION_KEY_ID } =
-      process.env;
-
-    const options = {
-      key: __DEV__
-        ? REACT_APP_RAZ_TEST_KEY_ID
-        : REACT_APP_RAZ_PRODUCTION_KEY_ID,
-      currency: "INR",
-      amount: query.data.amount,
-      order_id: query.data.id,
-      name: "Ideal Villa",
-      description: "Make your payment",
-
-      handler: function (response) {
-        firebase
-          .database()
-          .ref("maintenance/" + id + "/")
-          .child("paymentID")
-          .set(response.razorpay_payment_id);
-        firebase
-          .database()
-          .ref("maintenance/" + id + "/")
-          .child("orderID")
-          .set(response.razorpay_order_id);
-        firebase
-          .database()
-          .ref("maintenance/" + id + "/")
-          .child("signature")
-          .set(response.razorpay_signature);
-        firebase
-          .database()
-          .ref("maintenance/" + id + "/")
-          .child("paidDate")
-          .set(i);
-        firebase
-          .database()
-          .ref("maintenance/" + id + "/")
-          .child("status")
-          .set("Paid");
-        history.replace("/transaction");
-      },
-      prefill: {
-        name: user.name,
-        email: user.email,
-      },
-    };
-    const paymentObject = new window.Razorpay(options);
-    paymentObject.open();
+      const options = {
+          key: __DEV__ ? REACT_APP_RAZ_TEST_KEY_ID : REACT_APP_RAZ_PRODUCTION_KEY_ID,
+          currency: "INR",
+          amount: query.data.amount,
+          order_id: query.data.id,
+          name: 'Ideal Villa',
+          description: 'Make your payment',
+          
+          handler: function (response) {
+            firebase.database().ref("maintenance/" + id + "/").child("paymentID").set(response.razorpay_payment_id);
+            firebase.database().ref("maintenance/" + id + "/").child("orderID").set(response.razorpay_order_id);
+            firebase.database().ref("maintenance/" + id + "/").child("signature").set(response.razorpay_signature);
+            firebase.database().ref("maintenance/" + id + "/").child("paidDate").set(i);
+            firebase.database().ref("maintenance/" + id + "/").child("status").set("Paid");
+            history.replace("/feed")
+          }, 
+          prefill: {
+              name : users.name,
+              email: users.email,
+          }
+      }
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open()
   }
 
-  const payButton = (status, amount, id, user) => {
-    if (status != "Paid") {
-      return (
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={(e) => displayRazorpay(amount, id, user)}
-          style={{ margin: 8 }}
-        >
-          Pay Now
-        </Button>
-      );
-    } else {
-      return <div>Already Paid</div>;
+  const payButton=(status, amount, id, users) => {
+    if(status != "Paid"){
+      return(
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={(e) => displayRazorpay(amount, id, users)}
+            style={{ margin: 8 }}
+          >
+            Pay Now
+          </Button>
+      )
+    }else{
+      return(<div>Already Paid</div>)
     }
   };
 
@@ -145,18 +127,18 @@ export default function UserTransactions() {
 
         var Ref = database.ref("users/" + element.UID + "/");
         Ref.once("value", (snapshot) => {
-          var user = snapshot.val();
+          var users = snapshot.val();
           console.log(fetch);
           setfetch(true);
           var insert = {
             col1: element.UID,
-            col2: user.name,
+            col2: users.name,
             col3: element.amount,
             col4: element.dueMonth,
             col5: element.dueYear,
             col6: element.status,
             col7: element.paidDate,
-            col8: payButton(element.status, element.amount, key, user),
+            col8: payButton(element.status, element.amount, key, users),
           };
 
           list.push(insert);

@@ -387,6 +387,9 @@ class PostObj {
               this.comments.push({
                 userLength: query.name,
                 avatar:
+                  query.image ?
+                  query.image
+                  :
                   "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
                 text: element.comments,
                 type: "user",
@@ -569,6 +572,9 @@ class PostWall extends React.Component {
                 update: this.updateState,
                 id: element.postID,
                 avatar:
+                  user.image ?
+                  user.image
+                  :
                   "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
                 nameLength: user.name,
                 img: element.image,
@@ -888,7 +894,7 @@ class Post extends React.Component {
             isExpanded={this.state.commentsExpanded}
             hideComment={this.hideComment}
           />
-          <CommentInput addCommentHandler={this.addCommentDecorator} />
+          <CommentInput userAvatar={this.props.args.avatar} addCommentHandler={this.addCommentDecorator} />
         </div>
       </div>
     );
@@ -904,7 +910,7 @@ class Comments extends React.Component {
       return (
         <div className="comment" key={i}>
           <div className="user-avatar">
-            <img src={val.avatar} alt="author avatar"></img>
+            <img src={val.avatar} style={{objectFit: "cover"}} alt="author avatar"></img>
           </div>
           <div className="user-data">
             <div className="username">{val.userLength}</div>
@@ -937,7 +943,7 @@ class UserInfo extends React.Component {
     return (
       <div className="user-info">
         <div className="user-avatar">
-          <img src={this.props.userAvatar} alt="author"></img>
+          <img src={this.props.userAvatar} style={{objectFit: "cover"}} alt="author"></img>
         </div>
 
         <div className="user-data">
@@ -971,24 +977,44 @@ class PostInfo extends React.Component {
             <div className="count">{this.props.commentsCount}</div>
           </a>
         </div>
-        <div className="views">
-          <div className="icon">
-            <i className="fas fa-eye"></i>
-          </div>
-          <div className="count">{this.props.views}</div>
-        </div>
       </div>
     );
   }
 }
 
 class CommentInput extends React.Component {
+
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       user: null,
+    }
+  }
+
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        var database = firebase.database();
+        var Ref = database.ref("users/" + user.uid + "/");
+        Ref.once("value", (snapshot) => {
+          var query = snapshot.val();
+          this.setState({
+            user: query,
+          })
+        });
+      }
+    });
+  } 
+  
+
   render() {
     return (
       <div className="comment-input">
         <div className="user-avatar">
           <img
-            src="https://justmonk.github.io/react-news-feed-spa-demo/img/user-avatar.jpg"
+            src={this.state.user ? this.state.user.image : "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44"}
+            style={{objectFit:"cover"}}
             alt="user avatar"
           ></img>
         </div>
@@ -1015,3 +1041,5 @@ class PostContent extends React.Component {
     );
   }
 }
+
+

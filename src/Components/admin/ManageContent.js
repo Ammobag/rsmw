@@ -21,6 +21,9 @@ export default function ManageContent() {
   var list = [];
   var database = firebase.database();
   const history = useHistory();
+  console.log(query);
+
+  console.log(data.length, sizeObject(query))
 
   if (data.length !== sizeObject(query) && !searchInput) {
     for (const key in query) {

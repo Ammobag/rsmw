@@ -47,7 +47,6 @@ export default function UserLogIn() {
 
   return (
     <div className={styles.body}>
-      <div style={{ color: "red" }}>{error}</div>
       <div className={styles.adminLogInBody}>
         <div className={styles.wrapper}>
           <div style={{ color: "red" }}>{error}</div>
