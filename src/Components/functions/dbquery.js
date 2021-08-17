@@ -82,6 +82,22 @@ export function uploadPost(UID, body, image) {
     });
 }
 
+export function uploadClassified(UID, body, image, phone, email, address) {
+  var timestamp = Date.now();
+  firebase
+    .database()
+    .ref("classified/" + timestamp + "/")
+    .set({
+      UID: UID,
+      timestamp: timestamp,
+      caption: body,
+      images: image,
+      phoneNumber: phone,
+      email: email,
+      address: address,
+    });
+}
+
 export function likePost(UID, postID, value) {
   firebase
     .database()

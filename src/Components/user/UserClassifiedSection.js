@@ -24,7 +24,7 @@ export default function UserClassifiedSection() {
   }
 
   const handleAddPost = (e) => {
-    history.push("/addPost");
+    history.push("/addClassified");
   };
 
   const UserName = ({uid}) => {
@@ -72,9 +72,10 @@ export default function UserClassifiedSection() {
        
       </div>
       <div className={styles.message}>{value.caption}</div>
-      <div className={styles.contact}>Phone : {value.phoneNumber}</div>
-      <div className={styles.contact}>Email : {value.email}</div>
-      <div className={styles.contact} style={{marginBottom: "20px"}}>Address : {value.address}</div>
+      { value.phoneNumber && <div className={styles.contact}>Phone : {value.phoneNumber}</div>}
+      { value.email && <div className={styles.contact}>Email : {value.email}</div>}
+      { value.address && <div className={styles.contact} >Address : {value.address}</div>}
+      <div style={{marginBottom: "20px"}}></div>
       <DisplayImage url={value.images}/>
     </div>
   ));
