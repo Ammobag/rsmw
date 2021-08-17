@@ -2,20 +2,33 @@
   background-color: #ffffff;
   width: 80%;
   margin: 20px;
-  padding: 50px;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 5px 10px 18px #888888;
 }
 
-.contact{
+.contact {
   font-style: italic;
   font-size: 10pt;
 }
 
-.message{
+.message {
   margin: 20px 0px;
 }
-
+.img {
+  width: 48%;
+  height: 300px;
+  object-fit: cover;
+  margin: 0px 5px;
+}
+@media only screen and (max-width: 1000px) {
+  .img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    margin: 0px 0px;
+  }
+}
 .info {
   display: flex;
   flex-direction: row;

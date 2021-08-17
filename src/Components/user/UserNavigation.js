@@ -20,7 +20,7 @@ import logout from "../functions/logout";
 
 export default function UserNavigation() {
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
   const history = useHistory();
@@ -139,12 +139,25 @@ export default function UserNavigation() {
           </div>
           <div className={styles.navbarRight}>
             <div className={styles.avatar}>
-              <div style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
-                <div style={{margin: 8, color: "#ffffff"}}>{user ? user.name: ""}</div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <div style={{ margin: 8, color: "#ffffff" }}>
+                  {user ? user.name : ""}
+                </div>
                 <Avatar
                   alt="pic"
-                  src={user ? user.image : "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44"}
-                  style={{objectFit:"cover"}}
+                  src={
+                    user
+                      ? user.image
+                      : "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44"
+                  }
+                  style={{ objectFit: "cover" }}
                   ref={anchorRef}
                   aria-controls={open ? "menu-list-grow" : undefined}
                   aria-haspopup="true"
