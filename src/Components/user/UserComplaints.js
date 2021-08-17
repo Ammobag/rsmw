@@ -61,12 +61,18 @@ export default function UserComplaints() {
         >
           Lodge new Complaint
         </Button>
-        <br />
-        <br />
-        <div>
+        <div style={{ height: 30 }} />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <h2 style={{ textAlign: "center", margin: "1rem" }}>
             Check Complaint Status
           </h2>
+          <div style={{ height: 30 }} />
           <TextField
             id="token"
             label="Complaint Token"
@@ -77,6 +83,7 @@ export default function UserComplaints() {
             value={token}
             onChange={(e) => settoken(e.target.value)}
           />
+          <div style={{ height: 30 }} />
           <Button
             variant="contained"
             color="primary"
@@ -85,6 +92,7 @@ export default function UserComplaints() {
           >
             Check Status
           </Button>
+          <div style={{ height: 30 }} />
         </div>
         <br />
         <div style={{ color: "red" }}>{error}</div>

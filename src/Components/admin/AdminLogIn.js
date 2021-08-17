@@ -48,34 +48,31 @@ export default function UserLogIn() {
   return (
     <div className={styles.body}>
       <div style={{ color: "red" }}>{error}</div>
-      <div className={styles.adminLogInBody}>
-        <div className={styles.wrapper}>
-          <div style={{ color: "red" }}>{error}</div>
+      <div className={styles.wrapper}>
+        <div>
           <div>
-            <div>
-              <input
-                placeholder="Username"
-                type="email"
-                value={userName}
-                onChange={(e) => setUsername(e.target.value)}
-                className={styles.inputField}
-              />
-            </div>
-            <div>
-              <input
-                placeholder="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className={styles.inputField}
-              />
-            </div>
+            <input
+              placeholder="Username"
+              type="email"
+              value={userName}
+              onChange={(e) => setUsername(e.target.value)}
+              className={styles.inputField}
+            />
           </div>
           <div>
-            <button className={styles.loginButton} onClick={handleSubmit}>
-              Log In
-            </button>
+            <input
+              placeholder="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className={styles.inputField}
+            />
           </div>
+        </div>
+        <div>
+          <button className={styles.loginButton} onClick={handleSubmit}>
+            Log In
+          </button>
         </div>
       </div>
     </div>

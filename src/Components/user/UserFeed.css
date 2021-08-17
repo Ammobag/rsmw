@@ -14,7 +14,7 @@
   cursor: pointer;
   width: 60px;
   height: 60px;
-  background-color: rgba(33, 150, 243, 1);
+  background-color: var(--primary);
   border-radius: 50px;
   border: none;
   color: white;
