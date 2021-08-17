@@ -61,52 +61,75 @@ export default function UserTransactions() {
       amount: cartAmount,
     };
 
-      const query = await axios.post("http://localhost:8080/pay", {
-        amount : cartAmount,
-      })
-      
-      const {REACT_APP_RAZ_TEST_KEY_ID, REACT_APP_RAZ_PRODUCTION_KEY_ID} = process.env;
-      console.log("User :", users)
+    const query = await axios.post("http://localhost:8080/pay", {
+      amount: cartAmount,
+    });
 
-      const options = {
-          key: __DEV__ ? REACT_APP_RAZ_TEST_KEY_ID : REACT_APP_RAZ_PRODUCTION_KEY_ID,
-          currency: "INR",
-          amount: query.data.amount,
-          order_id: query.data.id,
-          name: 'Ideal Villa',
-          description: 'Make your payment',
-          
-          handler: function (response) {
-            firebase.database().ref("maintenance/" + id + "/").child("paymentID").set(response.razorpay_payment_id);
-            firebase.database().ref("maintenance/" + id + "/").child("orderID").set(response.razorpay_order_id);
-            firebase.database().ref("maintenance/" + id + "/").child("signature").set(response.razorpay_signature);
-            firebase.database().ref("maintenance/" + id + "/").child("paidDate").set(i);
-            firebase.database().ref("maintenance/" + id + "/").child("status").set("Paid");
-            history.replace("/feed")
-          }, 
-          prefill: {
-              name : users.name,
-              email: users.email,
-          }
-      }
-      const paymentObject = new window.Razorpay(options);
-      paymentObject.open()
+    const { REACT_APP_RAZ_TEST_KEY_ID, REACT_APP_RAZ_PRODUCTION_KEY_ID } =
+      process.env;
+    console.log("User :", users);
+
+    const options = {
+      key: __DEV__
+        ? REACT_APP_RAZ_TEST_KEY_ID
+        : REACT_APP_RAZ_PRODUCTION_KEY_ID,
+      currency: "INR",
+      amount: query.data.amount,
+      order_id: query.data.id,
+      name: "Ideal Villa",
+      description: "Make your payment",
+
+      handler: function (response) {
+        firebase
+          .database()
+          .ref("maintenance/" + id + "/")
+          .child("paymentID")
+          .set(response.razorpay_payment_id);
+        firebase
+          .database()
+          .ref("maintenance/" + id + "/")
+          .child("orderID")
+          .set(response.razorpay_order_id);
+        firebase
+          .database()
+          .ref("maintenance/" + id + "/")
+          .child("signature")
+          .set(response.razorpay_signature);
+        firebase
+          .database()
+          .ref("maintenance/" + id + "/")
+          .child("paidDate")
+          .set(i);
+        firebase
+          .database()
+          .ref("maintenance/" + id + "/")
+          .child("status")
+          .set("Paid");
+        history.replace("/feed");
+      },
+      prefill: {
+        name: users.name,
+        email: users.email,
+      },
+    };
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
   }
 
-  const payButton=(status, amount, id, users) => {
-    if(status != "Paid"){
-      return(
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={(e) => displayRazorpay(amount, id, users)}
-            style={{ margin: 8 }}
-          >
-            Pay Now
-          </Button>
-      )
-    }else{
-      return(<div>Already Paid</div>)
+  const payButton = (status, amount, id, users) => {
+    if (status !== "Paid") {
+      return (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={(e) => displayRazorpay(amount, id, users)}
+          style={{ margin: 8 }}
+        >
+          Pay Now
+        </Button>
+      );
+    } else {
+      return <div>Already Paid</div>;
     }
   };
 
@@ -212,10 +235,8 @@ export default function UserTransactions() {
     <div className={styles.userTransactions}>
       <UserNavigation />
       <div className={styles.transactionsWrapper}>
-        <div className={styles.dueSection}>
-          <div className={styles.due}>Amount Due : </div>
-          <div className={styles.dueAmount}>₹ {amount}</div>
-        </div>
+        <h1 className={styles.dueSection}>Amount Due : ₹ {amount}</h1>
+        <div style={{ height: 30 }} />
         <div className={styles.tableWrapper}>
           <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
             <thead>

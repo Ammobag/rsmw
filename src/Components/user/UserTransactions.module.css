@@ -3,6 +3,9 @@
   width: 100%;
   display: flex;
 }
+.dueSection {
+  text-align: center;
+}
 .transactionsWrapper {
   margin: auto;
 }
