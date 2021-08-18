@@ -27,36 +27,32 @@ export default function UserClassifiedSection() {
     history.push("/addClassified");
   };
 
-  const UserName = ({uid}) => {
-    const [user, setUser] = useState(null)
-    if(!user){
+  const UserName = ({ uid }) => {
+    const [user, setUser] = useState(null);
+    if (!user) {
       var Ref = database.ref("users/" + uid + "/");
       Ref.once("value", (snapshot) => {
         var users = snapshot.val();
-        setUser(users)
-      
+        setUser(users);
       });
     }
 
-    if(user){
-      return(<div>{user.name}</div>);
-    }else{
-      return(<div>Loading...</div>);
+    if (user) {
+      return <div>{user.name}</div>;
+    } else {
+      return <div>Loading...</div>;
     }
-    
-  }
+  };
 
-  const DisplayImage = ({url}) => {
-    var links = url.split("|||")
-    console.log(links)
-    return(
-      links.map((link, index) =>(
-        <span key={index}>
-          <img src={link} style={{width: "48%", height: 300, objectFit: "cover", margin: "0px 5px",}} />
-        </span>
-      ))
-    )
-  }
+  const DisplayImage = ({ url }) => {
+    var links = url.split("|||");
+    console.log(links);
+    return links.map((link, index) => (
+      <span key={index}>
+        <img alt="img" src={link} className={styles.img} />
+      </span>
+    ));
+  };
 
   console.log(data);
 
@@ -64,19 +60,22 @@ export default function UserClassifiedSection() {
     <div className={styles.notice} key={index}>
       <div className={styles.info}>
         <div className={styles.issuer}>
-          <UserName uid ={value.UID}/>
-          <div className={styles.issuerDesignation}>
-            {value.timestamp}
-          </div>
+          <UserName uid={value.UID} />
+          <div className={styles.issuerDesignation}>{value.timestamp}</div>
         </div>
-       
       </div>
       <div className={styles.message}>{value.caption}</div>
-      { value.phoneNumber && <div className={styles.contact}>Phone : {value.phoneNumber}</div>}
-      { value.email && <div className={styles.contact}>Email : {value.email}</div>}
-      { value.address && <div className={styles.contact} >Address : {value.address}</div>}
-      <div style={{marginBottom: "20px"}}></div>
-      <DisplayImage url={value.images}/>
+      {value.phoneNumber && (
+        <div className={styles.contact}>Phone : {value.phoneNumber}</div>
+      )}
+      {value.email && (
+        <div className={styles.contact}>Email : {value.email}</div>
+      )}
+      {value.address && (
+        <div className={styles.contact}>Address : {value.address}</div>
+      )}
+      <div style={{ marginBottom: "20px" }}></div>
+      <DisplayImage url={value.images} />
     </div>
   ));
 

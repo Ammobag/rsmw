@@ -2,7 +2,7 @@
   background-color: #ffffff;
   width: 80%;
   margin: 20px 0;
-  padding: 40px;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 5px 10px 18px #888888;
 }
@@ -25,7 +25,7 @@
   font-size: 120%;
 }
 .feedPage {
-  margin-top: 50px;
+  margin-top: 60px;
   width: 50vw;
   background-color: var(--secondary);
   margin-left: auto;
@@ -37,7 +37,7 @@
 }
 @media only screen and (max-width: 500px) {
   .feedPage {
-    margin-top: 50px;
+    margin-top: 60px;
     width: 100vw;
     background-color: var(--secondary);
     margin-left: auto;
@@ -50,7 +50,7 @@
 }
 @media only screen and (max-width: 625px) {
   .feedPage {
-    margin-top: 50px;
+    margin-top: 60px;
     width: 100vw;
     background-color: var(--secondary);
     margin-left: auto;

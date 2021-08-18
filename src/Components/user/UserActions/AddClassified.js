@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import styles from "./AddPost.module.css";
+import styles from "./AddClassified.module.css";
 import ImageIcon from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
@@ -31,71 +31,72 @@ export default function AddClassified() {
 
   const handleImage = (e) => {
     console.log("in handle image");
-    console.log(e.target.files)
+    console.log(e.target.files);
     setImage(e.target.files);
   };
 
-
-
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     if (image && message) {
       setstatus(1);
 
-      let imageLinks = ""
+      let imageLinks = "";
       for (let i = 0; i < image.length; i++) {
-        const element = image[i]
+        const element = image[i];
         var timestamp = Date.now();
         var storageRef = firebase.storage().ref();
         var filename = timestamp + element.name;
         var uploadTask = await storageRef
           .child("classified/" + filename)
-          .put(element)
+          .put(element);
 
-        var uploadLink = await storageRef.child("classified/" + filename).getDownloadURL() 
-        
+        var uploadLink = await storageRef
+          .child("classified/" + filename)
+          .getDownloadURL();
 
-        imageLinks = imageLinks.concat(uploadLink)
-        
-        
-        if(i != image.length - 1) {
-          imageLinks = imageLinks.concat("|||")
+        imageLinks = imageLinks.concat(uploadLink);
+
+        if (i != image.length - 1) {
+          imageLinks = imageLinks.concat("|||");
         }
-        
       }
 
-        console.log("Temp Final",imageLinks)
-        
-        firebase.auth().onAuthStateChanged((user) => {
-          if (user) {
-            console.log("File available at", imageLinks);
-            var uid = user.uid;
-            uploadClassified(uid, message, imageLinks, phone, email, address);
-            setstatus(2);
-            setTimeout(() => {
-              history.replace("/classifiedSection");
-            }, 2000);
-          }
-        });
-            
+      console.log("Temp Final", imageLinks);
+
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          console.log("File available at", imageLinks);
+          var uid = user.uid;
+          uploadClassified(uid, message, imageLinks, phone, email, address);
+          setstatus(2);
+          setTimeout(() => {
+            history.replace("/classifiedSection");
+          }, 2000);
+        }
+      });
     } else {
       seterror("Enter all the fields");
     }
   };
 
-  const DisplayImage = ({image}) => {
-    var img = []
+  const DisplayImage = ({ image }) => {
+    var img = [];
     for (let i = 0; i < image.length; i++) {
-      img.push(image[i])
-         
-    } 
-    console.log(img)
-    
-    return(
-        img.map((value, index) =>(
-          <img src={URL.createObjectURL(value)} style={{ width: 400, margin: 10 }} key={index} alt={"pic"} />
-        ))
-    )  
-  }
+      img.push(image[i]);
+    }
+    console.log(img);
+
+    return img.map((value, index) => (
+      <>
+        <div style={{ height: 30 }} />
+        <img
+          src={URL.createObjectURL(value)}
+          style={{ width: 400, margin: 10 }}
+          key={index}
+          alt={"pic"}
+        />
+      </>
+    ));
+  };
 
   return (
     <div>
@@ -116,22 +117,29 @@ export default function AddClassified() {
                   onChange={(e) => setMessage(e.target.value)}
                   value={message}
                 ></textarea>
+                <div style={{ height: 30 }} />
                 <p>Contact Info</p>
+                <div style={{ height: 30 }} />
                 <input
                   placeholder="Phone Number"
+                  type="tel"
                   onChange={(e) => setPhone(e.target.value)}
                   value={phone}
                 />
+                <div style={{ height: 30 }} />
                 <input
+                  type="email"
                   placeholder="Email"
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                 />
+                <div style={{ height: 30 }} />
                 <input
                   placeholder="Address"
                   onChange={(e) => setAddress(e.target.value)}
                   value={address}
                 />
+                <div style={{ height: 30 }} />
               </form>
               <div style={{ height: 30 }} />
               <div className={styles.imageSelection}>
@@ -150,7 +158,6 @@ export default function AddClassified() {
                   multiple
                 />
               </div>
-              <div style={{ height: 30 }} />
               {image && (
                 <DisplayImage image={image} />
 

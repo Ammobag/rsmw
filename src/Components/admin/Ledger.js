@@ -135,7 +135,12 @@ export default function Ledger() {
               value={searchInput}
               onChange={(e) => setsearchInput(e.target.value)}
             />
-            <Button variant="contained" color="primary" onClick={globalSearch}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={globalSearch}
+              className={styles.addNewTransactionBtn}
+            >
               <SearchIcon />
             </Button>
           </div>
@@ -145,6 +150,7 @@ export default function Ledger() {
             color="primary"
             onClick={handleAdd}
             disableElevation
+            style={{ width: 300 }}
           >
             Add New Transaction
           </Button>
