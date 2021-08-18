@@ -11,6 +11,7 @@ export default function UserLogIn() {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, seterror] = useState("");
+  const [loading, setLoading] = useState(true)
 
   const history = useHistory();
   firebase.auth().onAuthStateChanged((user) => {
@@ -20,6 +21,8 @@ export default function UserLogIn() {
       if (uid !== undefined) {
         console.log(uid);
         history.replace("/feed");
+      }else{
+        setLoading(false)
       }
     }
   });
@@ -46,39 +49,48 @@ export default function UserLogIn() {
     setPassword("");
   };
 
-  return (
-    <div className={styles.main}>
-      <section className={styles.loginImage}>
-        <img src={loginImage} alt="Login goes here" />
-      </section>
-      <section className={styles.loginSection}>
-        <div className={styles.wrapper}>
-          <div style={{ color: "red" }}>{error}</div>
-          <h1>John Doe Apartment</h1>
-          <div style={{ height: 30 }} />
-          <input
-            placeholder="Username"
-            type="email"
-            value={userName}
-            onChange={(e) => setUsername(e.target.value)}
-            className={styles.inputField}
-          />
-          <div style={{ height: 30 }} />
-          <input
-            placeholder="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className={styles.inputField}
-          />
-          <div>
+  if(loading){
+    return(
+      <div className={styles.container}>
+        <div className={styles.donut}></div>
+      </div>
+    )
+  }else{
+
+    return (
+      <div className={styles.main}>
+        <section className={styles.loginImage}>
+          <img src={loginImage} alt="Login goes here" />
+        </section>
+        <section className={styles.loginSection}>
+          <div className={styles.wrapper}>
+            <div style={{ color: "red" }}>{error}</div>
+            <h1>Ideal Villas</h1>
             <div style={{ height: 30 }} />
-            <button className={styles.loginButton} onClick={handleSubmit}>
-              Log In
-            </button>
+            <input
+              placeholder="Username"
+              type="email"
+              value={userName}
+              onChange={(e) => setUsername(e.target.value)}
+              className={styles.inputField}
+            />
+            <div style={{ height: 30 }} />
+            <input
+              placeholder="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className={styles.inputField}
+            />
+            <div>
+              <div style={{ height: 30 }} />
+              <button className={styles.loginButton} onClick={handleSubmit}>
+                Log In
+              </button>
+            </div>
           </div>
-        </div>
-      </section>
-    </div>
-  );
+        </section>
+      </div>
+    );
+  }
 }
