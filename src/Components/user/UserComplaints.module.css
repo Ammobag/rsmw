@@ -33,7 +33,7 @@
   background-color: #ffffff;
   width: 80%;
   margin: 20px;
-  padding: 50px;
+  padding: 30px;
   border-radius: 10px;
   box-shadow: 5px 10px 18px #888888;
 }
@@ -45,6 +45,7 @@
   background-color: #ffffff;
 }
 .feedPage {
+  min-height: 100vh;
   margin-top: 50px;
   width: 50vw;
   background-color: var(--secondary);

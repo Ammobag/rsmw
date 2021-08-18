@@ -4,7 +4,8 @@ import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
-import loginImage from "../../Assets/loginImage.jpg";
+import loginImage from "../../Assets/loginImage2.jpg";
+import logo from "../../Assets/logo.png";
 import styles from "./UserLogIn.module.css";
 
 export default function UserLogIn() {
@@ -54,7 +55,7 @@ export default function UserLogIn() {
       <section className={styles.loginSection}>
         <div className={styles.wrapper}>
           <div style={{ color: "red" }}>{error}</div>
-          <h1>John Doe Apartment</h1>
+          <img src={logo} alt="Logo" />
           <div style={{ height: 30 }} />
           <input
             placeholder="Username"
