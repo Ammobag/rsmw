@@ -23,7 +23,7 @@ export default function ManageContent() {
   const history = useHistory();
   console.log(query);
 
-  console.log(data.length, sizeObject(query))
+  console.log(data.length, sizeObject(query));
 
   if (data.length !== sizeObject(query) && !searchInput) {
     for (const key in query) {
@@ -171,7 +171,7 @@ export default function ManageContent() {
             type="text"
             variant="outlined"
             margin="dense"
-            style={{ margin: 8 }}
+            style={{ width: 200 }}
             value={searchInput}
             onChange={(e) => setsearchInput(e.target.value)}
           />

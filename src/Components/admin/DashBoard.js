@@ -54,25 +54,42 @@ function Dashboard() {
           style={{ cursor: "pointer", color: "#ffffff" }}
         />
         <section>
-          <Link to="/dashboard" style={{ textDecoration: "none" }}>
+          <Link
+            to="/dashboard"
+            style={{ textDecoration: "none" }}
+            onClick={() => setIsNavOpen(!isNavOpen)}
+          >
             <div>Ledger</div>
           </Link>
 
-          <Link to="/dashboard/complaints" style={{ textDecoration: "none" }}>
+          <Link
+            to="/dashboard/complaints"
+            style={{ textDecoration: "none" }}
+            onClick={() => setIsNavOpen(!isNavOpen)}
+          >
             <div>Complaints</div>
           </Link>
 
-          <Link to="/dashboard/noticeBoard" style={{ textDecoration: "none" }}>
+          <Link
+            to="/dashboard/noticeBoard"
+            style={{ textDecoration: "none" }}
+            onClick={() => setIsNavOpen(!isNavOpen)}
+          >
             <div>NoticeBoard</div>
           </Link>
 
-          <Link to="/dashboard/manageUsers" style={{ textDecoration: "none" }}>
+          <Link
+            to="/dashboard/manageUsers"
+            style={{ textDecoration: "none" }}
+            onClick={() => setIsNavOpen(!isNavOpen)}
+          >
             <div>Manage Users</div>
           </Link>
 
           <Link
             to="/dashboard/manageContent"
             style={{ textDecoration: "none" }}
+            onClick={() => setIsNavOpen(!isNavOpen)}
           >
             <div>Manage Content</div>
           </Link>

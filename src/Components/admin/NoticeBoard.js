@@ -115,7 +115,7 @@ export default function NoticeBoard() {
               type="text"
               variant="outlined"
               margin="dense"
-              style={{ margin: 8 }}
+              style={{ width: 200 }}
               value={searchInput}
               onChange={(e) => setsearchInput(e.target.value)}
             />

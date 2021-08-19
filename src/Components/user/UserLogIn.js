@@ -12,7 +12,7 @@ export default function UserLogIn() {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, seterror] = useState("");
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const history = useHistory();
   firebase.auth().onAuthStateChanged((user) => {
@@ -22,10 +22,9 @@ export default function UserLogIn() {
       if (uid !== undefined) {
         console.log(uid);
         history.replace("/feed");
-      }else{
-        setLoading(false)
       }
     }
+    setLoading(false);
   });
 
   const handleSubmit = (e) => {
@@ -50,14 +49,13 @@ export default function UserLogIn() {
     setPassword("");
   };
 
-  if(loading){
-    return(
+  if (loading) {
+    return (
       <div className={styles.container}>
         <div className={styles.donut}></div>
       </div>
-    )
-  }else{
-
+    );
+  } else {
     return (
       <div className={styles.main}>
         <section className={styles.loginImage}>

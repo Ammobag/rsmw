@@ -238,7 +238,7 @@ export default function UserTransactions() {
         <h1 className={styles.dueSection}>Amount Due : ₹ {amount}</h1>
         <div style={{ height: 30 }} />
         <div className={styles.tableWrapper}>
-          <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
+          <table {...getTableProps()}>
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
