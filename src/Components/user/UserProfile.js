@@ -11,6 +11,8 @@ import { useHistory } from "react-router-dom";
 import UserNavigation from "./UserNavigation";
 import styles from "./UserProfile.module.css";
 
+import { deleteVisitorData } from "../functions/dbquery";
+
 // var database = firebase.database();
 
 // var Ref = database.ref('admin/');
@@ -26,6 +28,8 @@ export default function UserProfile() {
   const [progress, setprogress] = useState(0);
   const [user, setuser] = useState(null);
   const [phonenumber, setphonenumber] = useState();
+  const [permanentRes, setpermanentRes] = useState();
+  const [visitors, setvisitors] = useState();
   const [error, seterror] = useState("");
 
   const history = useHistory();
@@ -40,6 +44,8 @@ export default function UserProfile() {
           setuser(users);
           setphonenumber(users.phonenumber);
           setdisplayImage(users.image);
+          setpermanentRes(users.permanentRes);
+          setvisitors(users.visitors);
         });
       }
     });
@@ -117,28 +123,73 @@ export default function UserProfile() {
   }
 
   const handleSubmit = (e) => {
-    if (image && phonenumber) {
+    if (image) {
       setstatus(1);
       console.log(image);
       var timestamp = Date.now();
       uploadImage();
-      firebase
-        .database()
-        .ref("users/" + user.UID + "/")
-        .child("phonenumber")
-        .set(phonenumber);
-    } else if (image) {
-      uploadImage();
-    } else if (phonenumber) {
-      firebase
-        .database()
-        .ref("users/" + user.UID + "/")
-        .child("phonenumber")
-        .set(phonenumber);
-    } else {
-      seterror("Enter all the fields");
     }
+      firebase
+        .database()
+        .ref("users/" + user.UID + "/")
+        .child("phonenumber")
+        .set(phonenumber);
+
+      firebase
+        .database()
+        .ref("users/" + user.UID + "/")
+        .child("permanentRes")
+        .set(permanentRes);
+    
   };
+
+  const handleDeleteVisitor = (index) => {
+    console.log(index)
+    deleteVisitorData(user.UID, index);
+  }
+
+  const ViewVisitor = (e) => {
+    console.log(visitors);
+    if(visitors){
+      let arr = [];
+      let keys = [];
+      for (let i = 0; i < visitors.length; i++) {
+        const element = visitors[i];
+        console.log(element)
+        if(!element.deleted){
+          arr.push(element)
+          keys.push(i)
+        }
+      }
+
+      console.log(arr, keys);
+      
+
+      return(
+        <div>
+          Visitors :
+        {
+          
+          arr.map((visitor, index) => {
+            return(
+              <div key={index} >
+                <div>Name : {visitor.name}</div>
+                <div>Purpose : {visitor.purpose}</div>
+                <div>Contact : {visitor.contact}</div>
+                <button onClick={(e) => handleDeleteVisitor(keys[index])}>Delete</button>
+              </div>
+            )
+          })
+          
+        }
+        </div>
+      )
+    }else{
+      return(
+        <div>Loading...</div>
+      );
+    }   
+  }
 
   return (
     <div>
@@ -175,29 +226,43 @@ export default function UserProfile() {
                   onChange={handleImage}
                 />
               </div>
-              <div style={{ height: 30 }} />
               {user && (
-                <div>
-                  <div>Name : {user.name} </div>
+              <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start" }} >
                   <div style={{ height: 30 }} />
-                  <div> Email : {user.email}</div>
+                  
+                    <div>
+                      <div>Name : {user.name} </div>
+                      <div style={{ height: 30 }} />
+                      <div> Email : {user.email}</div>
+                      <div style={{ height: 30 }} />
+                      <div> Line No : {user.lineno}</div>
+                      <div style={{ height: 30 }} />
+                    </div>
+                  
+                  <div className={styles.phoneNumberWrapper}>
+                    <div>Phone Number : </div>
+                    <input
+                      className="inputField"
+                      typr="tel"
+                      value={phonenumber}
+                      onChange={(e) => setphonenumber(e.target.value)}
+                    />
+                  </div>
                   <div style={{ height: 30 }} />
-                  <div>Block No : {user.blockno}</div>
+                  <div className={styles.phoneNumberWrapper}>
+                    <div>Permanent Residents : </div>
+                    <input
+                      className="inputField"
+                      typr="tel"
+                      value={permanentRes}
+                      onChange={(e) => setpermanentRes(e.target.value)}
+                    />
+                  </div>
                   <div style={{ height: 30 }} />
-                  <div> Flat No : {user.flatno}</div>
+                  <ViewVisitor/>
                   <div style={{ height: 30 }} />
-                </div>
-              )}
-              <div className={styles.phoneNumberWrapper}>
-                <div>Phone Number : </div>
-                <input
-                  className="inputField"
-                  typr="tel"
-                  value={phonenumber}
-                  onChange={(e) => setphonenumber(e.target.value)}
-                />
               </div>
-              <div style={{ height: 30 }} />
+              )}
               <div className="buttonWrapper">
                 <Button
                   variant="contained"

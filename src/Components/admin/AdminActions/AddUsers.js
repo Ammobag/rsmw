@@ -22,8 +22,8 @@ export default function AddUsers() {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [phonenumber, setphonenumber] = useState("");
-  const [flatno, setFlatno] = useState("");
-  const [blockno, setBlockno] = useState("");
+  const [lineno, setlineno] = useState("");
+
   const [name, setName] = useState("");
   const [error, seterror] = useState("");
   const img =
@@ -32,7 +32,7 @@ export default function AddUsers() {
   const history = useHistory();
 
   const handleSubmit = (e) => {
-    if (password && userName && flatno && blockno && name) {
+    if (password && userName && lineno && name) {
       firebase
         .auth()
         .createUserWithEmailAndPassword(userName, password)
@@ -45,8 +45,7 @@ export default function AddUsers() {
             name,
             userName,
             phonenumber,
-            flatno,
-            blockno,
+            lineno,
             img
           );
           history.push("/dashboard/manageUsers");
@@ -54,8 +53,8 @@ export default function AddUsers() {
           setPassword("");
           setphonenumber("");
           setName("");
-          setFlatno("");
-          setBlockno("");
+          setlineno("");
+
           seterror("");
         })
         .catch((error) => {
@@ -122,28 +121,17 @@ export default function AddUsers() {
         </div>
         <div>
           <TextField
-            id="Flatno"
+            id="lineno"
             label="Flat Number"
             type="text"
             variant="outlined"
             style={{ margin: 8 }}
             margin="dense"
-            value={flatno}
-            onChange={(e) => setFlatno(e.target.value)}
+            value={lineno}
+            onChange={(e) => setlineno(e.target.value)}
           />
         </div>
-        <div>
-          <TextField
-            id="Blockno"
-            label="Block Number"
-            type="text"
-            variant="outlined"
-            style={{ margin: 8 }}
-            margin="dense"
-            value={blockno}
-            onChange={(e) => setBlockno(e.target.value)}
-          />
-        </div>
+
       </div>
 
       <div>

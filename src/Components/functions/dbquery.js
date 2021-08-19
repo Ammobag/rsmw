@@ -49,8 +49,7 @@ export function writeUserData(
   name,
   email,
   phonenumber,
-  flatno,
-  blockno,
+  lineno,
   img
 ) {
   console.log("in writeuserdata");
@@ -62,10 +61,22 @@ export function writeUserData(
       name: name,
       email: email,
       phonenumber: phonenumber,
-      flatno: flatno,
-      blockno: blockno,
+      lineno: lineno,
       image: img,
+      permanentRes: 0,
+      visitors: "",
     });
+}
+
+export function deleteVisitorData(
+  UID,
+  index
+) {
+  firebase
+    .database()
+    .ref("users/" + UID + "/visitors/"+index + "/")
+    .child("deleted")
+    .set(true);
 }
 
 export function uploadPost(UID, body, image) {
