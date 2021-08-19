@@ -45,6 +45,7 @@ export default function AddClassified() {
         var timestamp = Date.now();
         var storageRef = firebase.storage().ref();
         var filename = timestamp + element.name;
+        // eslint-disable-next-line
         var uploadTask = await storageRef
           .child("classified/" + filename)
           .put(element);
@@ -55,12 +56,10 @@ export default function AddClassified() {
 
         imageLinks = imageLinks.concat(uploadLink);
 
-        if (i != image.length - 1) {
+        if (i !== image.length - 1) {
           imageLinks = imageLinks.concat("|||");
         }
       }
-
-      console.log("Temp Final", imageLinks);
 
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -83,7 +82,6 @@ export default function AddClassified() {
     for (let i = 0; i < image.length; i++) {
       img.push(image[i]);
     }
-    console.log(img);
 
     return img.map((value, index) => (
       <>

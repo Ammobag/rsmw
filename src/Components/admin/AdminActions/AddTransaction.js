@@ -3,17 +3,15 @@ import "./styles.module.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
-
-import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../../firebase";
 import Getonce, {
   postTransaction,
-  writeUserData,
+
 } from "../../functions/dbquery";
 import Select from "react-dropdown-select";
-import Fuse from "fuse.js";
+
 
 // var database = firebase.database();
 

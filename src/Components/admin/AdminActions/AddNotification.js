@@ -28,9 +28,6 @@ export default function AddNotification() {
 
   const designations = [{ name: "Owner" }, { name: "Secretary" }];
 
-  var d = new Date();
-  var currentYear = d.getFullYear();
-
   const handleSubmit = (e) => {
     if (issuer && designation && subject && body) {
       postNotification(issuer, designation[0].name, subject, body);

@@ -58,7 +58,6 @@ export default function AddUsers() {
           seterror("");
         })
         .catch((error) => {
-          var errorCode = error.code;
           var errorMessage = error.message;
           seterror(errorMessage);
         });

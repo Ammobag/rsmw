@@ -1,7 +1,6 @@
 import { React, useState, useRef, useEffect } from "react";
 import styles from "./UserNavigation.module.css";
 import { useHistory } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -24,7 +23,6 @@ export default function UserNavigation() {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
   const history = useHistory();
-  const location = useLocation();
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -55,9 +53,6 @@ export default function UserNavigation() {
     prevOpen.current = open;
   }, [open]);
 
-  const handleAddPost = (e) => {
-    history.replace("/addPost");
-  };
 
   const handleViewProfile = (e) => {
     history.replace("/userProfile");

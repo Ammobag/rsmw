@@ -14,6 +14,7 @@ export default function Getonce(reference) {
       var query = snapshot.val();
       setdata(query);
     });
+    // eslint-disable-next-line
   }, []);
 
   return data;
@@ -29,6 +30,7 @@ export function Getuser(uid) {
       var query = snapshot.val();
       setdata(query);
     });
+    // eslint-disable-next-line
   }, []);
 
   return data;

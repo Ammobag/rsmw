@@ -54,6 +54,20 @@ export default function UserClassifiedSection() {
     ));
   };
 
+  function formatDate(timestamp) {
+    var dateNow = new Date(timestamp);
+    var date = `${dateNow.toLocaleString("en", {
+      day: "2-digit",
+    })} ${dateNow.toLocaleString("en", {
+      month: "short",
+    })} at ${dateNow.toLocaleString("ru", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    })}`;
+    return date;    
+  }
+
   console.log(data);
 
   const NoticeBoard = data.map((value, index) => (
@@ -61,7 +75,7 @@ export default function UserClassifiedSection() {
       <div className={styles.info}>
         <div className={styles.issuer}>
           <UserName uid={value.UID} />
-          <div className={styles.issuerDesignation}>{value.timestamp}</div>
+          <div className={styles.issuerDesignation}>{formatDate(value.timestamp)}</div>
         </div>
       </div>
       <div className={styles.message}>{value.caption}</div>

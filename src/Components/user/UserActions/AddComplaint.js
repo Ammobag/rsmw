@@ -23,6 +23,7 @@ export default function AddComplaint() {
   const [status, setstatus] = useState(0);
   const [body, setbody] = useState("");
   const [token, settoken] = useState(null);
+  // eslint-disable-next-line
   const [error, seterror] = useState("");
 
   const handleSubmit = (e) => {

@@ -7,7 +7,7 @@ import "firebase/database";
 import "firebase/auth";
 import "firebase/storage";
 import {} from "../firebase";
-import { useHistory } from "react-router-dom";
+
 import UserNavigation from "./UserNavigation";
 import styles from "./UserProfile.module.css";
 import TextField from "@material-ui/core/TextField";
@@ -33,9 +33,9 @@ export default function UserProfile() {
   const [newVisitorPurpose, setNewVisitorPurpose] = useState("");
   const [newVisitorContact, setNewVisitorContact] = useState("");
   const [visitors, setvisitors] = useState();
+  // eslint-disable-next-line
   const [error, seterror] = useState("");
 
-  const history = useHistory();
   var database = firebase.database();
 
   if (!user) {
@@ -129,7 +129,6 @@ export default function UserProfile() {
     if (image) {
       setstatus(1);
       console.log(image);
-      var timestamp = Date.now();
       uploadImage();
     }
     firebase

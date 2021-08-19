@@ -23,7 +23,6 @@ export default function UserTransactions() {
   var temp = [];
 
   var amount = 0;
-  var c = 0;
   var database = firebase.database();
   const history = useHistory();
 
@@ -57,11 +56,7 @@ export default function UserTransactions() {
     const d = new Date();
     var i = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
 
-    const info = {
-      amount: cartAmount,
-    };
-
-    const query = await axios.post("http://localhost:8080/pay", {
+    const query = await axios.post("https://idealvillas.herokuapp.com/pay", {
       amount: cartAmount,
     });
 
@@ -141,7 +136,6 @@ export default function UserTransactions() {
   if (data.length === 0 || data[0].col4 === "No Records" || fetch === false) {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
-        c++;
         const element = query[key];
 
         var Ref = database.ref("users/" + element.UID + "/");
@@ -169,14 +163,14 @@ export default function UserTransactions() {
       }
     }
 
-    var temp = [];
+    temp = [];
     for (let index = 0; index < tempdata.length; index++) {
       const element = tempdata[index];
 
-      if (element.col1 == user) {
+      if (element.col1 === user) {
         temp.push(element);
         console.log(element);
-        if (element.col6 == "Not Paid") {
+        if (element.col6 === "Not Paid") {
           amount = amount + Number(element.col3);
         }
       }

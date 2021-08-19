@@ -62,162 +62,6 @@ class Application extends React.Component {
   }
 }
 
-class ScrollTopButton extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      visible: false,
-      styles: { display: "none" },
-    };
-    this.visible = false;
-    this.scrollHandler = this.scrollHandler.bind(this);
-    this.resizeHandler = this.resizeHandler.bind(this);
-  }
-
-  scrollHandler() {
-    if (window.pageYOffset > document.documentElement.clientHeight / 2) {
-      if (!this.state.visible) this.setState({ visible: true });
-    } else {
-      if (this.state.visible) this.setState({ visible: false });
-    }
-  }
-
-  resizeHandler() {
-    if (this.isThrottled === undefined) this.isThrottled = false;
-    if (this.isQueueEmpty === undefined) this.isQueueEmpty = true;
-
-    if (!this.isThrottled) {
-      this.isThrottled = true;
-      this.setState({
-        styles: {
-          position: "fixed",
-          top: "4.4rem",
-          left: `${
-            document.querySelector(".feed-wrapper").getBoundingClientRect()
-              .left - 60
-          }px`,
-          display: `${this.state.visible ? "block" : "none"}`,
-        },
-      });
-      setTimeout(() => {
-        this.isThrottled = false;
-        if (!this.isQueueEmpty) this.resizeHandler();
-      }, 100);
-    } else {
-      if (this.isQueueEmpty) this.isQueueEmpty = false;
-    }
-  }
-
-  scrollToTop(e) {
-    e.preventDefault();
-    window.scrollTo(0, 0);
-  }
-
-  componentDidMount() {
-    document.addEventListener("scroll", this.scrollHandler);
-    window.addEventListener("resize", this.resizeHandler);
-  }
-  componentWillUnmount() {
-    document.removeEventListener("scroll", this.scrollHandler);
-    window.removeEventListener("resize", this.resizeHandler);
-  }
-
-  render() {
-    if (!document.querySelector(".feed-wrapper"))
-      this.styles = { display: "none" };
-    else
-      this.styles = {
-        position: "fixed",
-        top: "4.4rem",
-        left: `${
-          document.querySelector(".feed-wrapper").getBoundingClientRect().left -
-          60
-        }px`,
-        display: `${this.state.visible ? "block" : "none"}`,
-      };
-
-    return (
-      <div id="scrollTopButton" style={this.styles}>
-        <a href="#" onClick={this.scrollToTop}>
-          <i className="far fa-caret-square-up"></i>
-        </a>
-      </div>
-    );
-  }
-}
-
-// class Header extends React.Component {
-//   constructor(props) {
-//      super(props);
-//      this.state = {
-//         scrollIndicator: false,
-//         sideMenuVisible: false
-//      };
-//      this.showIndicator = this.showIndicator.bind(this);
-//      this.showSideMenu = this.showSideMenu.bind(this);
-//      this.hideSideMenu = this.hideSideMenu.bind(this);
-//   }
-
-//   showIndicator() {
-//      if (window.pageYOffset > document.documentElement.clientHeight / 2) {
-//         if (!this.state.scrollIndicator) this.setState({ scrollIndicator: true });
-//      } else {
-//         if (this.state.scrollIndicator) this.setState({ scrollIndicator: false });
-//      }
-//   }
-
-//   showSideMenu(e) {
-//      e.preventDefault();
-//      this.setState({ sideMenuVisible: true });
-//      document.querySelector('.right-side').classList.add('side-open');
-//      document.body.style.overflow = 'hidden';
-//   }
-
-//   hideSideMenu(e) {
-//      e.preventDefault();
-//      this.setState({ sideMenuVisible: false });
-//      document.querySelector('.right-side').classList.remove('side-open');
-//      document.body.style.overflow = 'visible';
-//   }
-
-//   componentDidMount() {
-//      document.addEventListener('scroll', this.showIndicator);
-//   }
-
-//   componentWillUnmount() {
-//      document.removeEventListener('scroll', this.showIndicator);
-//   }
-
-//   render() {
-//      return (
-//         <div id="header">
-//            {this.state.sideMenuVisible ? <div className="overlay" onClick={this.hideSideMenu}></div> : ""}
-//            <div className={`fixed-header ${this.state.scrollIndicator ? 'scroll-indicator' : ''}`}>
-//               <div className="content-wrapper header-content">
-//                  <div className="app-title">
-//                     {this.props.isMobile ? <div className="side-menu-button"><a href="#" onClick={this.showSideMenu}><i className="fas fa-bars"></i></a></div> : ""}
-//                     <div className="title">LazyFeed</div>
-//                  </div>
-//                  <div className="header-right-side">
-//                     <div className="header-info">
-//                        <svg width="75" height="7">
-//                           <rect width="100%" height="100%" style={{ fill: "#8075a4" }} />
-//                        </svg>
-//                        <svg width="40" height="7" style={{ float: "right" }}>
-//                           <rect width="100%" height="100%" style={{ fill: "#a4a4a4" }} />
-//                        </svg>
-//                     </div>
-//                     <div className="user-avatar">
-//                        <img src="https://justmonk.github.io/react-news-feed-spa-demo/img/user-avatar.jpg" alt="user-avatar"></img>
-//                     </div>
-//                  </div>
-//               </div>
-//            </div>
-//         </div>
-//      );
-//   }
-// }
-
 class Feed extends React.Component {
   constructor(props) {
     super(props);
@@ -340,12 +184,6 @@ class PostObj {
     this.views = 1;
     this.maxViews = Math.round(277 - 0.5 + Math.random() * (1770 - 277 + 0.5));
 
-    //timers
-    // this.likeTimer = setInterval(() => {
-    //   if (this.likes >= this.maxLikes) clearInterval(this.likeTimer);
-    //   this.likes++;
-    //   this.updateParentState();
-    // }, Math.round(730 - 0.5 + Math.random() * (1650 - 730 + 0.5)));
     this.likeCounter = setTimeout(() => {
       var database = firebase.database();
       var Ref = database.ref("posts/" + this.id + "/likes/");
@@ -730,9 +568,6 @@ class PostWall extends React.Component {
 
     this.addPosts();
 
-    // this.timerId = setInterval(() => {
-    //   this.addRandomPost();
-    // }, 4000);
   }
   componentWillUnmount() {
     clearInterval(this.timerId);
@@ -751,90 +586,16 @@ class ShowNewPosts extends React.Component {
     return (
       <div className="message">
         <div className="show-new-button">
-          <a href="#" onClick={this.props.eventHandler}>
+          
+          <button onClick={this.props.eventHandler} style={{background: "none", border:"none"}}>
             Show <span style={{ fontWeight: "bold" }}>{this.props.count}</span>{" "}
             new posts
-          </a>
+          </button>
         </div>
       </div>
     );
   }
 }
-
-// class Controls extends React.Component {
-//   constructor(props) {
-//      super(props);
-//      this.state = {
-//         count: 0
-//      }
-//   }
-
-//   render() {
-//      return (
-//         <div className="right-side">
-//            <div className="controls" onChange={this.props.change}>
-//               <div className="controls-title">Feed controls</div>
-
-//               <div className="toggle-wrap" title="Automatically append new posts in your feed">
-//                  <input id="autoUpdate" type="checkbox" defaultChecked></input>
-//                  <label htmlFor="autoUpdate">
-//                     Autoupdate
-//                  <div className="toggle"><div className="round"></div></div>
-//                  </label>
-//               </div>
-
-//               <div className="toggle-wrap" title="Page doesn't jump when you scroll down (more than half screen)">
-//                  <input id="fixedScroll" type="checkbox" defaultChecked></input>
-//                  <label htmlFor="fixedScroll">
-//                     Fixed scroll
-//                  <div className="toggle"><div className="round"></div></div>
-//                  </label>
-//               </div>
-
-//               <div className="toggle-wrap" title="Show only posts that you liked">
-//                  <input id="showOnlyLiked" type="checkbox"></input>
-//                  <label htmlFor="showOnlyLiked">
-//                     Show only liked
-//                  <div className="toggle"><div className="round"></div></div>
-//                  </label>
-//               </div>
-
-//               <div className="toggle-wrap" title="If max posts count exceeded, oldest automatically replaced">
-//                  <input id="clearOld" type="checkbox" defaultChecked></input>
-//                  <label htmlFor="clearOld">
-//                     Clear old
-//                  <div className="toggle"><div className="round"></div></div>
-//                  </label>
-//               </div>
-
-//               <div className="toggle-wrap" title="Dont upload new posts">
-//                  <input id="stopUpload" type="checkbox"></input>
-//                  <label htmlFor="stopUpload">
-//                     Stop upload
-//                  <div className="toggle"><div className="round"></div></div>
-//                  </label>
-//               </div>
-
-//               <div className="controls-title">App info</div>
-//               <div className="row">
-//                  <span>Total posts:</span>
-//                  <span>{this.props.totalPosts}</span>
-//               </div>
-//               <div className="row">
-//                  <span>On screen:</span>
-//                  <span>{this.props.postsOnScreen}</span>
-//               </div>
-//               <div className="row">
-//                  <span>Max posts:</span>
-//                  <span>50</span>
-//               </div>
-
-//            </div>
-
-//         </div>
-//      );
-//   }
-// }
 
 class Post extends React.Component {
   constructor(props) {
@@ -923,9 +684,9 @@ class Comments extends React.Component {
 
     let hideButton = (
       <div className="hide-comments-button">
-        <a href="#" onClick={this.props.hideComment}>
+        <button onClick={this.props.hideComment} style={{background: "none", border:"none"}}>
           Hide comments
-        </a>
+        </button>
       </div>
     );
 
@@ -962,20 +723,20 @@ class PostInfo extends React.Component {
     return (
       <div className="post-info">
         <div className="likes" onClick={this.props.likeHandler}>
-          <a href="#">
+          <button>
             <div className="icon">
               <i className={`${likeIconStyle} fa-heart`}></i>
             </div>
             <div className="count">{this.props.likes}</div>
-          </a>
+          </button>
         </div>
         <div className="comments" onClick={this.props.showComments}>
-          <a href="#">
+          <button>
             <div className="icon">
               <i className="far fa-comment-alt"></i>
             </div>
             <div className="count">{this.props.commentsCount}</div>
-          </a>
+          </button>
         </div>
       </div>
     );
