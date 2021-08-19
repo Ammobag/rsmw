@@ -10,7 +10,7 @@ import {} from "../firebase";
 import { useHistory } from "react-router-dom";
 import UserNavigation from "./UserNavigation";
 import styles from "./UserProfile.module.css";
-
+import TextField from "@material-ui/core/TextField";
 import { deleteVisitorData } from "../functions/dbquery";
 
 // var database = firebase.database();
@@ -29,6 +29,9 @@ export default function UserProfile() {
   const [user, setuser] = useState(null);
   const [phonenumber, setphonenumber] = useState();
   const [permanentRes, setpermanentRes] = useState();
+  const [newVisitorName, setNewVisitorName] = useState("");
+  const [newVisitorPurpose, setNewVisitorPurpose] = useState("");
+  const [newVisitorContact, setNewVisitorContact] = useState("");
   const [visitors, setvisitors] = useState();
   const [error, seterror] = useState("");
 
@@ -129,67 +132,79 @@ export default function UserProfile() {
       var timestamp = Date.now();
       uploadImage();
     }
+    firebase
+      .database()
+      .ref("users/" + user.UID + "/")
+      .child("phonenumber")
+      .set(phonenumber);
+    firebase
+      .database()
+      .ref("users/" + user.UID + "/")
+      .child("permanentRes")
+      .set(permanentRes);
+    if (newVisitorContact && newVisitorName && newVisitorPurpose) {
       firebase
         .database()
-        .ref("users/" + user.UID + "/")
-        .child("phonenumber")
-        .set(phonenumber);
-
+        .ref("users/" + user.UID + "/visitors/" + visitors.length)
+        .set({
+          name: newVisitorName,
+          contact: newVisitorContact,
+          purpose: newVisitorPurpose,
+        });
       firebase
         .database()
-        .ref("users/" + user.UID + "/")
-        .child("permanentRes")
-        .set(permanentRes);
-    
+        .ref("users/" + user.UID + "/visitors/")
+        .child("length")
+        .set(visitors.length + 1);
+    }
+    window.location.reload(true);
   };
 
   const handleDeleteVisitor = (index) => {
-    console.log(index)
+    console.log(index);
     deleteVisitorData(user.UID, index);
-  }
+  };
 
   const ViewVisitor = (e) => {
     console.log(visitors);
-    if(visitors){
+    if (visitors) {
       let arr = [];
       let keys = [];
       for (let i = 0; i < visitors.length; i++) {
         const element = visitors[i];
-        console.log(element)
-        if(!element.deleted){
-          arr.push(element)
-          keys.push(i)
+        console.log(element);
+        if (!element.deleted) {
+          arr.push(element);
+          keys.push(i);
         }
       }
 
       console.log(arr, keys);
-      
 
-      return(
-        <div>
-          Visitors :
-        {
-          
-          arr.map((visitor, index) => {
-            return(
-              <div key={index} >
-                <div>Name : {visitor.name}</div>
-                <div>Purpose : {visitor.purpose}</div>
-                <div>Contact : {visitor.contact}</div>
-                <button onClick={(e) => handleDeleteVisitor(keys[index])}>Delete</button>
+      return (
+        <>
+          <h4>Visitors:</h4>
+          {arr.map((visitor, index) => {
+            return (
+              <div className={styles.gridContainer} key={index}>
+                <div className={styles.gridItem}>Name:</div>
+                <div className={styles.gridItem}>{visitor.name}</div>
+                <div className={styles.gridItem}>Purpose:</div>
+                <div className={styles.gridItem}>{visitor.purpose}</div>
+                <div className={styles.gridItem}>Contact:</div>
+                <div className={styles.gridItem}>{visitor.contact}</div>
+                <button onClick={(e) => handleDeleteVisitor(keys[index])}>
+                  Delete
+                </button>
               </div>
-            )
-          })
-          
-        }
-        </div>
-      )
-    }else{
-      return(
-        <div>Loading...</div>
+            );
+          })}
+        </>
       );
-    }   
-  }
+    } else {
+      return <div>Loading...</div>;
+    }
+  };
 
   return (
     <div>
@@ -227,41 +242,88 @@ export default function UserProfile() {
                 />
               </div>
               {user && (
-              <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start" }} >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  }}
+                >
                   <div style={{ height: 30 }} />
-                  
-                    <div>
-                      <div>Name : {user.name} </div>
-                      <div style={{ height: 30 }} />
-                      <div> Email : {user.email}</div>
-                      <div style={{ height: 30 }} />
-                      <div> Line No : {user.lineno}</div>
-                      <div style={{ height: 30 }} />
+                  <div className={styles.gridContainer}>
+                    <div className={styles.gridItem}>Name :</div>
+                    <div className={styles.gridItem}>{user.name}</div>
+                    <div className={styles.gridItem}>Email :</div>
+                    <div className={styles.gridItem}>{user.email}</div>
+                    <div className={styles.gridItem}>Line No :</div>
+                    <div className={styles.gridItem}>{user.lineno}</div>
+                    <div className={styles.gridItem}>Phone Number:</div>
+                    <div className={styles.gridItem}>
+                      <TextField
+                        type="tel"
+                        variant="outlined"
+                        margin="dense"
+                        style={{ width: 200 }}
+                        value={phonenumber}
+                        onChange={(e) => setphonenumber(e.target.value)}
+                      />
                     </div>
-                  
-                  <div className={styles.phoneNumberWrapper}>
-                    <div>Phone Number : </div>
-                    <input
-                      className="inputField"
-                      typr="tel"
-                      value={phonenumber}
-                      onChange={(e) => setphonenumber(e.target.value)}
-                    />
+                    <div className={styles.gridItem}>Permanent Residents :</div>
+                    <div className={styles.gridItem}>
+                      <TextField
+                        type="number"
+                        variant="outlined"
+                        margin="dense"
+                        style={{ width: 200 }}
+                        value={permanentRes}
+                        onChange={(e) => setpermanentRes(e.target.value)}
+                      />
+                    </div>
                   </div>
                   <div style={{ height: 30 }} />
-                  <div className={styles.phoneNumberWrapper}>
-                    <div>Permanent Residents : </div>
-                    <input
-                      className="inputField"
-                      typr="tel"
-                      value={permanentRes}
-                      onChange={(e) => setpermanentRes(e.target.value)}
-                    />
-                  </div>
+                  <>
+                    <h4> Add New Visitor</h4>
+                    <div className={styles.gridContainer}>
+                      <div className={styles.gridItem}>Name:</div>
+                      <div className={styles.gridItem}>
+                        <TextField
+                          type="text"
+                          variant="outlined"
+                          margin="dense"
+                          style={{ width: 200 }}
+                          value={newVisitorName}
+                          onChange={(e) => setNewVisitorName(e.target.value)}
+                        />
+                      </div>
+                      <div className={styles.gridItem}>Purpose:</div>
+                      <div className={styles.gridItem}>
+                        <TextField
+                          type="text"
+                          variant="outlined"
+                          margin="dense"
+                          style={{ width: 200 }}
+                          value={newVisitorPurpose}
+                          onChange={(e) => setNewVisitorPurpose(e.target.value)}
+                        />
+                      </div>
+                      <div className={styles.gridItem}>Contact:</div>
+                      <div className={styles.gridItem}>
+                        <TextField
+                          type="tel"
+                          variant="outlined"
+                          margin="dense"
+                          style={{ width: 200 }}
+                          value={newVisitorContact}
+                          onChange={(e) => setNewVisitorContact(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  </>
                   <div style={{ height: 30 }} />
-                  <ViewVisitor/>
+                  <ViewVisitor />
                   <div style={{ height: 30 }} />
-              </div>
+                </div>
               )}
               <div className="buttonWrapper">
                 <Button
@@ -272,6 +334,7 @@ export default function UserProfile() {
                 >
                   Update Profile
                 </Button>
+                <div style={{ height: 30 }} />
               </div>
             </section>
           )}
