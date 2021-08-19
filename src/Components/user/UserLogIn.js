@@ -15,6 +15,7 @@ export default function UserLogIn() {
   const [loading, setLoading] = useState(true);
 
   const history = useHistory();
+
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       var uid = user.uid;
@@ -22,6 +23,8 @@ export default function UserLogIn() {
       if (uid !== undefined) {
         console.log(uid);
         history.replace("/feed");
+      } else {
+        console.log("User Logged Out");
       }
     }
     setLoading(false);

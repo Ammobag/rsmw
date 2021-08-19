@@ -56,7 +56,7 @@ class Application extends React.Component {
       <div className="wrapper">
         {/* <Header isMobile={this.state.isMobile} /> */}
         <Feed isMobile={this.state.isMobile} />
-        <ScrollTopButton />
+        
       </div>
     );
   }
