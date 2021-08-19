@@ -68,7 +68,6 @@ export default function UserLogIn() {
           <div className={styles.wrapper}>
             <div style={{ color: "red" }}>{error}</div>
             <img src={logo} alt="Logo" />
-            <h1>Ideal Villas</h1>
             <div style={{ height: 30 }} />
             <input
               placeholder="Username"

@@ -56,7 +56,6 @@ class Application extends React.Component {
       <div className="wrapper">
         {/* <Header isMobile={this.state.isMobile} /> */}
         <Feed isMobile={this.state.isMobile} />
-        
       </div>
     );
   }
@@ -224,11 +223,9 @@ class PostObj {
               var query = snapshot.val();
               this.comments.push({
                 userLength: query.name,
-                avatar:
-                  query.image ?
-                  query.image
-                  :
-                  "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
+                avatar: query.image
+                  ? query.image
+                  : "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
                 text: element.comments,
                 type: "user",
               });
@@ -409,11 +406,9 @@ class PostWall extends React.Component {
                 list: this.localList,
                 update: this.updateState,
                 id: element.postID,
-                avatar:
-                  user.image ?
-                  user.image
-                  :
-                  "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
+                avatar: user.image
+                  ? user.image
+                  : "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
                 nameLength: user.name,
                 img: element.image,
                 message: element.body,
@@ -567,7 +562,6 @@ class PostWall extends React.Component {
     }
 
     this.addPosts();
-
   }
   componentWillUnmount() {
     clearInterval(this.timerId);
@@ -586,8 +580,10 @@ class ShowNewPosts extends React.Component {
     return (
       <div className="message">
         <div className="show-new-button">
-          
-          <button onClick={this.props.eventHandler} style={{background: "none", border:"none"}}>
+          <button
+            onClick={this.props.eventHandler}
+            style={{ background: "none", border: "none" }}
+          >
             Show <span style={{ fontWeight: "bold" }}>{this.props.count}</span>{" "}
             new posts
           </button>
@@ -655,7 +651,10 @@ class Post extends React.Component {
             isExpanded={this.state.commentsExpanded}
             hideComment={this.hideComment}
           />
-          <CommentInput userAvatar={this.props.args.avatar} addCommentHandler={this.addCommentDecorator} />
+          <CommentInput
+            userAvatar={this.props.args.avatar}
+            addCommentHandler={this.addCommentDecorator}
+          />
         </div>
       </div>
     );
@@ -671,7 +670,11 @@ class Comments extends React.Component {
       return (
         <div className="comment" key={i}>
           <div className="user-avatar">
-            <img src={val.avatar} style={{objectFit: "cover"}} alt="author avatar"></img>
+            <img
+              src={val.avatar}
+              style={{ objectFit: "cover" }}
+              alt="author avatar"
+            ></img>
           </div>
           <div className="user-data">
             <div className="username">{val.userLength}</div>
@@ -684,7 +687,10 @@ class Comments extends React.Component {
 
     let hideButton = (
       <div className="hide-comments-button">
-        <button onClick={this.props.hideComment} style={{background: "none", border:"none"}}>
+        <button
+          onClick={this.props.hideComment}
+          style={{ background: "none", border: "none", height: 30 }}
+        >
           Hide comments
         </button>
       </div>
@@ -704,7 +710,11 @@ class UserInfo extends React.Component {
     return (
       <div className="user-info">
         <div className="user-avatar">
-          <img src={this.props.userAvatar} style={{objectFit: "cover"}} alt="author"></img>
+          <img
+            src={this.props.userAvatar}
+            style={{ objectFit: "cover" }}
+            alt="author"
+          ></img>
         </div>
 
         <div className="user-data">
@@ -723,7 +733,13 @@ class PostInfo extends React.Component {
     return (
       <div className="post-info">
         <div className="likes" onClick={this.props.likeHandler}>
-          <button>
+          <button
+            style={{
+              backgroundColor: "#ffffff",
+              border: "none",
+              padding: "0rem 2rem",
+            }}
+          >
             <div className="icon">
               <i className={`${likeIconStyle} fa-heart`}></i>
             </div>
@@ -731,7 +747,13 @@ class PostInfo extends React.Component {
           </button>
         </div>
         <div className="comments" onClick={this.props.showComments}>
-          <button>
+          <button
+            style={{
+              backgroundColor: "#ffffff",
+              border: "none",
+              padding: "0rem 2rem",
+            }}
+          >
             <div className="icon">
               <i className="far fa-comment-alt"></i>
             </div>
@@ -744,13 +766,12 @@ class PostInfo extends React.Component {
 }
 
 class CommentInput extends React.Component {
-
   constructor(props) {
-    super(props)
-  
+    super(props);
+
     this.state = {
-       user: null,
-    }
+      user: null,
+    };
   }
 
   componentDidMount() {
@@ -762,20 +783,23 @@ class CommentInput extends React.Component {
           var query = snapshot.val();
           this.setState({
             user: query,
-          })
+          });
         });
       }
     });
-  } 
-  
+  }
 
   render() {
     return (
       <div className="comment-input">
         <div className="user-avatar">
           <img
-            src={this.state.user ? this.state.user.image : "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44"}
-            style={{objectFit:"cover"}}
+            src={
+              this.state.user
+                ? this.state.user.image
+                : "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44"
+            }
+            style={{ objectFit: "cover" }}
             alt="user avatar"
           ></img>
         </div>
@@ -802,5 +826,3 @@ class PostContent extends React.Component {
     );
   }
 }
-
-
