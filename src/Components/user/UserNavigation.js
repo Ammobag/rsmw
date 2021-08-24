@@ -53,7 +53,6 @@ export default function UserNavigation() {
     prevOpen.current = open;
   }, [open]);
 
-
   const handleViewProfile = (e) => {
     history.replace("/userProfile");
   };
@@ -101,11 +100,11 @@ export default function UserNavigation() {
         />
         <section>
           <Link to="/feed" style={{ textDecoration: "none" }}>
-            <div>Feed</div>
+            <div>Resident's post</div>
           </Link>
 
           <Link to="/transactions" style={{ textDecoration: "none" }}>
-            <div>Transactions</div>
+            <div>Monthly Maintenance</div>
           </Link>
 
           <Link to="/noticeBoard" style={{ textDecoration: "none" }}>
