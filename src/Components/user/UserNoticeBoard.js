@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import UserNavigation from "./UserNavigation";
 import styles from "./UserNoticeBoard.module.css";
 import "firebase/database";
@@ -7,19 +7,28 @@ import {} from "../firebase";
 import Getonce from "../functions/dbquery";
 
 export default function UserNoticeBoard() {
-  var query = Getonce("notices/");
-  var data = [];
+  const [activeTab, setActiveTab] = useState("Notices");
+  var noticeQuery = Getonce("notices/");
+  var eventQuery = Getonce("events/");
+  var noticeData = [];
+  var eventData = [];
 
-  for (const key in query) {
-    if (Object.hasOwnProperty.call(query, key)) {
-      const element = query[key];
+  for (const key in noticeQuery) {
+    if (Object.hasOwnProperty.call(noticeQuery, key)) {
+      const element = noticeQuery[key];
 
-      data.push(element);
+      noticeData.push(element);
     }
   }
+  for (const key in eventQuery) {
+    if (Object.hasOwnProperty.call(eventQuery, key)) {
+      const element = eventQuery[key];
 
-  const NoticeBoard = data.map((value) => (
-    <div className={styles.notice}>
+      eventData.push(element);
+    }
+  }
+  const Notices = noticeData.map((value, index) => (
+    <div className={styles.notice} key={index}>
       <div className={styles.info}>
         <div className={styles.issuer}>
           <div>{value.issuerName}</div>
@@ -29,15 +38,33 @@ export default function UserNoticeBoard() {
         </div>
         <div className={styles.date}>{value.date}</div>
       </div>
-      <div className={styles.subject}>{value.subject}</div>
+      <div className={styles.subject}>
+        {value.subject}
+        <div></div>
+      </div>
       <div className={styles.message}>{value.body}</div>
+    </div>
+  ));
+  const Events = eventData.map((value, index) => (
+    <div className={styles.event} key={index}>
+      <div className={styles.eventName}>{value.name}</div>
+      <div className={styles.eventBody}>{value.body}</div>
+      <img src={value.image} alt="img" />
     </div>
   ));
 
   return (
     <div>
       <UserNavigation />
-      <div className={styles.feedPage}>{NoticeBoard}</div>
+      <div className={styles.feedPage}>
+        <div style={{ height: 30 }} />
+        <div className={styles.tab}>
+          <div onClick={() => setActiveTab("Notices")}>Notices</div>
+          <div>|</div>
+          <div onClick={() => setActiveTab("Events")}>Events</div>
+        </div>
+        {activeTab === "Notices" ? Notices : Events}
+      </div>
     </div>
   );
 }
