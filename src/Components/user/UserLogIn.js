@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
@@ -68,7 +68,6 @@ export default function UserLogIn() {
           <div className={styles.wrapper}>
             <div style={{ color: "red" }}>{error}</div>
             <img src={logo} alt="Logo" />
-            <h1>Ideal Villas</h1>
             <div style={{ height: 30 }} />
             <input
               placeholder="Username"
@@ -85,13 +84,22 @@ export default function UserLogIn() {
               onChange={(e) => setPassword(e.target.value)}
               className={styles.inputField}
             />
-            <div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
               <div style={{ height: 30 }} />
               <button className={styles.loginButton} onClick={handleSubmit}>
                 Log In
               </button>
               <div style={{ height: 30 }} />
               <a href="/createAccount">Create New Account</a>
+              <Link to="/admin">
+                <div>Go to Admin Panel</div>
+              </Link>
             </div>
           </div>
         </section>
