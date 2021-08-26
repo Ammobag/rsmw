@@ -7,8 +7,11 @@ import "firebase/auth";
 import "firebase/storage";
 import {} from "../../firebase";
 import { postComplaint } from "../../functions/dbquery";
-import TextField from "@material-ui/core/TextField";
 import UserNavigation from "../UserNavigation";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 // var database = firebase.database();
 
@@ -21,6 +24,7 @@ import UserNavigation from "../UserNavigation";
 export default function AddComplaint() {
   const [subject, setsubject] = useState("");
   const [status, setstatus] = useState(0);
+  const [otherSubjectSpec, setOtherSubjectSpec] = useState("");
   const [body, setbody] = useState("");
   const [token, settoken] = useState(null);
   // eslint-disable-next-line
@@ -40,7 +44,9 @@ export default function AddComplaint() {
       });
     }
   };
-
+  const handleSubjectChange = (event) => {
+    setsubject(event.target.value);
+  };
   return (
     <div>
       <UserNavigation />
@@ -54,16 +60,43 @@ export default function AddComplaint() {
           )}
           {status === 0 && (
             <section className={styles.wrapper}>
-              <TextField
-                id="subject"
-                label="Complaint Subject"
-                type="text"
-                variant="outlined"
-                margin="dense"
-                style={{ margin: 8 }}
-                value={subject}
-                onChange={(e) => setsubject(e.target.value)}
-              />
+              <FormControl
+                styles={{
+                  minWidth: 120,
+                }}
+              >
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={subject}
+                  displayEmpty
+                  onChange={handleSubjectChange}
+                  autoWidth={true}
+                >
+                  <MenuItem value="" disabled>
+                    Subject
+                  </MenuItem>
+                  <MenuItem value={"Electrical"}>Electrical</MenuItem>
+                  <MenuItem value={"Plumbing"}>Plumbing</MenuItem>
+                  <MenuItem value={"Security Agency"}>Security Agency</MenuItem>
+                  <MenuItem value={"Garderner"}>Gardener </MenuItem>
+                  <MenuItem value={"House Keeping"}>House Keeping</MenuItem>
+                  <MenuItem value={"Other"}>Other</MenuItem>
+                </Select>
+              </FormControl>
+              {subject === "Other" ? (
+                <form noValidate autoComplete="off">
+                  <TextField
+                    id="standard-basic"
+                    label="Please specify"
+                    value={otherSubjectSpec}
+                    onChange={(e) => setOtherSubjectSpec(e.target.value)}
+                    inputProps={{ min: 0, style: { textAlign: "center" } }}
+                  />
+                </form>
+              ) : (
+                <div />
+              )}
               <form>
                 <textarea
                   placeholder="Write about your complaint here ..."
