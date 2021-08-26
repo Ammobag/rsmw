@@ -24,7 +24,7 @@ export default function UserCreateAccount() {
         .then((userCredential) => {
           user = userCredential.user;
           console.log(user);
-          history.push("/feed");
+          history.push("/basicForm");
         })
         .catch((error) => {
           var errorMessage = error.message;
