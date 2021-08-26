@@ -95,6 +95,19 @@ export function uploadPost(UID, body, image) {
     });
 }
 
+export function uploadEvent(body, image, name) {
+  var timestamp = Date.now();
+  firebase
+    .database()
+    .ref("events/" + timestamp + "/")
+    .set({      
+      timestamp: timestamp,
+      name: name,
+      body: body,
+      image: image,
+    });
+}
+
 export function uploadClassified(UID, body, image, phone, email, address) {
   var timestamp = Date.now();
   firebase

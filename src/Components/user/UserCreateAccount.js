@@ -8,34 +8,19 @@ import loginImage from "../../Assets/loginImage2.jpg";
 import logo from "../../Assets/logo.png";
 import styles from "./UserLogIn.module.css";
 
-export default function UserLogIn() {
+export default function UserCreateAccount() {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, seterror] = useState("");
-  const [loading, setLoading] = useState(true);
 
   const history = useHistory();
-
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      var uid = user.uid;
-      console.log("User Check : ");
-      if (uid !== undefined) {
-        console.log(uid);
-        history.replace("/feed");
-      } else {
-        console.log("User Logged Out");
-      }
-    }
-    setLoading(false);
-  });
 
   const handleSubmit = (e) => {
     if (password && userName) {
       var user;
       firebase
         .auth()
-        .signInWithEmailAndPassword(userName, password)
+        .createUserWithEmailAndPassword(userName, password)
         .then((userCredential) => {
           user = userCredential.user;
           console.log(user);
@@ -52,13 +37,6 @@ export default function UserLogIn() {
     setPassword("");
   };
 
-  if (loading) {
-    return (
-      <div className={styles.container}>
-        <div className={styles.donut}></div>
-      </div>
-    );
-  } else {
     return (
       <div className={styles.main}>
         <section className={styles.loginImage}>
@@ -88,14 +66,13 @@ export default function UserLogIn() {
             <div>
               <div style={{ height: 30 }} />
               <button className={styles.loginButton} onClick={handleSubmit}>
-                Log In
+                Create Account
               </button>
               <div style={{ height: 30 }} />
-              <a href="/createAccount">Create New Account</a>
+              <a href="#">Go to Login</a>
             </div>
           </div>
         </section>
       </div>
     );
-  }
 }

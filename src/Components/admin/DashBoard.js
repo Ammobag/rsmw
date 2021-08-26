@@ -15,6 +15,8 @@ import AddTransaction from "./AdminActions/AddTransaction";
 import AddNotification from "./AdminActions/AddNotification";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import MenuIcon from "@material-ui/icons/Menu";
+import AddEvent from "./AdminActions/AddEvent";
+import Events from "./Events";
 
 function Dashboard() {
   const history = useHistory();
@@ -75,7 +77,15 @@ function Dashboard() {
             style={{ textDecoration: "none" }}
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
-            <div>NoticeBoard</div>
+            <div>Notice Board</div>
+          </Link>
+
+           <Link
+            to="/dashboard/events"
+            style={{ textDecoration: "none" }}
+            onClick={() => setIsNavOpen(!isNavOpen)}
+          >
+            <div>Events</div>
           </Link>
 
           <Link
@@ -100,12 +110,14 @@ function Dashboard() {
           <Route path="/dashboard" component={Ledger} exact />
           <Route path="/dashboard/complaints" component={Complaints} />
           <Route path="/dashboard/adduser" component={AddUsers} />
+          <Route path="/dashboard/addevent" component={AddEvent} />
           <Route path="/dashboard/addTransaction" component={AddTransaction} />
           <Route
             path="/dashboard/addNotification"
             component={AddNotification}
           />
           <Route path="/dashboard/noticeBoard" component={NoticeBoard} />
+          <Route path="/dashboard/events" component={Events} />
           <Route path="/dashboard/manageUsers" component={ManageUsers} />
           <Route path="/dashboard/manageContent" component={ManageContent} />
         </Switch>

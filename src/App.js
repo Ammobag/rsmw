@@ -12,6 +12,7 @@ import AddPost from "./Components/user/UserActions/AddPost";
 import UserProfile from "./Components/user/UserProfile";
 import AddComplaint from "./Components/user/UserActions/AddComplaint";
 import AddClassified from "./Components/user/UserActions/AddClassified";
+import UserCreateAccount from "./Components/user/UserCreateAccount";
 
 const theme = createTheme({
   palette: {
@@ -30,6 +31,7 @@ function App() {
       <div>
         <Switch>
           <Route path="/" component={UserLogIn} exact />
+          <Route path="/createAccount" component={UserCreateAccount} exact />
           {/* <Route path="" component={UserDashBoard} exact /> */}
           <Route path="/admin" component={AdminLogIn} />
           <Route path="/dashboard" component={Dashboard} />
