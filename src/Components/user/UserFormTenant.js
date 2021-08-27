@@ -9,9 +9,7 @@ import "firebase/storage";
 import {} from "../firebase";
 import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+
 // var database = firebase.database();
 
 // var Ref = database.ref('admin/');
@@ -20,7 +18,7 @@ import Select from "@material-ui/core/Select";
 //   console.log(data);
 // });
 
-export default function UserFormBasic() {
+export default function UserFormTenant() {
   const [detail, setDetails] = useState({});
   const [idproof, setidproof] = useState(null);
   const [image, setImage] = useState(null);
@@ -56,7 +54,7 @@ export default function UserFormBasic() {
       console.log(user);
       var storageRef = firebase.storage().ref();
       var uploadTask = storageRef
-        .child("documents/"+ user.uid + "/" + image.name)
+        .child("documents/"+ user.uid + "/tenant/" + image.name)
         .put(image);
 
       // Listen for state changes, errors, and completion of the upload.
@@ -101,7 +99,7 @@ export default function UserFormBasic() {
           // Upload completed successfully, now we can get the download URL
           uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
              uploadTask = storageRef
-              .child("documents/"+ user.uid + "/" + idproof.name)
+              .child("documents/"+ user.uid + "/tenant/" + idproof.name)
               .put(idproof);
 
             // Listen for state changes, errors, and completion of the upload.
@@ -148,17 +146,10 @@ export default function UserFormBasic() {
                   firebase.auth().onAuthStateChanged((user) => {
                     if (user) {
                       var uid = user.uid;
-                      firebase.database().ref("users/" + uid + "/basicForm/").set(detail);
-                      firebase.database().ref("users/" + uid + "/").child("name").set(detail.name);
-                      firebase.database().ref("users/" + uid + "/").child("email").set(detail.email);
-                      firebase.database().ref("users/" + uid + "/").child("phonenumber").set(detail.phone);
-                      firebase.database().ref("users/" + uid + "/").child("uid").set(uid);
-                      firebase.database().ref("users/" + uid + "/").child("permanentRes").set(detail.residents);
-                      firebase.database().ref("users/" + uid + "/").child("villaType").set(detail.type);
-                      firebase.database().ref("users/" + uid + "/visitors/").child("length").set(0);
+                      firebase.database().ref("users/" + uid + "/tenantForm/").set(detail);
                       setstatus(2);
                       setTimeout(() => {
-                        history.replace("/tenantForm");
+                        history.replace("/servantForm");
                       }, 2000);
                     }
                   });
@@ -182,9 +173,10 @@ export default function UserFormBasic() {
 
   return (
     <div>
+     
       <div className={styles.body}>
         <div className={styles.wrapper}>
-          <h2>Basic Details Form</h2>
+          <h2>Tenant Details Form</h2>
           {error && (
             <div>
               <h3 style={{ color: "red" }}>{error}</h3>
@@ -233,38 +225,16 @@ export default function UserFormBasic() {
               />
               <form>
                 <textarea
-                  placeholder="Details of Residents staying in House"
+                  placeholder="Details of Residents staying in House (Eg: Name : Phone Number,)"
                   onChange={(e) => setDetails({ ...detail, resdetails : e.target.value})}
                   value={detail.resdetails}
                   style={{ width: 300, marginBottom: 30 }}
                 ></textarea>
               </form>
 
-              <FormControl
-                styles={{
-                  minWidth: 120,
-                }}
-              >
-                Villa Type :
-                <Select
-                  style={{ minWidth: 300 }}
-                  value={detail.type}
-                  displayEmpty
-                  onChange={(e) => setDetails({ ...detail, type : e.target.value})}
-                  autoWidth={true}
-                  placeholder={"Select Villa Type"}
-                >
-                  <MenuItem value="" disabled selected>
-                    Select Villa Type
-                  </MenuItem>
-                  <MenuItem value={"Miranda"}>Miranda</MenuItem>
-                  <MenuItem value={"Leon"}>Leon</MenuItem>
-                  <MenuItem value={"Pedro"}>Pedro</MenuItem>
-                </Select>
-              </FormControl>
               <div style={{ height: 30 }} />
               <div className={styles.imageSelection}>
-                <p>Add Deed:</p>
+                <p>Add Police Verification:</p>
 
                 <label for="myfile">
                   <ImageIcon />
@@ -284,7 +254,7 @@ export default function UserFormBasic() {
               }
 
               <div className={styles.imageSelection}>
-                <p>Add Id Proof:</p>
+                <p>Add Rental Agreement:</p>
 
                 <label for="myfile2">
                   <ImageIcon />

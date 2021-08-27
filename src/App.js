@@ -14,6 +14,8 @@ import AddComplaint from "./Components/user/UserActions/AddComplaint";
 import AddClassified from "./Components/user/UserActions/AddClassified";
 import UserCreateAccount from "./Components/user/UserCreateAccount";
 import UserFormBasic from "./Components/user/UserFormBasic";
+import UserFormTenant from "./Components/user/UserFormTenant";
+import UserFormServant from "./Components/user/UserFormServant";
 
 const theme = createTheme({
   palette: {
@@ -34,6 +36,8 @@ function App() {
           <Route path="/" component={UserLogIn} exact />
           <Route path="/createAccount" component={UserCreateAccount} />
           <Route path="/basicForm" component={UserFormBasic} />
+          <Route path="/tenantForm" component={UserFormTenant} />
+          <Route path="/servantForm" component={UserFormServant} />
           {/* <Route path="" component={UserDashBoard} exact /> */}
           <Route path="/admin" component={AdminLogIn} />
           <Route path="/dashboard" component={Dashboard} />
