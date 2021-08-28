@@ -16,6 +16,7 @@ import UserCreateAccount from "./Components/user/UserCreateAccount";
 import UserFormBasic from "./Components/user/UserFormBasic";
 import UserFormTenant from "./Components/user/UserFormTenant";
 import UserFormServant from "./Components/user/UserFormServant";
+import UserFormVehicle from "./Components/user/UserFormVehicle";
 
 const theme = createTheme({
   palette: {
@@ -38,6 +39,7 @@ function App() {
           <Route path="/basicForm" component={UserFormBasic} />
           <Route path="/tenantForm" component={UserFormTenant} />
           <Route path="/servantForm" component={UserFormServant} />
+          <Route path="/vehicleForm" component={UserFormVehicle} />
           {/* <Route path="" component={UserDashBoard} exact /> */}
           <Route path="/admin" component={AdminLogIn} />
           <Route path="/dashboard" component={Dashboard} />
