@@ -1,0 +1,33 @@
+.topnav {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background-color: bisque;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.topnav nav {
+  display: flex;
+}
+.topnav nav Link {
+  text-decoration: none;
+}
+.topnav menu {
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  color: black;
+}
+
+.topnav menu:hover {
+  background-color: #ddd;
+  color: black;
+  cursor: pointer;
+}
