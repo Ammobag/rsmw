@@ -7,24 +7,59 @@ import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
-import Getonce from "../functions/dbquery";
 import sizeObject from "../functions/dataHandling";
-import { useHistory } from "react-router-dom";
+
 import axios from "axios";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
 
 export default function UserTransactions() {
-  var query = Getonce("maintenance/");
   // const[data, setdata] = useState([])
-  var data = [];
-  const [tempdata, settempdata] = useState([]);
+  const [data, setdata] = useState([{
+          col4: "No Records",
+        },])
   const [user, setuser] = useState("");
+  const [thisuser, setthisuser] = useState("");
+  // eslint-disable-next-line
+  const [type, settype] = useState(null);
   const [fetch, setfetch] = useState(false);
-  var list = [];
-  var temp = [];
+  const [amount, setamount] = useState(0)
+  const [month, setMonth] = useState("")
+  const [year, setYear] = useState("")
 
-  var amount = 0;
+  var allYear = []
+  var d = new Date();
+  var n = d.getFullYear();
+
+  for (let i = n-5; i <= n+1; i++) {
+      allYear.push(i)
+  }
+
+  console.log(allYear)
+
   var database = firebase.database();
-  const history = useHistory();
+
+  if(!user){
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setuser(user.uid);
+        var Ref = database.ref("users/" + user.uid + "/");
+          Ref.once("value", (snapshot) => {
+            var users = snapshot.val();
+            setthisuser(users)
+            settype(users.villaType);
+
+            if(users.villaType === "Miranda"){
+              setamount(11059)
+            }else if (users.villaType === "Leon") {
+              setamount(7489)
+            }else if (users.villaType === "Pedro") {
+              setamount(6540)
+            }
+        });
+      }
+    });
+  }
 
   function loadScript(src) {
     return new Promise((resolve) => {
@@ -42,7 +77,9 @@ export default function UserTransactions() {
 
   const __DEV__ = document.domain === "localhost";
 
-  async function displayRazorpay(amount, id, users) {
+  async function displayRazorpay() {
+    var id = Date.now();
+    var users = thisuser;
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
@@ -75,32 +112,22 @@ export default function UserTransactions() {
       description: "Make your payment",
 
       handler: function (response) {
+
         firebase
           .database()
           .ref("maintenance/" + id + "/")
-          .child("paymentID")
-          .set(response.razorpay_payment_id);
-        firebase
-          .database()
-          .ref("maintenance/" + id + "/")
-          .child("orderID")
-          .set(response.razorpay_order_id);
-        firebase
-          .database()
-          .ref("maintenance/" + id + "/")
-          .child("signature")
-          .set(response.razorpay_signature);
-        firebase
-          .database()
-          .ref("maintenance/" + id + "/")
-          .child("paidDate")
-          .set(i);
-        firebase
-          .database()
-          .ref("maintenance/" + id + "/")
-          .child("status")
-          .set("Paid");
-        history.replace("/feed");
+          .set({
+            UID : user,
+            amount: amount,
+            dueMonth: month,
+            dueYear: year,
+            orderID: response.razorpay_order_id,
+            paidDate: i,
+            paymentID: response.razorpay_payment_id,
+            signature: response.razorpay_signature,
+            status: "Paid"
+          })
+        window.location.reload(true)
       },
       prefill: {
         name: users.name,
@@ -128,64 +155,36 @@ export default function UserTransactions() {
     }
   };
 
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      setuser(user.uid);
-    }
-  });
-  if (data.length === 0 || data[0].col4 === "No Records" || fetch === false) {
-    for (const key in query) {
-      if (Object.hasOwnProperty.call(query, key)) {
-        const element = query[key];
 
-        var Ref = database.ref("users/" + element.UID + "/");
-        Ref.once("value", (snapshot) => {
-          var users = snapshot.val();
-          console.log(fetch);
-          setfetch(true);
+  if (!fetch) {
+    var temp = []
+    var Ref = database.ref("maintenance/").orderByChild("UID").equalTo(user);
+    Ref.once("value", (snapshot) => {
+      var query = snapshot.val();
+      for (const key in query) {
+        if (Object.hasOwnProperty.call(query, key)) {
+          const element = query[key];
+          console.log(element);
           var insert = {
             col1: element.UID,
-            col2: users.name,
+            col2: thisuser.name,
             col3: element.amount,
             col4: element.dueMonth,
             col5: element.dueYear,
             col6: element.status,
             col7: element.paidDate,
-            col8: payButton(element.status, element.amount, key, users),
+            col8: payButton(element.status, element.amount, key, thisuser),
           };
 
-          list.push(insert);
+          temp.unshift(insert)
 
-          if (list.length === sizeObject(query) && fetch === false) {
-            settempdata(list);
+          if(temp.length === sizeObject(query)){
+            setdata(temp)
           }
-        });
-      }
-    }
-
-    temp = [];
-    for (let index = 0; index < tempdata.length; index++) {
-      const element = tempdata[index];
-
-      if (element.col1 === user) {
-        temp.push(element);
-        console.log(element);
-        if (element.col6 === "Not Paid") {
-          amount = amount + Number(element.col3);
         }
       }
-    }
-
-    console.log(temp);
-    data = temp;
-
-    if (data.length === 0) {
-      data = [
-        {
-          col4: "No Records",
-        },
-      ];
-    }
+      setfetch(true)
+    });
   }
 
   const columns = React.useMemo(
@@ -229,7 +228,63 @@ export default function UserTransactions() {
     <div className={styles.userTransactions}>
       <UserNavigation />
       <div className={styles.transactionsWrapper}>
-        <h1 className={styles.dueSection}>Amount Due : ₹ {amount}</h1>
+        <h1 className={styles.dueSection}>Monthly Maintenance Fees : ₹ {amount}</h1>
+        <div>
+          <div style={{flexDirection: 'row'}}>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={month}
+                  displayEmpty
+                  onChange={(e)=>{setMonth(e.target.value)}}
+                  style={{width: 150, textAlign: "center", margin: 25}}
+                >
+                  <MenuItem value="" disabled>
+                    Month
+                  </MenuItem>
+                  <MenuItem value={"January"}>January</MenuItem>
+                  <MenuItem value={"February"}>February</MenuItem>
+                  <MenuItem value={"March"}>March</MenuItem>
+                  <MenuItem value={"April"}>April </MenuItem>
+                  <MenuItem value={"May"}>May</MenuItem>
+                  <MenuItem value={"June"}>June</MenuItem>
+                  <MenuItem value={"July"}>July</MenuItem>
+                  <MenuItem value={"September"}>September</MenuItem>
+                  <MenuItem value={"October"}>October</MenuItem>
+                  <MenuItem value={"November"}>November</MenuItem>
+                  <MenuItem value={"December"}>December</MenuItem>
+                </Select>
+
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={year}
+                  displayEmpty
+                  onChange={(e)=>{setYear(e.target.value)}}
+                  style={{width: 150, textAlign: "center", margin: 25}}
+                >
+                  <MenuItem value="" disabled>
+                    Year
+                  </MenuItem>
+                  {allYear.map((val, index)=>{
+                    return(<MenuItem key={index} value={val}>{val}</MenuItem>);
+                  })}
+                </Select>
+                 <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={(e) => {
+                    if(year && month){
+                      console.log("Loading...")
+                      displayRazorpay()
+                    }
+                  }}
+                  style={{ margin: 8 }}
+                >
+                  Pay
+                </Button>
+            </div>
+        </div>
         <div style={{ height: 30 }} />
         <div className={styles.tableWrapper}>
           <table {...getTableProps()}>

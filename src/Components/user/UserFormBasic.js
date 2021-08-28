@@ -152,10 +152,12 @@ export default function UserFormBasic() {
                       firebase.database().ref("users/" + uid + "/").child("name").set(detail.name);
                       firebase.database().ref("users/" + uid + "/").child("email").set(detail.email);
                       firebase.database().ref("users/" + uid + "/").child("phonenumber").set(detail.phone);
-                      firebase.database().ref("users/" + uid + "/").child("uid").set(uid);
+                      firebase.database().ref("users/" + uid + "/").child("UID").set(uid);
+                      firebase.database().ref("users/" + uid + "/").child("image").set("https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44");
                       firebase.database().ref("users/" + uid + "/").child("permanentRes").set(detail.residents);
                       firebase.database().ref("users/" + uid + "/").child("villaType").set(detail.type);
                       firebase.database().ref("users/" + uid + "/visitors/").child("length").set(0);
+                      firebase.database().ref("users/" + uid + "/vehicle/").child("length").set(0);
                       setstatus(2);
                       setTimeout(() => {
                         history.replace("/tenantForm");
