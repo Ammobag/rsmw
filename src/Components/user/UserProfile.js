@@ -135,7 +135,7 @@ export default function UserProfile() {
       .ref("users/" + user.UID + "/")
       .child("permanentRes")
       .set(permanentRes);
-    window.location.reload(true);
+    history.replace("/feed")
   };
 
   const handleDeleteVisitor = (index) => {
