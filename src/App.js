@@ -36,14 +36,14 @@ function App() {
       <div>
         <Switch>
           <Route path="/" component={Public} exact />
-          <Route path="/logIn" component={UserLogIn} exact />
-          <Route path="/createAccount" component={UserCreateAccount} exact/>
+          <Route path="/logIn" component={UserLogIn} />
+          <Route path="/createAccount" component={UserCreateAccount}/>
           <Route path="/basicForm" component={UserFormBasic} />
           <Route path="/tenantForm" component={UserFormTenant} />
           <Route path="/servantForm" component={UserFormServant} />
           <Route path="/vehicleForm" component={UserFormVehicle} />
           {/* <Route path="" component={UserDashBoard} exact /> */}
-          <Route path="/admin" component={AdminLogIn} exact/>
+          <Route path="/admin" component={AdminLogIn} />
           <Route path="/dashboard" component={Dashboard} exact/>
           <Route path="/feed" component={UserFeed} />
           <Route path="/addPost" component={AddPost} />
