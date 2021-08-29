@@ -57,7 +57,7 @@ function Dashboard() {
         />
         <section>
           <Link
-            to="/dashboard"
+            to="/dashboard/ledger"
             style={{ textDecoration: "none" }}
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
@@ -107,7 +107,7 @@ function Dashboard() {
       </div>
       <div className={styles.main}>
         <Switch>
-          <Route path="/dashboard" component={Ledger} exact />
+          <Route path="/dashboard/ledger" component={Ledger} />
           <Route path="/dashboard/complaints" component={Complaints} />
           <Route path="/dashboard/adduser" component={AddUsers} />
           <Route path="/dashboard/addevent" component={AddEvent} />
