@@ -91,7 +91,7 @@ export default function AddEvent() {
                 uploadEvent(message, downloadURL, eventname);
                 setstatus(2);
                 setTimeout(() => {
-                  history.replace("/dashboard/events");
+                  history.replace("/dashboardevents");
                 }, 2000);
               
             

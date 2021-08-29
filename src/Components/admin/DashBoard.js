@@ -57,7 +57,7 @@ function Dashboard() {
         />
         <section>
           <Link
-            to="/dashboard/ledger"
+            to="/dashboard"
             style={{ textDecoration: "none" }}
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
@@ -65,7 +65,7 @@ function Dashboard() {
           </Link>
 
           <Link
-            to="/dashboard/complaints"
+            to="/dashboardcomplaints"
             style={{ textDecoration: "none" }}
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
@@ -73,7 +73,7 @@ function Dashboard() {
           </Link>
 
           <Link
-            to="/dashboard/noticeBoard"
+            to="/dashboardnoticeBoard"
             style={{ textDecoration: "none" }}
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
@@ -81,7 +81,7 @@ function Dashboard() {
           </Link>
 
            <Link
-            to="/dashboard/events"
+            to="/dashboardevents"
             style={{ textDecoration: "none" }}
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
@@ -89,7 +89,7 @@ function Dashboard() {
           </Link>
 
           <Link
-            to="/dashboard/manageUsers"
+            to="/dashboardmanageUsers"
             style={{ textDecoration: "none" }}
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
@@ -97,7 +97,7 @@ function Dashboard() {
           </Link>
 
           <Link
-            to="/dashboard/manageContent"
+            to="/dashboardmanageContent"
             style={{ textDecoration: "none" }}
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
@@ -107,19 +107,19 @@ function Dashboard() {
       </div>
       <div className={styles.main}>
         <Switch>
-          <Route path="/dashboard/ledger" component={Ledger} />
-          <Route path="/dashboard/complaints" component={Complaints} />
-          <Route path="/dashboard/adduser" component={AddUsers} />
-          <Route path="/dashboard/addevent" component={AddEvent} />
-          <Route path="/dashboard/addTransaction" component={AddTransaction} />
+          <Route path="/dashboard" component={Ledger} exact />
+          <Route path="/dashboardcomplaints" component={Complaints} />
+          <Route path="/dashboardadduser" component={AddUsers} />
+          <Route path="/dashboardaddevent" component={AddEvent} />
+          <Route path="/dashboardaddTransaction" component={AddTransaction} />
           <Route
-            path="/dashboard/addNotification"
+            path="/dashboardaddNotification"
             component={AddNotification}
           />
-          <Route path="/dashboard/noticeBoard" component={NoticeBoard} />
-          <Route path="/dashboard/events" component={Events} />
-          <Route path="/dashboard/manageUsers" component={ManageUsers} />
-          <Route path="/dashboard/manageContent" component={ManageContent} />
+          <Route path="/dashboardnoticeBoard" component={NoticeBoard} />
+          <Route path="/dashboardevents" component={Events} />
+          <Route path="/dashboardmanageUsers" component={ManageUsers} />
+          <Route path="/dashboardmanageContent" component={ManageContent} />
         </Switch>
       </div>
     </div>
