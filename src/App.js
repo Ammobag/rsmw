@@ -37,15 +37,15 @@ function App() {
         <Switch>
           <Route path="/" component={Public} exact />
           <Route path="/logIn" component={UserLogIn} exact />
-          <Route path="/createAccount" component={UserCreateAccount} />
+          <Route path="/createAccount" component={UserCreateAccount} exact/>
           <Route path="/basicForm" component={UserFormBasic} />
           <Route path="/tenantForm" component={UserFormTenant} />
           <Route path="/servantForm" component={UserFormServant} />
           <Route path="/vehicleForm" component={UserFormVehicle} />
           {/* <Route path="" component={UserDashBoard} exact /> */}
-          <Route path="/admin" component={AdminLogIn} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/feed" component={UserFeed} exact />
+          <Route path="/admin" component={AdminLogIn} exact/>
+          <Route path="/dashboard" component={Dashboard} exact/>
+          <Route path="/feed" component={UserFeed} />
           <Route path="/addPost" component={AddPost} />
           <Route path="/addClassified" component={AddClassified} />
           <Route path="/addComplaint" component={AddComplaint} />

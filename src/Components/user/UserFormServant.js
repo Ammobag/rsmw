@@ -91,27 +91,12 @@ export default function UserFormServant() {
           }
         },
         (error) => {
-          // A full list of error codes is available at
-          // https://firebase.google.com/docs/storage/web/handle-errors
-          switch (error.code) {
-            case "storage/unauthorized":
-              // User doesn't have permission to access the object
-              break;
-            case "storage/canceled":
-              // User canceled the upload
-              break;
-
-            // ...
-
-            case "storage/unknown":
-              // Unknown error occurred, inspect error.serverResponse
-              break;
-            default:
-          }
+          alert(error.message);
         },
         () => {
           // Upload completed successfully, now we can get the download URL
           uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            alert("pdf 1 done")
              uploadTask = storageRef
               .child("documents/"+ user.uid + "/worker/" + visitors.length+ "/" + idproof.name)
               .put(idproof);
@@ -136,27 +121,13 @@ export default function UserFormServant() {
                 }
               },
               (error) => {
-                // A full list of error codes is available at
-                // https://firebase.google.com/docs/storage/web/handle-errors
-                switch (error.code) {
-                  case "storage/unauthorized":
-                    // User doesn't have permission to access the object
-                    break;
-                  case "storage/canceled":
-                    // User canceled the upload
-                    break;
-
-                  // ...
-
-                  case "storage/unknown":
-                    // Unknown error occurred, inspect error.serverResponse
-                    break;
-                  default:
-                }
+                 alert(error.message);
+                
               },
               () => {
                 // Upload completed successfully, now we can get the download URL
                 uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                  alert("pdf 2 done")
                   firebase.auth().onAuthStateChanged((user) => {
                     if (user) {
                       firebase
@@ -173,6 +144,7 @@ export default function UserFormServant() {
                       .child("length")
                       .set(visitors.length + 1);
                       setstatus(0);
+                      window.location.reload(true);
                     }
                   });
                 });
@@ -182,7 +154,7 @@ export default function UserFormServant() {
         }
       );
 
-    window.location.reload(true);
+
     }
   };
 
@@ -354,6 +326,17 @@ export default function UserFormServant() {
                 </Button>
                 <div style={{ height: 30 }} />
               </div>
+              <div className="buttonWrapper">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleNext}
+                  disableElevation
+                >
+                  Next
+                </Button>
+                <div style={{ height: 30 }} />
+              </div>
             </section>
           )}
 
@@ -368,17 +351,7 @@ export default function UserFormServant() {
             </div>
           )}
 
-          <div className="buttonWrapper">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleNext}
-                  disableElevation
-                >
-                  Next
-                </Button>
-                <div style={{ height: 30 }} />
-              </div>
+          
         </div>
       </div>
     </div>

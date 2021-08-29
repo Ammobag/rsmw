@@ -70,10 +70,11 @@ export default function UserFormVehicle() {
           .child("length")
           .set(vehicle.length + 1);
           setstatus(0);
+          window.location.reload(true);
         }
       });   
 
-    window.location.reload(true);
+
     }
   };
 

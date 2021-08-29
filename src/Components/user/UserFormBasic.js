@@ -170,13 +170,6 @@ export default function UserFormBasic() {
           });
         }
       );
-
-
-     
-
-
-
-      
     } else {
       seterror("Enter all the fields");
     }
@@ -313,7 +306,7 @@ export default function UserFormBasic() {
                   onClick={handleSubmit}
                   disableElevation
                 >
-                  Upload Post
+                  Continue
                 </Button>
               </div>
             </section>

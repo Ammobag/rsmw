@@ -281,7 +281,18 @@ export default function UserFormTenant() {
                   onClick={handleSubmit}
                   disableElevation
                 >
-                  Upload Post
+                  Next
+                </Button>
+              </div>
+              <div style={{ height: 30 }} />
+              <div className={styles.buttonWrapper}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={()=>{history.replace("/servantForm")}}
+                  disableElevation
+                >
+                  Skip
                 </Button>
               </div>
             </section>
