@@ -69,7 +69,7 @@ export default function UserCreateAccount() {
                 Create Account
               </button>
               <div style={{ height: 30 }} />
-              <a href="#">Go to Login</a>
+              <a href="/logIn">Go to Login</a>
             </div>
           </div>
         </section>

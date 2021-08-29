@@ -19,7 +19,7 @@ export default function UserTransactions() {
           col4: "No Records",
         },])
   const [user, setuser] = useState("");
-  const [thisuser, setthisuser] = useState("");
+  const [thisuser, setthisuser] = useState(null);
   // eslint-disable-next-line
   const [type, settype] = useState(null);
   const [fetch, setfetch] = useState(false);
@@ -34,8 +34,6 @@ export default function UserTransactions() {
   for (let i = n-5; i <= n+1; i++) {
       allYear.push(i)
   }
-
-  console.log(allYear)
 
   var database = firebase.database();
 
@@ -156,7 +154,7 @@ export default function UserTransactions() {
   };
 
 
-  if (!fetch) {
+  if (!fetch && thisuser) {
     var temp = []
     var Ref = database.ref("maintenance/").orderByChild("UID").equalTo(user);
     Ref.once("value", (snapshot) => {
@@ -164,7 +162,6 @@ export default function UserTransactions() {
       for (const key in query) {
         if (Object.hasOwnProperty.call(query, key)) {
           const element = query[key];
-          console.log(element);
           var insert = {
             col1: element.UID,
             col2: thisuser.name,
@@ -281,7 +278,7 @@ export default function UserTransactions() {
                   }}
                   style={{ margin: 8 }}
                 >
-                  Pay
+                  Pay Online
                 </Button>
             </div>
         </div>

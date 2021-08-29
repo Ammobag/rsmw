@@ -12,7 +12,7 @@ export default function Public() {
     <div>
       <div className={styles.topnav}>
         <div className={styles.brand}>
-          <img src={logo} />
+          <img src={logo} alt="Logo"/>
           <div>Ideal Villas Owner's Association</div>
         </div>
 
@@ -28,7 +28,7 @@ export default function Public() {
       {activeTab === "Contact" && <ContactUs />}
       {activeTab === "About" && <AboutUs />}
       <footer>
-        <p>Blanc Technologies</p>
+        <p>Ideal Villas Owner's Association</p>
       </footer>
     </div>
   );
