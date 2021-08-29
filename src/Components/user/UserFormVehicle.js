@@ -70,7 +70,11 @@ export default function UserFormVehicle() {
           .child("length")
           .set(vehicle.length + 1);
           setstatus(0);
-          window.location.reload(true);
+          var Ref = database.ref("users/" + user.uid + "/");
+          Ref.once("value", (snapshot) => {
+            var users = snapshot.val();
+            setvehicle(users.vehicle);
+          });
         }
       });   
 

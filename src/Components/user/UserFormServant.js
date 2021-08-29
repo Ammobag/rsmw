@@ -96,7 +96,7 @@ export default function UserFormServant() {
         () => {
           // Upload completed successfully, now we can get the download URL
           uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-            alert("pdf 1 done")
+           
              uploadTask = storageRef
               .child("documents/"+ user.uid + "/worker/" + visitors.length+ "/" + idproof.name)
               .put(idproof);
@@ -127,7 +127,7 @@ export default function UserFormServant() {
               () => {
                 // Upload completed successfully, now we can get the download URL
                 uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                  alert("pdf 2 done")
+                 
                   firebase.auth().onAuthStateChanged((user) => {
                     if (user) {
                       firebase
@@ -144,7 +144,11 @@ export default function UserFormServant() {
                       .child("length")
                       .set(visitors.length + 1);
                       setstatus(0);
-                      window.location.reload(true);
+                      var Ref = database.ref("users/" + user.uid + "/");
+                      Ref.once("value", (snapshot) => {
+                        var users = snapshot.val();
+                        setvisitors(users.visitors);
+                      });
                     }
                   });
                 });
