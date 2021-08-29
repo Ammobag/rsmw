@@ -37,42 +37,50 @@ export default function UserCreateAccount() {
     setPassword("");
   };
 
-    return (
-      <div className={styles.main}>
-        <section className={styles.loginImage}>
-          <img src={loginImage} alt="Login goes here" />
-        </section>
-        <section className={styles.loginSection}>
-          <div className={styles.wrapper}>
-            <div style={{ color: "red" }}>{error}</div>
-            <img src={logo} alt="Logo" />
-            <h1>Ideal Villas</h1>
+  return (
+    <div className={styles.main}>
+      <section className={styles.loginImage}>
+        <img src={loginImage} alt="Login goes here" />
+      </section>
+      <section className={styles.loginSection}>
+        <div className={styles.wrapper}>
+          <div style={{ color: "red" }}>{error}</div>
+          <img src={logo} alt="Logo" />
+          <h1>Ideal Villas</h1>
+          <div style={{ height: 30 }} />
+          <input
+            placeholder="Username"
+            type="email"
+            value={userName}
+            onChange={(e) => setUsername(e.target.value)}
+            className={styles.inputField}
+          />
+          <div style={{ height: 30 }} />
+          <input
+            placeholder="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={styles.inputField}
+          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
             <div style={{ height: 30 }} />
-            <input
-              placeholder="Username"
-              type="email"
-              value={userName}
-              onChange={(e) => setUsername(e.target.value)}
-              className={styles.inputField}
-            />
+            <button className={styles.loginButton} onClick={handleSubmit}>
+              Create Account
+            </button>
             <div style={{ height: 30 }} />
-            <input
-              placeholder="Password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={styles.inputField}
-            />
-            <div>
-              <div style={{ height: 30 }} />
-              <button className={styles.loginButton} onClick={handleSubmit}>
-                Create Account
-              </button>
-              <div style={{ height: 30 }} />
-              <a href="/logIn">Go to Login</a>
-            </div>
+            <a style={{ textAlign: "center" }} href="/logIn">
+              Go to Login
+            </a>
           </div>
-        </section>
-      </div>
-    );
+        </div>
+      </section>
+    </div>
+  );
 }

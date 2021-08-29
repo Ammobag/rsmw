@@ -23,6 +23,11 @@
   align-items: center;
   width: 80%;
 }
+.imageWrapper img {
+  object-fit: cover;
+  height: 250px;
+  width: 400px;
+}
 .list {
   display: flex;
   flex-direction: column;
