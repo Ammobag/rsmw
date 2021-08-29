@@ -49,7 +49,7 @@ export default function ManageContent() {
 
           const deletePost = () => {
             firebase.database().ref("posts/").child(key).remove();
-            history.replace("/dashboardmanageContent");
+            history.replace("/dashboard/manageContent");
           };
 
           const DeleteButton = () => {

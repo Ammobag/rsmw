@@ -98,7 +98,7 @@ export default function NoticeBoard() {
   );
 
   const handleAdd = (e) => {
-    history.push("/dashboardaddNotification");
+    history.push("/dashboard/addNotification");
   };
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =

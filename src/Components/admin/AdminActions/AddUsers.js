@@ -40,15 +40,8 @@ export default function AddUsers() {
           // Signed in
           var user = userCredential.user;
 
-          writeUserData(
-            user.uid,
-            name,
-            userName,
-            phonenumber,
-            lineno,
-            img
-          );
-          history.push("/dashboardmanageUsers");
+          writeUserData(user.uid, name, userName, phonenumber, lineno, img);
+          history.push("/dashboard/manageUsers");
           setUsername("");
           setPassword("");
           setphonenumber("");
@@ -130,7 +123,6 @@ export default function AddUsers() {
             onChange={(e) => setlineno(e.target.value)}
           />
         </div>
-
       </div>
 
       <div>

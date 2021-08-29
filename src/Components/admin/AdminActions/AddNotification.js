@@ -31,7 +31,7 @@ export default function AddNotification() {
   const handleSubmit = (e) => {
     if (issuer && designation && subject && body) {
       postNotification(issuer, designation[0].name, subject, body);
-      history.replace("/dashboardnoticeBoard");
+      history.replace("/dashboard/noticeBoard");
     } else {
       seterror("Please enter all the fields");
     }

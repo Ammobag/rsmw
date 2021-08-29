@@ -53,7 +53,7 @@ export default function Events() {
         console.log(element.col8, searchInput);
         if (
           element.col1.toLowerCase().includes(searchInput.toLowerCase()) ||
-          element.col2.toLowerCase().includes(searchInput.toLowerCase()) 
+          element.col2.toLowerCase().includes(searchInput.toLowerCase())
         ) {
           filteredData.push(element);
         }
@@ -89,7 +89,7 @@ export default function Events() {
   );
 
   const handleAdd = (e) => {
-    history.push("/dashboardaddevent");
+    history.push("/dashboard/addevent");
   };
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =

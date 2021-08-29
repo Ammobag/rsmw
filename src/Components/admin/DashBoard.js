@@ -65,7 +65,7 @@ function Dashboard() {
           </Link>
 
           <Link
-            to="/dashboardcomplaints"
+            to="/dashboard/complaints"
             style={{ textDecoration: "none" }}
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
@@ -73,15 +73,15 @@ function Dashboard() {
           </Link>
 
           <Link
-            to="/dashboardnoticeBoard"
+            to="/dashboard/noticeBoard"
             style={{ textDecoration: "none" }}
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
             <div>Notice Board</div>
           </Link>
 
-           <Link
-            to="/dashboardevents"
+          <Link
+            to="/dashboard/events"
             style={{ textDecoration: "none" }}
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
@@ -89,7 +89,7 @@ function Dashboard() {
           </Link>
 
           <Link
-            to="/dashboardmanageUsers"
+            to="/dashboard/manageUsers"
             style={{ textDecoration: "none" }}
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
@@ -97,7 +97,7 @@ function Dashboard() {
           </Link>
 
           <Link
-            to="/dashboardmanageContent"
+            to="/dashboard/manageContent"
             style={{ textDecoration: "none" }}
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
@@ -108,18 +108,27 @@ function Dashboard() {
       <div className={styles.main}>
         <Switch>
           <Route path="/dashboard" component={Ledger} exact />
-          <Route path="/dashboardcomplaints" component={Complaints} />
-          <Route path="/dashboardadduser" component={AddUsers} />
-          <Route path="/dashboardaddevent" component={AddEvent} />
-          <Route path="/dashboardaddTransaction" component={AddTransaction} />
+          <Route path="/dashboard/complaints" component={Complaints} exact />
+          <Route path="/dashboard/adduser" component={AddUsers} exact />
+          <Route path="/dashboard/addevent" component={AddEvent} exact />
           <Route
-            path="/dashboardaddNotification"
-            component={AddNotification}
+            path="/dashboard/addTransaction"
+            component={AddTransaction}
+            exact
           />
-          <Route path="/dashboardnoticeBoard" component={NoticeBoard} />
-          <Route path="/dashboardevents" component={Events} />
-          <Route path="/dashboardmanageUsers" component={ManageUsers} />
-          <Route path="/dashboardmanageContent" component={ManageContent} />
+          <Route
+            path="/dashboard/addNotification"
+            component={AddNotification}
+            exact
+          />
+          <Route path="/dashboard/noticeBoard" component={NoticeBoard} exact />
+          <Route path="/dashboard/events" component={Events} exact />
+          <Route path="/dashboard/manageUsers" component={ManageUsers} exact />
+          <Route
+            path="/dashboard/manageContent"
+            component={ManageContent}
+            exact
+          />
         </Switch>
       </div>
     </div>

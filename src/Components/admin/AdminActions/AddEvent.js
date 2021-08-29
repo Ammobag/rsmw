@@ -86,15 +86,12 @@ export default function AddEvent() {
         () => {
           // Upload completed successfully, now we can get the download URL
           uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-            
-                console.log("File available at", downloadURL);
-                uploadEvent(message, downloadURL, eventname);
-                setstatus(2);
-                setTimeout(() => {
-                  history.replace("/dashboardevents");
-                }, 2000);
-              
-            
+            console.log("File available at", downloadURL);
+            uploadEvent(message, downloadURL, eventname);
+            setstatus(2);
+            setTimeout(() => {
+              history.replace("/dashboard/events");
+            }, 2000);
           });
         }
       );
@@ -116,15 +113,15 @@ export default function AddEvent() {
           {status === 0 && (
             <section>
               <TextField
-              id="eventname"
-              label="Event Name"
-              type="text"
-              variant="outlined"
-              margin="dense"
-              style={{ width: 300, marginBottom: 30 }}
-              value={eventname}
-              onChange={(e) => seteventname(e.target.value)}
-            />
+                id="eventname"
+                label="Event Name"
+                type="text"
+                variant="outlined"
+                margin="dense"
+                style={{ width: 300, marginBottom: 30 }}
+                value={eventname}
+                onChange={(e) => seteventname(e.target.value)}
+              />
               <form>
                 <textarea
                   placeholder="Write a brief Description"
@@ -170,7 +167,10 @@ export default function AddEvent() {
             <div style={{ padding: 50 }}>
               <div>Uploading Files ...</div>
               <div className={styles.progress}>
-                <div className={styles.bar} style={{ width: progress.toFixed(2) + "%" }}>
+                <div
+                  className={styles.bar}
+                  style={{ width: progress.toFixed(2) + "%" }}
+                >
                   <p className={styles.percent}>{progress.toFixed(2)}%</p>
                 </div>
               </div>
