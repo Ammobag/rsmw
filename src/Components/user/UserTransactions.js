@@ -246,6 +246,7 @@ export default function UserTransactions() {
                   <MenuItem value={"May"}>May</MenuItem>
                   <MenuItem value={"June"}>June</MenuItem>
                   <MenuItem value={"July"}>July</MenuItem>
+                  <MenuItem value={"August"}>August</MenuItem>
                   <MenuItem value={"September"}>September</MenuItem>
                   <MenuItem value={"October"}>October</MenuItem>
                   <MenuItem value={"November"}>November</MenuItem>

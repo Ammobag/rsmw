@@ -191,7 +191,18 @@ export default function UserProfile() {
           </>
         );
       }else{
-        return <div>No Visitors Found</div>;
+        return <div>No Visitors Found
+          <div className="buttonWrapper">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={()=>{history.push("/servantForm")}}
+                disableElevation
+              >
+                Edit Visitors
+              </Button>
+            </div>
+        </div>;
       }
     } else {
       return <div>Loading...</div>;
@@ -246,7 +257,18 @@ export default function UserProfile() {
             </>
           );
       } else {
-          return <div style={{ height: 30 }} >No Vehicles Found</div>;
+          return <div style={{ height: 30 }} >No Vehicles Found
+            <div className="buttonWrapper">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={()=>{history.push("/servantForm")}}
+                disableElevation
+              >
+                Edit Visitors
+              </Button>
+            </div>
+          </div>;
       }
     } else {
       return <div style={{ height: 30 }} >No Vehicles Found</div>;
@@ -303,8 +325,8 @@ export default function UserProfile() {
                     <div className={styles.gridItem}>{user.name}</div>
                     <div className={styles.gridItem}>Email :</div>
                     <div className={styles.gridItem}>{user.email}</div>
-                    <div className={styles.gridItem}>Line No :</div>
-                    <div className={styles.gridItem}>{user.lineno}</div>
+                    <div className={styles.gridItem}>Villa Type :</div>
+                    <div className={styles.gridItem}>{user.villaType}</div>
                     <div className={styles.gridItem}>Phone Number:</div>
                     <div className={styles.gridItem}>
                       <TextField

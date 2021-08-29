@@ -16,6 +16,7 @@ import SearchIcon from "@material-ui/icons/Search";
 export default function ManageContent() {
   const [searchInput, setsearchInput] = useState();
   const [alldata, setalldata] = useState([]);
+  const [fetch, setFetch] = useState(false)
   const [data, setdata] = useState([]);
   var query = Getonce("posts/");
   var list = [];
@@ -25,7 +26,7 @@ export default function ManageContent() {
 
   console.log(data.length, sizeObject(query));
 
-  if (data.length !== sizeObject(query) && !searchInput) {
+  if (!fetch && !searchInput) {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
@@ -79,6 +80,7 @@ export default function ManageContent() {
           if (list.length === sizeObject(query)) {
             setdata(list);
             setalldata(list);
+            setFetch(true)
           }
         });
       }

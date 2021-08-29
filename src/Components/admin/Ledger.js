@@ -17,11 +17,12 @@ export default function Ledger() {
   const [alldata, setalldata] = useState([]);
   var query = Getonce("maintenance/");
   const [data, setdata] = useState([]);
+  const [fetch, setFetch] = useState(false)
   var list = [];
   var database = firebase.database();
   const history = useHistory();
 
-  if (data.length !== sizeObject(query) && !searchInput) {
+  if (!fetch && !searchInput) {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
@@ -43,6 +44,7 @@ export default function Ledger() {
           if (list.length === sizeObject(query)) {
             setdata(list);
             setalldata(list);
+            setFetch(true)
           }
         });
       }
