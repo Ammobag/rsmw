@@ -63,10 +63,8 @@ export function writeUserData(
       name: name,
       email: email,
       phonenumber: phonenumber,
-      lineno: lineno,
       image: img,
       permanentRes: 0,
-      visitors: "",
     });
 }
 

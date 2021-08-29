@@ -187,7 +187,7 @@ export default function UserFormServant() {
   };
 
   const handleNext = (e) => {
-    history.replace("/feed")
+    history.replace("/vehicleForm")
   };
 
   const handleDeleteVisitor = (index) => {

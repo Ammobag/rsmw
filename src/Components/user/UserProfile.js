@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import "./UserActions/AddPost.module.css";
+import "./AddPost.module.css";
 import ImageIcon from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
@@ -7,19 +7,13 @@ import "firebase/database";
 import "firebase/auth";
 import "firebase/storage";
 import {} from "../firebase";
-
+import { useHistory } from "react-router-dom";
 import UserNavigation from "./UserNavigation";
 import styles from "./UserProfile.module.css";
 import TextField from "@material-ui/core/TextField";
 import { deleteVisitorData } from "../functions/dbquery";
 
-// var database = firebase.database();
 
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
 
 export default function UserProfile() {
   const [image, setImage] = useState("");
@@ -29,14 +23,13 @@ export default function UserProfile() {
   const [user, setuser] = useState(null);
   const [phonenumber, setphonenumber] = useState();
   const [permanentRes, setpermanentRes] = useState();
-  const [newVisitorName, setNewVisitorName] = useState("");
-  const [newVisitorPurpose, setNewVisitorPurpose] = useState("");
-  const [newVisitorContact, setNewVisitorContact] = useState("");
   const [visitors, setvisitors] = useState();
+  const [vehicle, setvehicle] = useState()
   // eslint-disable-next-line
   const [error, seterror] = useState("");
 
   var database = firebase.database();
+  const history = useHistory();
 
   if (!user) {
     firebase.auth().onAuthStateChanged((user) => {
@@ -49,6 +42,7 @@ export default function UserProfile() {
           setdisplayImage(users.image);
           setpermanentRes(users.permanentRes);
           setvisitors(users.visitors);
+          setvehicle(users.vehicle);
         });
       }
     });
@@ -141,21 +135,6 @@ export default function UserProfile() {
       .ref("users/" + user.UID + "/")
       .child("permanentRes")
       .set(permanentRes);
-    if (newVisitorContact && newVisitorName && newVisitorPurpose) {
-      firebase
-        .database()
-        .ref("users/" + user.UID + "/visitors/" + visitors.length)
-        .set({
-          name: newVisitorName,
-          contact: newVisitorContact,
-          purpose: newVisitorPurpose,
-        });
-      firebase
-        .database()
-        .ref("users/" + user.UID + "/visitors/")
-        .child("length")
-        .set(visitors.length + 1);
-    }
     window.location.reload(true);
   };
 
@@ -180,28 +159,97 @@ export default function UserProfile() {
 
       console.log(arr, keys);
 
-      return (
-        <>
-          <h4>Visitors:</h4>
-          {arr.map((visitor, index) => {
-            return (
-              <div className={styles.gridContainer} key={index}>
-                <div className={styles.gridItem}>Name:</div>
-                <div className={styles.gridItem}>{visitor.name}</div>
-                <div className={styles.gridItem}>Purpose:</div>
-                <div className={styles.gridItem}>{visitor.purpose}</div>
-                <div className={styles.gridItem}>Contact:</div>
-                <div className={styles.gridItem}>{visitor.contact}</div>
-                <button onClick={(e) => handleDeleteVisitor(keys[index])}>
-                  Delete
-                </button>
-              </div>
-            );
-          })}
-        </>
-      );
+      if(arr.length > 0) {
+        return (
+          <>
+            <h4>Visitors:</h4>
+            <div className="buttonWrapper">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={()=>{history.push("/servantForm")}}
+                disableElevation
+              >
+                Edit Visitors
+              </Button>
+            </div>
+            {arr.map((visitor, index) => {
+              return (
+                <div className={styles.gridContainer} key={index}>
+                  <div className={styles.gridItem}>Name:</div>
+                  <div className={styles.gridItem}>{visitor.name}</div>
+                  <div className={styles.gridItem}>Purpose:</div>
+                  <div className={styles.gridItem}>{visitor.purpose}</div>
+                  <div className={styles.gridItem}>Contact:</div>
+                  <div className={styles.gridItem}>{visitor.contact}</div>
+                  <button onClick={(e) => handleDeleteVisitor(keys[index])}>
+                    Delete
+                  </button>
+                </div>
+              );
+            })}
+          </>
+        );
+      }else{
+        return <div>No Visitors Found</div>;
+      }
     } else {
       return <div>Loading...</div>;
+    }
+  };
+
+  const ViewVehicle = (e) => {
+    console.log(vehicle);
+    if (vehicle) {
+      let arr = [];
+      let keys = [];
+      for (let i = 0; i < vehicle.length; i++) {
+        const element = vehicle[i];
+        console.log(element);
+        if (!element.deleted) {
+          arr.push(element);
+          keys.push(i);
+        }
+      }
+
+      console.log(arr, keys);
+
+      if(arr.length > 0) {
+          return (
+            <>
+              <h4>Vehicle:</h4>
+              <div className="buttonWrapper">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={()=>{history.push("/vehicleForm")}}
+                  disableElevation
+                >
+                  Edit Vehicles
+                </Button>
+              </div>
+              {arr.map((visitor, index) => {
+                return (
+                  <div className={styles.gridContainer} key={index}>
+                    <div className={styles.gridItem}>Name:</div>
+                    <div className={styles.gridItem}>{visitor.name}</div>
+                    <div className={styles.gridItem}>Type:</div>
+                    <div className={styles.gridItem}>{visitor.type}</div>
+                    <div className={styles.gridItem}>Registration Number:</div>
+                    <div className={styles.gridItem}>{visitor.regNo}</div>
+                    <button onClick={(e) => handleDeleteVisitor(keys[index])}>
+                      Delete
+                    </button>
+                  </div>
+                );
+              })}
+            </>
+          );
+      } else {
+          return <div style={{ height: 30 }} >No Vehicles Found</div>;
+      }
+    } else {
+      return <div style={{ height: 30 }} >No Vehicles Found</div>;
     }
   };
 
@@ -281,46 +329,12 @@ export default function UserProfile() {
                     </div>
                   </div>
                   <div style={{ height: 30 }} />
-                  <>
-                    <h4> Add New Visitor</h4>
-                    <div className={styles.gridContainer}>
-                      <div className={styles.gridItem}>Name:</div>
-                      <div className={styles.gridItem}>
-                        <TextField
-                          type="text"
-                          variant="outlined"
-                          margin="dense"
-                          style={{ width: 200 }}
-                          value={newVisitorName}
-                          onChange={(e) => setNewVisitorName(e.target.value)}
-                        />
-                      </div>
-                      <div className={styles.gridItem}>Purpose:</div>
-                      <div className={styles.gridItem}>
-                        <TextField
-                          type="text"
-                          variant="outlined"
-                          margin="dense"
-                          style={{ width: 200 }}
-                          value={newVisitorPurpose}
-                          onChange={(e) => setNewVisitorPurpose(e.target.value)}
-                        />
-                      </div>
-                      <div className={styles.gridItem}>Contact:</div>
-                      <div className={styles.gridItem}>
-                        <TextField
-                          type="tel"
-                          variant="outlined"
-                          margin="dense"
-                          style={{ width: 200 }}
-                          value={newVisitorContact}
-                          onChange={(e) => setNewVisitorContact(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                  </>
+
                   <div style={{ height: 30 }} />
                   <ViewVisitor />
+                  <div style={{ height: 30 }} />
+                  <ViewVehicle/>
+                  <div style={{ height: 30 }} />
                   <div style={{ height: 30 }} />
                 </div>
               )}
