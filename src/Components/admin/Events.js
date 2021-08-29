@@ -89,7 +89,7 @@ export default function Events() {
   );
 
   const handleAdd = (e) => {
-    history.push("/dashboard/addevent");
+    history.push("/dashboardaddevent");
   };
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =

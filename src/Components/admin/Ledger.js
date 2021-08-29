@@ -114,7 +114,7 @@ export default function Ledger() {
   };
 
   const handleAdd = (e) => {
-    history.push("/dashboard/addTransaction");
+    history.push("/dashboardaddTransaction");
   };
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =

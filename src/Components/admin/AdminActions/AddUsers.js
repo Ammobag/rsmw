@@ -48,7 +48,7 @@ export default function AddUsers() {
             lineno,
             img
           );
-          history.push("/dashboard/manageUsers");
+          history.push("/dashboardmanageUsers");
           setUsername("");
           setPassword("");
           setphonenumber("");
