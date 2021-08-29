@@ -5,14 +5,14 @@ import slider3 from "../../Assets/slider3.jpeg";
 import slider4 from "../../Assets/slider4.jpeg";
 import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
+import { TextField } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+
 export default function Home() {
-  // eslint-disable-next-line
-  const [activeMenu, setActiveMenu] = useState("Home");
-  // eslint-disable-next-line
-  const active = {
-    backgroundColor: "#ffffff",
-    color: "#ffffff",
-  };
+  const [email, setEmail] = useState();
+  const [phoneNo, setPhoneNo] = useState();
+  const [subject, setSubject] = useState();
+
   // eslint-disable-next-line
   const inActive = {};
   const [index, setIndex] = React.useState(0);
@@ -49,13 +49,45 @@ export default function Home() {
               alignItems: "center",
             }}
           >
-            <h2>Ideal Villas Owner's Association</h2>
+            <h2>Contact Us</h2>
             <br />
-            <p>
-              Thakdari Road, Action Area I, Newtown, Kolkata, West Bengal 700102
-            </p>
-            <p>Contact At:90000000</p>
-            <p>Or mail us at : hello123@gmail.com</p>
+            <TextField
+              id="email"
+              label="Email"
+              type="email"
+              variant="outlined"
+              margin="dense"
+              style={{ width: 200 }}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              id="phoneNo"
+              label="Phone Number"
+              type="tel"
+              variant="outlined"
+              margin="dense"
+              style={{ width: 200 }}
+              value={phoneNo}
+              onChange={(e) => setPhoneNo(e.target.value)}
+            />
+            <TextField
+              id="subject"
+              label="Subject"
+              type="text"
+              variant="outlined"
+              margin="dense"
+              style={{ width: 200 }}
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ marginTop: 30 }}
+            >
+              Submit
+            </Button>
           </div>
           <div className={styles.imageWrapper}>
             <img src={slider3} alt="" />
