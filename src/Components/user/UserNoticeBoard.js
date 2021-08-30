@@ -12,7 +12,12 @@ export default function UserNoticeBoard() {
   var eventQuery = Getonce("events/");
   var noticeData = [];
   var eventData = [];
-
+  const active = {
+    backgroundColor: "#F7776A",
+    color: "#ffffff",
+    padding: 2,
+    borderRadius: 3,
+  };
   for (const key in noticeQuery) {
     if (Object.hasOwnProperty.call(noticeQuery, key)) {
       const element = noticeQuery[key];
@@ -59,9 +64,19 @@ export default function UserNoticeBoard() {
       <div className={styles.feedPage}>
         <div style={{ height: 30 }} />
         <div className={styles.tab}>
-          <div onClick={() => setActiveTab("Notices")}>Notices</div>
+          <div
+            onClick={() => setActiveTab("Notices")}
+            style={activeTab === "Notices" ? active : null}
+          >
+            Notices
+          </div>
           <div>|</div>
-          <div onClick={() => setActiveTab("Events")}>Events</div>
+          <div
+            onClick={() => setActiveTab("Events")}
+            style={activeTab === "Events" ? active : null}
+          >
+            Events
+          </div>
         </div>
         {activeTab === "Notices" ? Notices : Events}
       </div>

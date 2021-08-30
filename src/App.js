@@ -22,7 +22,7 @@ import UserFormVehicle from "./Components/user/UserFormVehicle";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#FFB740",
+      main: "#F7776A",
     },
     secondary: {
       main: "#F2F2F2",
@@ -42,7 +42,6 @@ function App() {
           <Route path="/tenantForm" component={UserFormTenant} />
           <Route path="/servantForm" component={UserFormServant} />
           <Route path="/vehicleForm" component={UserFormVehicle} />
-          {/* <Route path="" component={UserDashBoard} exact /> */}
           <Route path="/admin" component={AdminLogIn} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/feed" component={UserFeed} />

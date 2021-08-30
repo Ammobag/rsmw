@@ -27,6 +27,8 @@
 .tab {
   display: flex;
   flex-direction: row;
+  font-size: 30px;
+  cursor: pointer;
 }
 .tab div {
   margin: 0 0.2rem;

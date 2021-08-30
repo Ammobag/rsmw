@@ -10,6 +10,7 @@ import {} from "../../firebase";
 import { uploadClassified } from "../../functions/dbquery";
 import { useHistory } from "react-router-dom";
 import UserNavigation from "../UserNavigation";
+import { TextField } from "@material-ui/core";
 // var database = firebase.database();
 
 // var Ref = database.ref('admin/');
@@ -118,24 +119,40 @@ export default function AddClassified() {
                 <div style={{ height: 30 }} />
                 <p>Contact Info</p>
                 <div style={{ height: 30 }} />
-                <input
-                  placeholder="Phone Number"
+
+                <TextField
+                  id="phoneNo"
+                  label="Phone Number"
                   type="tel"
-                  onChange={(e) => setPhone(e.target.value)}
+                  variant="outlined"
+                  margin="dense"
                   value={phone}
+                  fullWidth
+                  onChange={(e) => setPhone(e.target.value)}
                 />
                 <div style={{ height: 30 }} />
-                <input
+
+                <TextField
+                  id="email"
+                  label="Email"
                   type="email"
-                  placeholder="Email"
-                  onChange={(e) => setEmail(e.target.value)}
+                  variant="outlined"
+                  margin="dense"
                   value={email}
+                  fullWidth
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <div style={{ height: 30 }} />
-                <input
-                  placeholder="Address"
-                  onChange={(e) => setAddress(e.target.value)}
+
+                <TextField
+                  id="address"
+                  label="Address"
+                  type="text"
+                  variant="outlined"
+                  margin="dense"
                   value={address}
+                  fullWidth
+                  onChange={(e) => setAddress(e.target.value)}
                 />
                 <div style={{ height: 30 }} />
               </form>
