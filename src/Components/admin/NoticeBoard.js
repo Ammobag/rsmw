@@ -15,12 +15,13 @@ export default function NoticeBoard() {
   const [searchInput, setsearchInput] = useState();
   const [alldata, setalldata] = useState([]);
   const [data, setdata] = useState([]);
+  const [fetch, setFetch] = useState(false)
   var query = Getonce("notices/");
 
   var list = [];
   const history = useHistory();
 
-  if (data.length !== sizeObject(query) && !searchInput) {
+  if (!fetch && !searchInput) {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
@@ -38,6 +39,7 @@ export default function NoticeBoard() {
         if (list.length === sizeObject(query)) {
           setdata(list);
           setalldata(list);
+          setFetch(true)
         }
       }
     }

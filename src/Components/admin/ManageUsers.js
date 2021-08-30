@@ -15,11 +15,12 @@ export default function ManageUsers() {
   const [searchInput, setsearchInput] = useState();
   const [alldata, setalldata] = useState([]);
   const [data, setdata] = useState([]);
+  const [fetch, setFetch] = useState(false)
   var query = Getonce("users/");
   const history = useHistory();
   var list = [];
 
-  if (data.length !== sizeObject(query) && !searchInput) {
+  if (!fetch && !searchInput) {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
@@ -28,8 +29,8 @@ export default function ManageUsers() {
           col1: element.UID,
           col2: element.name,
           col3: element.phonenumber,
-          col4: element.flatno,
-          col5: element.blockno,
+          col4: element.villaType,
+
         };
 
         list.push(insert);
@@ -37,6 +38,7 @@ export default function ManageUsers() {
         if (list.length === sizeObject(query)) {
           setdata(list);
           setalldata(list);
+          setFetch(true)
         }
       }
     }
@@ -100,12 +102,8 @@ export default function ManageUsers() {
         accessor: "col3",
       },
       {
-        Header: "Flat No.",
+        Header: "Villa Type",
         accessor: "col4",
-      },
-      {
-        Header: "Block No.",
-        accessor: "col5",
       },
     ],
     []
