@@ -22,7 +22,7 @@ import UserFormVehicle from "./Components/user/UserFormVehicle";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#F7776A",
+      main: "#ffb865",
     },
     secondary: {
       main: "#F2F2F2",

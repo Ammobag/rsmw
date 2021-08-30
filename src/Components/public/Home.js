@@ -9,6 +9,7 @@ import { TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 
 export default function Home() {
+  const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [phoneNo, setPhoneNo] = useState();
   const [subject, setSubject] = useState();
@@ -52,6 +53,16 @@ export default function Home() {
             <h2>Contact Us</h2>
             <br />
             <TextField
+              id="name"
+              label="Name"
+              type="text"
+              variant="outlined"
+              margin="dense"
+              style={{ width: 200 }}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <TextField
               id="email"
               label="Email"
               type="email"
@@ -89,9 +100,7 @@ export default function Home() {
               Submit
             </Button>
           </div>
-          <div className={styles.imageWrapper}>
-            <img src={slider3} alt="" />
-          </div>
+          <div className={styles.imageWrapper}></div>
           <ul className={styles.menubar}>
             <li id="nav1">
               <Link to="/createAccount">

@@ -16,8 +16,12 @@
 }
 .content {
   padding: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .contentWrapper {
+  width: 50%;
   display: flex;
   justify-content: space-between;
   align-items: center;

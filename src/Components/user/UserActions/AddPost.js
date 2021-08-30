@@ -10,13 +10,7 @@ import {} from "../../firebase";
 import { uploadPost } from "../../functions/dbquery";
 import { useHistory } from "react-router-dom";
 import UserNavigation from "../UserNavigation";
-// var database = firebase.database();
-
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
+import logo from "../../../Assets/logo.png";
 
 export default function AddPost() {
   const [message, setMessage] = useState("");
@@ -112,6 +106,7 @@ export default function AddPost() {
       <UserNavigation />
       <div className={styles.body}>
         <div className={styles.wrapper}>
+          <img src={logo} alt="logo" />
           <h2>Create a post</h2>
           {error && (
             <div>

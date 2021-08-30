@@ -11,6 +11,7 @@ import { uploadClassified } from "../../functions/dbquery";
 import { useHistory } from "react-router-dom";
 import UserNavigation from "../UserNavigation";
 import { TextField } from "@material-ui/core";
+import logo from "../../../Assets/logo.png";
 // var database = firebase.database();
 
 // var Ref = database.ref('admin/');
@@ -102,6 +103,7 @@ export default function AddClassified() {
       <UserNavigation />
       <div className={styles.body}>
         <div className={styles.wrapper}>
+          <img src={logo} alt="logo" />
           <h2>Create a post</h2>
           {error && (
             <div>

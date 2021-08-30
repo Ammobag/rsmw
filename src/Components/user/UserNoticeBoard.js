@@ -13,7 +13,7 @@ export default function UserNoticeBoard() {
   var noticeData = [];
   var eventData = [];
   const active = {
-    backgroundColor: "#F7776A",
+    backgroundColor: "#ffb865",
     color: "#ffffff",
     padding: 2,
     borderRadius: 3,
