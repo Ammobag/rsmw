@@ -4,15 +4,16 @@ import logo from "../../Assets/logo.png";
 import Home from "./Home";
 import Gallery from "./Gallery";
 import ContactUs from "./ContactUs";
+import Tenders from "./Tenders";
 import AboutUs from "./AboutUs";
-
+import Contractors from "./Contractors";
 export default function Public() {
   const [activeTab, setActiveTab] = useState("Home");
   return (
     <div>
       <div className={styles.topnav}>
         <div className={styles.brand}>
-          <img src={logo} alt="Logo"/>
+          <img src={logo} alt="Logo" />
           <div>Ideal Villas Owner's Association</div>
         </div>
 
@@ -21,12 +22,16 @@ export default function Public() {
           <menu onClick={() => setActiveTab("Gallery")}>Gallery</menu>
           <menu onClick={() => setActiveTab("Contact")}>Contact</menu>
           <menu onClick={() => setActiveTab("About")}>About</menu>
+          <menu onClick={() => setActiveTab("Tenders")}>Tenders</menu>
+          <menu onClick={() => setActiveTab("Contractors")}>Contractors</menu>
         </nav>
       </div>
       {activeTab === "Home" && <Home />}
       {activeTab === "Gallery" && <Gallery />}
       {activeTab === "Contact" && <ContactUs />}
+      {activeTab === "Tenders" && <Tenders />}
       {activeTab === "About" && <AboutUs />}
+      {activeTab === "Contractors" && <Contractors />}
       <footer>
         <p>Ideal Villas Owner's Association</p>
       </footer>

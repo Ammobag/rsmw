@@ -15,7 +15,7 @@ import SearchIcon from "@material-ui/icons/Search";
 export default function Complaints() {
   const [searchInput, setsearchInput] = useState();
   const [alldata, setalldata] = useState([]);
-  const [fetch, setFetch] = useState(false)
+  const [fetch, setFetch] = useState(false);
   var query = Getonce("complaints/");
   const [data, setdata] = useState([]);
   var list = [];
@@ -26,7 +26,7 @@ export default function Complaints() {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
-        console.log(element)
+        console.log(element);
         var Ref = database.ref("users/" + element.UID + "/");
         Ref.once("value", (snapshot) => {
           var user = snapshot.val();
@@ -50,7 +50,7 @@ export default function Complaints() {
           if (list.length === sizeObject(query)) {
             setdata(list);
             setalldata(list);
-            setFetch(true)
+            setFetch(true);
           }
         });
       }

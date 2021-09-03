@@ -17,6 +17,8 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import MenuIcon from "@material-ui/icons/Menu";
 import AddEvent from "./AdminActions/AddEvent";
 import Events from "./Events";
+import ManageContractors from "./ManageContractors";
+import ManageTenders from "./ManageTenders";
 
 function Dashboard() {
   const history = useHistory();
@@ -103,6 +105,20 @@ function Dashboard() {
           >
             <div>Manage Content</div>
           </Link>
+          <Link
+            to="/dashboard/manageTenders"
+            style={{ textDecoration: "none" }}
+            onClick={() => setIsNavOpen(!isNavOpen)}
+          >
+            <div>Manage Tenders</div>
+          </Link>
+          <Link
+            to="/dashboard/manageContractors"
+            style={{ textDecoration: "none" }}
+            onClick={() => setIsNavOpen(!isNavOpen)}
+          >
+            <div>Manage Contractors</div>
+          </Link>
         </section>
       </div>
       <div className={styles.main}>
@@ -127,6 +143,16 @@ function Dashboard() {
           <Route
             path="/dashboard/manageContent"
             component={ManageContent}
+            exact
+          />
+          <Route
+            path="/dashboard/manageTenders"
+            component={ManageTenders}
+            exact
+          />
+          <Route
+            path="/dashboard/manageContractors"
+            component={ManageContractors}
             exact
           />
         </Switch>
