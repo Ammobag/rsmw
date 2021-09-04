@@ -1,15 +1,15 @@
 import { React, useState } from "react";
-import "./UserActions/AddPost.module.css";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import "firebase/storage";
 import {} from "../firebase";
-import styles from "./UserProfile.module.css";
+import styles from "./UserFormVehicle.module.css";
 import TextField from "@material-ui/core/TextField";
 import { deleteVisitorData } from "../functions/dbquery";
 import { useHistory } from "react-router-dom";
+import logo from "../../Assets/logo.png";
 
 // var database = firebase.database();
 
@@ -45,30 +45,26 @@ export default function UserFormVehicle() {
     });
   }
 
-
-
-
   const handleSubmit = (e) => {
-
     if (user && newVisitorContact && newVisitorName && newVisitorPurpose) {
       setstatus(1);
       console.log(user);
-      
+
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           firebase
-          .database()
-          .ref("users/" + user.uid + "/vehicle/" + vehicle.length)
-          .set({
-            name: newVisitorName,
-            regNo: newVisitorContact,
-            type: newVisitorPurpose,
-          });
+            .database()
+            .ref("users/" + user.uid + "/vehicle/" + vehicle.length)
+            .set({
+              name: newVisitorName,
+              regNo: newVisitorContact,
+              type: newVisitorPurpose,
+            });
           firebase
-          .database()
-          .ref("users/" + user.uid + "/vehicle/")
-          .child("length")
-          .set(vehicle.length + 1);
+            .database()
+            .ref("users/" + user.uid + "/vehicle/")
+            .child("length")
+            .set(vehicle.length + 1);
           setstatus(0);
           var Ref = database.ref("users/" + user.uid + "/");
           Ref.once("value", (snapshot) => {
@@ -76,14 +72,12 @@ export default function UserFormVehicle() {
             setvehicle(users.vehicle);
           });
         }
-      });   
-
-
+      });
     }
   };
 
   const handleNext = (e) => {
-    history.replace("/feed")
+    history.replace("/feed");
   };
 
   const handleDeleteVisitor = (index) => {
@@ -107,32 +101,32 @@ export default function UserFormVehicle() {
 
       console.log(arr, keys);
 
-      if(arr.length > 0) {
-          return (
-            <>
-              <h4>Vehicle:</h4>
-              {arr.map((visitor, index) => {
-                return (
-                  <div className={styles.gridContainer} key={index}>
-                    <div className={styles.gridItem}>Name:</div>
-                    <div className={styles.gridItem}>{visitor.name}</div>
-                    <div className={styles.gridItem}>Type:</div>
-                    <div className={styles.gridItem}>{visitor.type}</div>
-                    <div className={styles.gridItem}>Registration Number:</div>
-                    <div className={styles.gridItem}>{visitor.regNo}</div>
-                    <button onClick={(e) => handleDeleteVisitor(keys[index])}>
-                      Delete
-                    </button>
-                  </div>
-                );
-              })}
-            </>
-          );
+      if (arr.length > 0) {
+        return (
+          <>
+            <h4>Vehicle:</h4>
+            {arr.map((visitor, index) => {
+              return (
+                <div className={styles.gridContainer} key={index}>
+                  <div className={styles.gridItem}>Name:</div>
+                  <div className={styles.gridItem}>{visitor.name}</div>
+                  <div className={styles.gridItem}>Type:</div>
+                  <div className={styles.gridItem}>{visitor.type}</div>
+                  <div className={styles.gridItem}>Registration Number:</div>
+                  <div className={styles.gridItem}>{visitor.regNo}</div>
+                  <button onClick={(e) => handleDeleteVisitor(keys[index])}>
+                    Delete
+                  </button>
+                </div>
+              );
+            })}
+          </>
+        );
       } else {
-          return <div style={{ height: 30 }} >No Vehicles Found</div>;
+        return <div style={{ height: 30 }}>No Vehicles Found</div>;
       }
     } else {
-      return <div style={{ height: 30 }} >No Vehicles Found</div>;
+      return <div style={{ height: 30 }}>No Vehicles Found</div>;
     }
   };
 
@@ -140,7 +134,8 @@ export default function UserFormVehicle() {
     <div>
       <div className={styles.body}>
         <div className={styles.wrapper}>
-          <div style={{ height: 30 }} />
+          <img src={logo} alt="logo" />
+
           <h2>Vehicle Details Form</h2>
           {error && (
             <div>
@@ -158,9 +153,8 @@ export default function UserFormVehicle() {
                     alignItems: "center",
                   }}
                 >
+                  <ViewVisitor />
                   <div style={{ height: 30 }} />
-                   <ViewVisitor />
-                   <div style={{ height: 30 }} />
                   <>
                     <h4> Add New Vehicle</h4>
                     <div className={styles.gridContainer}>
@@ -186,7 +180,9 @@ export default function UserFormVehicle() {
                           onChange={(e) => setNewVisitorPurpose(e.target.value)}
                         />
                       </div>
-                      <div className={styles.gridItem}>Registration Number:</div>
+                      <div className={styles.gridItem}>
+                        Registration Number:
+                      </div>
                       <div className={styles.gridItem}>
                         <TextField
                           type="tel"
@@ -199,9 +195,7 @@ export default function UserFormVehicle() {
                       </div>
                     </div>
                     <div style={{ height: 30 }} />
-                    
                   </>
-                 
                 </div>
               )}
               <div className="buttonWrapper">
@@ -234,8 +228,6 @@ export default function UserFormVehicle() {
               <div>Adding New Vehicle</div>
             </div>
           )}
-
-          
         </div>
       </div>
     </div>

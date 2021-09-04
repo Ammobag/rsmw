@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import styles from "./AddPost.module.css";
+import styles from "./UserFormBasic.module.css";
 import ImageIcon from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
@@ -12,13 +12,7 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-// var database = firebase.database();
-
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
+import logo from "../../Assets/logo.png";
 
 export default function UserFormBasic() {
   const [detail, setDetails] = useState({});
@@ -33,16 +27,15 @@ export default function UserFormBasic() {
 
   firebase.auth().onAuthStateChanged((users) => {
     if (users) {
-      setuser(users)
+      setuser(users);
     }
   });
 
-  console.log(user)
+  console.log(user);
 
   const handleDeed = (e) => {
     console.log("in handle Deed");
     setImage(e.target.files[0]);
-
   };
 
   const handleIdProof = (e) => {
@@ -56,7 +49,7 @@ export default function UserFormBasic() {
       console.log(user);
       var storageRef = firebase.storage().ref();
       var uploadTask = storageRef
-        .child("documents/"+ user.uid + "/" + image.name)
+        .child("documents/" + user.uid + "/" + image.name)
         .put(image);
 
       // Listen for state changes, errors, and completion of the upload.
@@ -100,8 +93,8 @@ export default function UserFormBasic() {
         () => {
           // Upload completed successfully, now we can get the download URL
           uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-             uploadTask = storageRef
-              .child("documents/"+ user.uid + "/" + idproof.name)
+            uploadTask = storageRef
+              .child("documents/" + user.uid + "/" + idproof.name)
               .put(idproof);
 
             // Listen for state changes, errors, and completion of the upload.
@@ -148,16 +141,57 @@ export default function UserFormBasic() {
                   firebase.auth().onAuthStateChanged((user) => {
                     if (user) {
                       var uid = user.uid;
-                      firebase.database().ref("users/" + uid + "/basicForm/").set(detail);
-                      firebase.database().ref("users/" + uid + "/").child("name").set(detail.name);
-                      firebase.database().ref("users/" + uid + "/").child("email").set(detail.email);
-                      firebase.database().ref("users/" + uid + "/").child("phonenumber").set(detail.phone);
-                      firebase.database().ref("users/" + uid + "/").child("UID").set(uid);
-                      firebase.database().ref("users/" + uid + "/").child("image").set("https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44");
-                      firebase.database().ref("users/" + uid + "/").child("permanentRes").set(detail.residents);
-                      firebase.database().ref("users/" + uid + "/").child("villaType").set(detail.type);
-                      firebase.database().ref("users/" + uid + "/visitors/").child("length").set(0);
-                      firebase.database().ref("users/" + uid + "/vehicle/").child("length").set(0);
+                      firebase
+                        .database()
+                        .ref("users/" + uid + "/basicForm/")
+                        .set(detail);
+                      firebase
+                        .database()
+                        .ref("users/" + uid + "/")
+                        .child("name")
+                        .set(detail.name);
+                      firebase
+                        .database()
+                        .ref("users/" + uid + "/")
+                        .child("email")
+                        .set(detail.email);
+                      firebase
+                        .database()
+                        .ref("users/" + uid + "/")
+                        .child("phonenumber")
+                        .set(detail.phone);
+                      firebase
+                        .database()
+                        .ref("users/" + uid + "/")
+                        .child("UID")
+                        .set(uid);
+                      firebase
+                        .database()
+                        .ref("users/" + uid + "/")
+                        .child("image")
+                        .set(
+                          "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44"
+                        );
+                      firebase
+                        .database()
+                        .ref("users/" + uid + "/")
+                        .child("permanentRes")
+                        .set(detail.residents);
+                      firebase
+                        .database()
+                        .ref("users/" + uid + "/")
+                        .child("villaType")
+                        .set(detail.type);
+                      firebase
+                        .database()
+                        .ref("users/" + uid + "/visitors/")
+                        .child("length")
+                        .set(0);
+                      firebase
+                        .database()
+                        .ref("users/" + uid + "/vehicle/")
+                        .child("length")
+                        .set(0);
                       setstatus(2);
                       setTimeout(() => {
                         history.replace("/tenantForm");
@@ -179,7 +213,9 @@ export default function UserFormBasic() {
     <div>
       <div className={styles.body}>
         <div className={styles.wrapper}>
+          <img src={logo} alt="logo" />
           <h2>Basic Details Form</h2>
+          <div style={{ height: 30 }} />
           {error && (
             <div>
               <h3 style={{ color: "red" }}>{error}</h3>
@@ -195,41 +231,51 @@ export default function UserFormBasic() {
                 margin="dense"
                 style={{ width: 300, marginBottom: 30 }}
                 value={detail.name}
-                onChange={(e) => setDetails({ ...detail, name : e.target.value})}
+                onChange={(e) =>
+                  setDetails({ ...detail, name: e.target.value })
+                }
               />
               <TextField
                 id="email"
                 label="Email"
-                type="text"
+                type="email"
                 variant="outlined"
                 margin="dense"
                 style={{ width: 300, marginBottom: 30 }}
                 value={detail.email}
-                onChange={(e) => setDetails({ ...detail, email : e.target.value})}
+                onChange={(e) =>
+                  setDetails({ ...detail, email: e.target.value })
+                }
               />
               <TextField
                 id="phone"
                 label="Phone Number"
-                type="text"
+                type="tel"
                 variant="outlined"
                 margin="dense"
                 style={{ width: 300, marginBottom: 30 }}
                 value={detail.phone}
-                onChange={(e) => setDetails({ ...detail, phone : e.target.value})}
+                onChange={(e) =>
+                  setDetails({ ...detail, phone: e.target.value })
+                }
               />
               <TextField
                 label="Number of Residents Staying ?"
-                type="text"
+                type="number"
                 variant="outlined"
                 margin="dense"
                 style={{ width: 300, marginBottom: 30 }}
                 value={detail.residents}
-                onChange={(e) => setDetails({ ...detail, residents : e.target.value})}
+                onChange={(e) =>
+                  setDetails({ ...detail, residents: e.target.value })
+                }
               />
               <form>
                 <textarea
                   placeholder="Details of Residents staying in House"
-                  onChange={(e) => setDetails({ ...detail, resdetails : e.target.value})}
+                  onChange={(e) =>
+                    setDetails({ ...detail, resdetails: e.target.value })
+                  }
                   value={detail.resdetails}
                   style={{ width: 300, marginBottom: 30 }}
                 ></textarea>
@@ -245,7 +291,9 @@ export default function UserFormBasic() {
                   style={{ minWidth: 300 }}
                   value={detail.type}
                   displayEmpty
-                  onChange={(e) => setDetails({ ...detail, type : e.target.value})}
+                  onChange={(e) =>
+                    setDetails({ ...detail, type: e.target.value })
+                  }
                   autoWidth={true}
                   placeholder={"Select Villa Type"}
                 >
@@ -274,9 +322,7 @@ export default function UserFormBasic() {
                 />
               </div>
 
-              {image &&
-                <div>{image.name}</div>
-              }
+              {image && <div>{image.name}</div>}
 
               <div className={styles.imageSelection}>
                 <p>Add Id Proof:</p>
@@ -294,9 +340,7 @@ export default function UserFormBasic() {
                 />
               </div>
 
-              {idproof &&
-                <div>{idproof.name}</div>
-              }
+              {idproof && <div>{idproof.name}</div>}
               <div style={{ height: 30 }} />
               <div style={{ height: 30 }} />
               <div className={styles.buttonWrapper}>

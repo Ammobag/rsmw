@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import styles from "./AddPost.module.css";
+import styles from "./UserFormTenant.module.css";
 import ImageIcon from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
@@ -9,6 +9,7 @@ import "firebase/storage";
 import {} from "../firebase";
 import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
+import logo from "../../Assets/logo.png";
 
 // var database = firebase.database();
 
@@ -31,16 +32,15 @@ export default function UserFormTenant() {
 
   firebase.auth().onAuthStateChanged((users) => {
     if (users) {
-      setuser(users)
+      setuser(users);
     }
   });
 
-  console.log(user)
+  console.log(user);
 
   const handleDeed = (e) => {
     console.log("in handle Deed");
     setImage(e.target.files[0]);
-
   };
 
   const handleIdProof = (e) => {
@@ -54,7 +54,7 @@ export default function UserFormTenant() {
       console.log(user);
       var storageRef = firebase.storage().ref();
       var uploadTask = storageRef
-        .child("documents/"+ user.uid + "/tenant/" + image.name)
+        .child("documents/" + user.uid + "/tenant/" + image.name)
         .put(image);
 
       // Listen for state changes, errors, and completion of the upload.
@@ -98,8 +98,8 @@ export default function UserFormTenant() {
         () => {
           // Upload completed successfully, now we can get the download URL
           uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-             uploadTask = storageRef
-              .child("documents/"+ user.uid + "/tenant/" + idproof.name)
+            uploadTask = storageRef
+              .child("documents/" + user.uid + "/tenant/" + idproof.name)
               .put(idproof);
 
             // Listen for state changes, errors, and completion of the upload.
@@ -146,7 +146,10 @@ export default function UserFormTenant() {
                   firebase.auth().onAuthStateChanged((user) => {
                     if (user) {
                       var uid = user.uid;
-                      firebase.database().ref("users/" + uid + "/tenantForm/").set(detail);
+                      firebase
+                        .database()
+                        .ref("users/" + uid + "/tenantForm/")
+                        .set(detail);
                       setstatus(2);
                       setTimeout(() => {
                         history.replace("/servantForm");
@@ -159,13 +162,6 @@ export default function UserFormTenant() {
           });
         }
       );
-
-
-     
-
-
-
-      
     } else {
       seterror("Enter all the fields");
     }
@@ -173,9 +169,9 @@ export default function UserFormTenant() {
 
   return (
     <div>
-     
       <div className={styles.body}>
         <div className={styles.wrapper}>
+          <img src={logo} alt="logo" />
           <h2>Tenant Details Form</h2>
           {error && (
             <div>
@@ -192,7 +188,9 @@ export default function UserFormTenant() {
                 margin="dense"
                 style={{ width: 300, marginBottom: 30 }}
                 value={detail.name}
-                onChange={(e) => setDetails({ ...detail, name : e.target.value})}
+                onChange={(e) =>
+                  setDetails({ ...detail, name: e.target.value })
+                }
               />
               <TextField
                 id="email"
@@ -202,7 +200,9 @@ export default function UserFormTenant() {
                 margin="dense"
                 style={{ width: 300, marginBottom: 30 }}
                 value={detail.email}
-                onChange={(e) => setDetails({ ...detail, email : e.target.value})}
+                onChange={(e) =>
+                  setDetails({ ...detail, email: e.target.value })
+                }
               />
               <TextField
                 id="phone"
@@ -212,7 +212,9 @@ export default function UserFormTenant() {
                 margin="dense"
                 style={{ width: 300, marginBottom: 30 }}
                 value={detail.phone}
-                onChange={(e) => setDetails({ ...detail, phone : e.target.value})}
+                onChange={(e) =>
+                  setDetails({ ...detail, phone: e.target.value })
+                }
               />
               <TextField
                 label="Number of Residents Staying ?"
@@ -221,12 +223,16 @@ export default function UserFormTenant() {
                 margin="dense"
                 style={{ width: 300, marginBottom: 30 }}
                 value={detail.residents}
-                onChange={(e) => setDetails({ ...detail, residents : e.target.value})}
+                onChange={(e) =>
+                  setDetails({ ...detail, residents: e.target.value })
+                }
               />
               <form>
                 <textarea
                   placeholder="Details of Residents staying in House (Eg: Name : Phone Number,)"
-                  onChange={(e) => setDetails({ ...detail, resdetails : e.target.value})}
+                  onChange={(e) =>
+                    setDetails({ ...detail, resdetails: e.target.value })
+                  }
                   value={detail.resdetails}
                   style={{ width: 300, marginBottom: 30 }}
                 ></textarea>
@@ -249,9 +255,7 @@ export default function UserFormTenant() {
                 />
               </div>
 
-              {image &&
-                <div>{image.name}</div>
-              }
+              {image && <div>{image.name}</div>}
 
               <div className={styles.imageSelection}>
                 <p>Add Rental Agreement:</p>
@@ -269,9 +273,7 @@ export default function UserFormTenant() {
                 />
               </div>
 
-              {idproof &&
-                <div>{idproof.name}</div>
-              }
+              {idproof && <div>{idproof.name}</div>}
               <div style={{ height: 30 }} />
               <div style={{ height: 30 }} />
               <div className={styles.buttonWrapper}>
@@ -289,7 +291,9 @@ export default function UserFormTenant() {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={()=>{history.replace("/servantForm")}}
+                  onClick={() => {
+                    history.replace("/servantForm");
+                  }}
                   disableElevation
                 >
                   Skip

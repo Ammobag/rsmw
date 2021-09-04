@@ -14,7 +14,7 @@ export default function Public() {
       <div className={styles.topnav}>
         <div className={styles.brand}>
           <img src={logo} alt="Logo" />
-          <div>Ideal Villas Owner's Association</div>
+          <div>IV-Aoa</div>
         </div>
 
         <nav>

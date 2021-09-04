@@ -1,5 +1,4 @@
 import { React, useState } from "react";
-import "./UserActions/AddPost.module.css";
 import ImageIcon from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
@@ -7,18 +6,11 @@ import "firebase/database";
 import "firebase/auth";
 import "firebase/storage";
 import {} from "../firebase";
-import styles from "./UserProfile.module.css";
+import styles from "./UserFormServant.module.css";
 import TextField from "@material-ui/core/TextField";
 import { deleteVisitorData } from "../functions/dbquery";
 import { useHistory } from "react-router-dom";
-
-// var database = firebase.database();
-
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
+import logo from "../../Assets/logo.png";
 
 export default function UserFormServant() {
   const [image, setImage] = useState("");
@@ -52,7 +44,6 @@ export default function UserFormServant() {
   const handleDeed = (e) => {
     console.log("in handle Deed");
     setImage(e.target.files[0]);
-
   };
 
   const handleIdProof = (e) => {
@@ -60,15 +51,27 @@ export default function UserFormServant() {
     setidproof(e.target.files[0]);
   };
 
-
   const handleSubmit = (e) => {
-
-    if (image && idproof && user && newVisitorContact && newVisitorName && newVisitorPurpose) {
+    if (
+      image &&
+      idproof &&
+      user &&
+      newVisitorContact &&
+      newVisitorName &&
+      newVisitorPurpose
+    ) {
       setstatus(1);
       console.log(user);
       var storageRef = firebase.storage().ref();
       var uploadTask = storageRef
-        .child("documents/"+ user.uid + "/worker/" + visitors.length+ "/" + image.name)
+        .child(
+          "documents/" +
+            user.uid +
+            "/worker/" +
+            visitors.length +
+            "/" +
+            image.name
+        )
         .put(image);
 
       // Listen for state changes, errors, and completion of the upload.
@@ -96,9 +99,15 @@ export default function UserFormServant() {
         () => {
           // Upload completed successfully, now we can get the download URL
           uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-           
-             uploadTask = storageRef
-              .child("documents/"+ user.uid + "/worker/" + visitors.length+ "/" + idproof.name)
+            uploadTask = storageRef
+              .child(
+                "documents/" +
+                  user.uid +
+                  "/worker/" +
+                  visitors.length +
+                  "/" +
+                  idproof.name
+              )
               .put(idproof);
 
             // Listen for state changes, errors, and completion of the upload.
@@ -121,28 +130,28 @@ export default function UserFormServant() {
                 }
               },
               (error) => {
-                 alert(error.message);
-                
+                alert(error.message);
               },
               () => {
                 // Upload completed successfully, now we can get the download URL
                 uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                 
                   firebase.auth().onAuthStateChanged((user) => {
                     if (user) {
                       firebase
-                      .database()
-                      .ref("users/" + user.uid + "/visitors/" + visitors.length)
-                      .set({
-                        name: newVisitorName,
-                        contact: newVisitorContact,
-                        purpose: newVisitorPurpose,
-                      });
+                        .database()
+                        .ref(
+                          "users/" + user.uid + "/visitors/" + visitors.length
+                        )
+                        .set({
+                          name: newVisitorName,
+                          contact: newVisitorContact,
+                          purpose: newVisitorPurpose,
+                        });
                       firebase
-                      .database()
-                      .ref("users/" + user.uid + "/visitors/")
-                      .child("length")
-                      .set(visitors.length + 1);
+                        .database()
+                        .ref("users/" + user.uid + "/visitors/")
+                        .child("length")
+                        .set(visitors.length + 1);
                       setstatus(0);
                       var Ref = database.ref("users/" + user.uid + "/");
                       Ref.once("value", (snapshot) => {
@@ -157,13 +166,11 @@ export default function UserFormServant() {
           });
         }
       );
-
-
     }
   };
 
   const handleNext = (e) => {
-    history.replace("/vehicleForm")
+    history.replace("/vehicleForm");
   };
 
   const handleDeleteVisitor = (index) => {
@@ -216,7 +223,7 @@ export default function UserFormServant() {
     <div>
       <div className={styles.body}>
         <div className={styles.wrapper}>
-          <div style={{ height: 30 }} />
+          <img src={logo} alt="logo" />
           <h2>Servant/Workers Details Form</h2>
           {error && (
             <div>
@@ -234,40 +241,39 @@ export default function UserFormServant() {
                     alignItems: "center",
                   }}
                 >
-                  <div style={{ height: 30 }} />
-                   <ViewVisitor />
+                  <ViewVisitor />
                   <>
                     <h4> Add New Visitor</h4>
                     <div className={styles.gridContainer}>
-                      <div className={styles.gridItem}>Name:</div>
                       <div className={styles.gridItem}>
                         <TextField
+                          label="Name"
                           type="text"
                           variant="outlined"
                           margin="dense"
-                          style={{ width: 200 }}
+                          style={{ width: 300, marginBottom: 30 }}
                           value={newVisitorName}
                           onChange={(e) => setNewVisitorName(e.target.value)}
                         />
                       </div>
-                      <div className={styles.gridItem}>Purpose:</div>
                       <div className={styles.gridItem}>
                         <TextField
+                          label="Purpose"
                           type="text"
                           variant="outlined"
                           margin="dense"
-                          style={{ width: 200 }}
+                          style={{ width: 300, marginBottom: 30 }}
                           value={newVisitorPurpose}
                           onChange={(e) => setNewVisitorPurpose(e.target.value)}
                         />
                       </div>
-                      <div className={styles.gridItem}>Contact:</div>
                       <div className={styles.gridItem}>
                         <TextField
+                          label="Contact"
                           type="tel"
                           variant="outlined"
                           margin="dense"
-                          style={{ width: 200 }}
+                          style={{ width: 300, marginBottom: 30 }}
                           value={newVisitorContact}
                           onChange={(e) => setNewVisitorContact(e.target.value)}
                         />
@@ -290,9 +296,7 @@ export default function UserFormServant() {
                       />
                     </div>
 
-                    {image &&
-                      <div>{image.name}</div>
-                    }
+                    {image && <div>{image.name}</div>}
 
                     <div className={styles.imageSelection}>
                       <p>Add Id Proof:</p>
@@ -310,12 +314,10 @@ export default function UserFormServant() {
                       />
                     </div>
 
-                    {idproof &&
-                      <div>{idproof.name}</div>
-                    }
+                    {idproof && <div>{idproof.name}</div>}
                   </>
                   <div style={{ height: 30 }} />
-                 
+
                   <div style={{ height: 30 }} />
                 </div>
               )}
@@ -354,8 +356,6 @@ export default function UserFormServant() {
               </div>
             </div>
           )}
-
-          
         </div>
       </div>
     </div>

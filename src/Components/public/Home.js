@@ -1,19 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import slider1 from "../../Assets/slider1.jpeg";
 import slider2 from "../../Assets/slider2.jpeg";
 import slider3 from "../../Assets/slider3.jpeg";
 import slider4 from "../../Assets/slider4.jpeg";
 import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
-import { TextField } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 
 export default function Home() {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [phoneNo, setPhoneNo] = useState();
-  const [subject, setSubject] = useState();
-
   // eslint-disable-next-line
   const inActive = {};
   const [index, setIndex] = React.useState(0);
@@ -42,64 +35,6 @@ export default function Home() {
       </section>
       <section className={styles.content}>
         <div className={styles.contentWrapper}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <h2>Contact Us</h2>
-            <br />
-            <TextField
-              id="name"
-              label="Name"
-              type="text"
-              variant="outlined"
-              margin="dense"
-              style={{ width: 200 }}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <TextField
-              id="email"
-              label="Email"
-              type="email"
-              variant="outlined"
-              margin="dense"
-              style={{ width: 200 }}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              id="phoneNo"
-              label="Phone Number"
-              type="tel"
-              variant="outlined"
-              margin="dense"
-              style={{ width: 200 }}
-              value={phoneNo}
-              onChange={(e) => setPhoneNo(e.target.value)}
-            />
-            <TextField
-              id="subject"
-              label="Subject"
-              type="text"
-              variant="outlined"
-              margin="dense"
-              style={{ width: 200 }}
-              value={subject}
-              onChange={(e) => setSubject(e.target.value)}
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              style={{ marginTop: 30 }}
-            >
-              Submit
-            </Button>
-          </div>
           <div className={styles.imageWrapper}></div>
           <ul className={styles.menubar}>
             <li id="nav1">
