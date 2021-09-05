@@ -2,9 +2,9 @@ import { React, useState } from "react";
 import styles from "./ApplyTender.module.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { useHistory } from "react-router-dom";
+
 import FileCopyIcon from "@material-ui/icons/FileCopy";
-import logo from "../../Assets/logo.png";
+
 
 import firebase from "firebase/app";
 import "firebase/database";

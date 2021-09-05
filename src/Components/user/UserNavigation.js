@@ -61,7 +61,7 @@ export default function UserNavigation() {
     if (user) {
       var uid = user.uid;
 
-      if (uid !== "6cryi8fnJySKAUBgfq6gPN49Gax1") {
+      if (uid !== "IkezoAoumCQvI586zQKCI68yBnH2") {
       } else {
         logout();
         history.replace("/");
