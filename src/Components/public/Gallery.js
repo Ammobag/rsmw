@@ -20,6 +20,7 @@ export default function Gallery() {
         // Handle any errors
         console.log("error:", error);
       });
+      // eslint-disable-next-line
   }, []);
   return (
     <div>

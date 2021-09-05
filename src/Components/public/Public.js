@@ -14,7 +14,7 @@ export default function Public() {
       <div className={styles.topnav}>
         <div className={styles.brand}>
           <img src={logo} alt="Logo" />
-          <div>IV-Aoa</div>
+          <div>IV-AoA</div>
         </div>
 
         <nav>

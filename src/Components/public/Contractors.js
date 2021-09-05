@@ -6,10 +6,15 @@ import {} from "../firebase";
 import Getonce from "../functions/dbquery";
 import sizeObject from "../functions/dataHandling";
 import styles from "./Contractors.module.css";
+import Button from "@material-ui/core/Button";
+import AddContractor from "./AddContractor"
+
 
 export default function Contractors() {
   const [data, setData] = useState([]);
   const [fetch, setFetch] = useState(false);
+  const [toggle, setToggle] = useState(false);
+
   var query = Getonce("contractors/");
   var list = [];
   if (!fetch) {
@@ -21,12 +26,13 @@ export default function Contractors() {
           col1: element.contractorName,
           col2: element.contractorCategory,
           col3: element.contractorContact,
+          state: element.approved
         };
         list.push(insert);
       }
       console.log(list.length, sizeObject(query));
       if (list.length === sizeObject(query)) {
-        setData(list);
+        setData(list.filter((e)=>{return e.state}));
         setFetch(true);
       }
     }
@@ -50,11 +56,21 @@ export default function Contractors() {
     []
   );
 
+  const handleToggle = () => {
+    setToggle(!toggle)
+  }
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
 
   return (
     <section className={styles.main}>
+      <Button variant="contained" color="primary" style={{margin: 25}} onClick={handleToggle}>
+          { toggle ? "Dismiss" : "Register Yourself as a Contractor" }
+      </Button>
+      {
+        toggle ? <AddContractor/> : ""
+      }
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
