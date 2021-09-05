@@ -37,7 +37,7 @@ function App() {
       <div>
         <Switch>
           <Route path="/" component={Public} exact />
-          <Route path="/applyTender" component={ApplyTender} />
+          <Route name="applytender" path="/applyTender/:id" component={ApplyTender} />
           <Route path="/logIn" component={UserLogIn} />
           <Route path="/createAccount" component={UserCreateAccount} />
           <Route path="/basicForm" component={UserFormBasic} />

@@ -7,6 +7,7 @@ import Getonce from "../functions/dbquery";
 import sizeObject from "../functions/dataHandling";
 import styles from "./Tender.module.css";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
 export default function Tenders() {
@@ -27,14 +28,16 @@ export default function Tenders() {
           col4: element.tenderAmount,
           col5: element.tenderDetails,
           col6: (
+            <Link to={{pathname: `/applyTender/${element.id}`}} >
             <Button
               variant="contained"
               color="primary"
-              onClick={applyTender}
+              //onClick={applyTender}
               disableElevation
             >
               Apply Now
             </Button>
+            </Link>
           ),
         };
         list.push(insert);
