@@ -10,10 +10,10 @@ import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
 
-export default function ManageContractors() {
+export default function ManageImportantNotices() {
   const [data, setData] = useState([]);
   const [fetch, setFetch] = useState(false);
-  var query = Getonce("contractors/");
+  var query = Getonce("importantNotices/");
   var list = [];
   const history = useHistory();
   if (!fetch) {
@@ -22,14 +22,13 @@ export default function ManageContractors() {
         const element = query[key];
         console.log(element);
         var insert = {
-          col1: element.contractorName,
-          col2: element.contractorCategory,
-          col3: element.contractorContact,
-          col4: (
+          col1: element.date,
+          col2: element.body,
+          col3: (
             <Button
               variant="contained"
               color="primary"
-              onClick={handleDeleteContractor}
+              onClick={handleDeleteImportantNotice}
               disableElevation
             >
               Delete
@@ -38,9 +37,9 @@ export default function ManageContractors() {
         };
         list.push(insert);
       }
-      function handleDeleteContractor() {
-        firebase.database().ref("/contractors").child(key).remove();
-        history.replace("/dashboard/manageTenders");
+      function handleDeleteImportantNotice() {
+        firebase.database().ref("/importantNotices").child(key).remove();
+        history.replace("/dashboard/manageImportantNotices");
       }
       console.log(list.length, sizeObject(query));
       if (list.length === sizeObject(query)) {
@@ -53,20 +52,16 @@ export default function ManageContractors() {
   const columns = React.useMemo(
     () => [
       {
-        Header: "Contractor Name",
+        Header: "Important Notice Date",
         accessor: "col1", // accessor is the "key" in the data
       },
       {
-        Header: "Contractor Category",
+        Header: "Important Notice Body",
         accessor: "col2",
       },
       {
-        Header: "Contractor Contact",
+        Header: "Delete",
         accessor: "col3",
-      },
-      {
-        Header: "Contractor Contact",
-        accessor: "col4",
       },
     ],
     []
@@ -74,19 +69,23 @@ export default function ManageContractors() {
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
-  function handleAddContractor() {}
+  function handleAddImpNotice() {
+    history.push("/dashboard/addImportantNotices");
+  }
 
   return (
     <section className={styles.main}>
+      <div style={{ height: 30 }} />
       <Button
         variant="contained"
         color="primary"
-        onClick={handleAddContractor}
+        onClick={handleAddImpNotice}
         disableElevation
         style={{ width: 300 }}
       >
-        Add New Contractor
+        Add Imp Notice
       </Button>
+      <div style={{ height: 30 }} />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
