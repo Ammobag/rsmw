@@ -136,13 +136,68 @@ export default function UserTransactions() {
     paymentObject.open();
   }
 
+
+
+    async function displayRazorpayFine(amount, id, users) {
+    
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+
+    if (!res) {
+      alert("Razorpay SDK failed to load. Are you online?");
+      return;
+    }
+
+    const cartAmount = amount * 100;
+    const d = new Date();
+    var i = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+
+    const query = await axios.post("https://idealvillas.herokuapp.com/pay", {
+      amount: cartAmount,
+    });
+
+    const { REACT_APP_RAZ_TEST_KEY_ID, REACT_APP_RAZ_PRODUCTION_KEY_ID } =
+      process.env;
+    console.log("User :", users);
+
+    const options = {
+      key: __DEV__
+        ? REACT_APP_RAZ_TEST_KEY_ID
+        : REACT_APP_RAZ_PRODUCTION_KEY_ID,
+      currency: "INR",
+      amount: query.data.amount,
+      order_id: query.data.id,
+      name: "Ideal Villa",
+      description: "Make your payment",
+
+      handler: function (response) {
+
+            firebase.database().ref("maintenance/" + id + "/").child("paymentID").set(response.razorpay_payment_id);
+            firebase.database().ref("maintenance/" + id + "/").child("orderID").set(response.razorpay_order_id);
+            firebase.database().ref("maintenance/" + id + "/").child("signature").set(response.razorpay_signature);
+            firebase.database().ref("maintenance/" + id + "/").child("paidDate").set(i);
+            firebase.database().ref("maintenance/" + id + "/").child("status").set("Paid");
+        window.location.reload(true)
+      },
+      prefill: {
+        name: users.name,
+        email: users.email,
+      },
+    };
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  }
+
+
+
   const payButton = (status, amount, id, users) => {
     if (status !== "Paid") {
       return (
         <Button
           variant="contained"
           color="primary"
-          onClick={(e) => displayRazorpay(amount, id, users)}
+          onClick={(e) => displayRazorpayFine(amount, id, users)}
           style={{ margin: 8 }}
         >
           Pay Now
@@ -182,6 +237,17 @@ export default function UserTransactions() {
       }
       setfetch(true)
     });
+  }
+
+  const checkPaid = (month, year) => {
+    for (let i = 0; i < data.length; i++) {
+      const element = data[i];
+      if(element.col4 === month && element.col5 === year){
+        return true;
+      }else{
+        return false;
+      }
+    }
   }
 
   const columns = React.useMemo(
@@ -272,9 +338,13 @@ export default function UserTransactions() {
                   variant="contained"
                   color="primary"
                   onClick={(e) => {
-                    if(year && month){
+                    if(year && month && !checkPaid(month, year)){
                       console.log("Loading...")
                       displayRazorpay()
+                    }
+
+                    if(checkPaid(month, year)){
+                      alert("Already Paid")
                     }
                   }}
                   style={{ margin: 8 }}
