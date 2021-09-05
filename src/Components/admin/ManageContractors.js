@@ -8,7 +8,7 @@ import sizeObject from "../functions/dataHandling";
 import styles from "./ManageContractors.module.css";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
-import { useHistory } from "react-router-dom";
+
 
 export default function ManageContractors() {
   const [data, setData] = useState([]);
@@ -16,8 +16,7 @@ export default function ManageContractors() {
   var query = Getonce("contractors/");
   var list = [];
   // eslint-disable-next-line
-  var database = firebase.database();
-  const history = useHistory();
+
   if (!fetch) {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
@@ -54,7 +53,7 @@ export default function ManageContractors() {
               Delete
             </Button>
             <div style={{ height: 10 }} />
-            <a target="_blank" href={"https://console.firebase.google.com/u/0/project/rsmw-56be8/storage/rsmw-56be8.appspot.com/files/~2Fcontractor~2F"+ element.id}>
+            <a target="_blank"  rel="noreferrer" href={"https://console.firebase.google.com/u/0/project/rsmw-56be8/storage/rsmw-56be8.appspot.com/files/~2Fcontractor~2F"+ element.id}>
             <Button
               variant="contained"
               color="primary"

@@ -7,8 +7,11 @@ import ContactUs from "./ContactUs";
 import Tenders from "./Tenders";
 import AboutUs from "./AboutUs";
 import Contractors from "./Contractors";
+
 export default function Public() {
+
   const [activeTab, setActiveTab] = useState("Home");
+
   return (
     <div>
       <div className={styles.topnav}>

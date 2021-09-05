@@ -8,8 +8,6 @@ import "firebase/auth";
 import "firebase/storage";
 import {} from "../firebase";
 import { uploadContactor } from "../functions/dbquery";
-import { useHistory } from "react-router-dom";
-
 import { TextField } from "@material-ui/core";
 
 // var database = firebase.database();
@@ -29,8 +27,6 @@ export default function AddClassified() {
   const [status, setstatus] = useState(0);
   const [error, seterror] = useState("");
   const [name, setname] = useState("");
-
-  const history = useHistory();
 
   const handleImage = (e) => {
     console.log("in handle image");

@@ -5,17 +5,29 @@ import slider3 from "../../Assets/slider3.jpeg";
 import slider4 from "../../Assets/slider4.jpeg";
 import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
+
+import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
+
 import Getonce from "../functions/dbquery";
 import sizeObject from "../functions/dataHandling";
 
 export default function Home() {
   const [data, setData] = useState([]);
   const [fetch, setFetch] = useState(false);
+  const [check, setCheck] = useState(false)
+
+  
+  firebase.auth().onAuthStateChanged((user) => {
+    if (!user && !check) {
+      alert("You are not signed in. Please sign in to your account")
+      setCheck(true)
+    }
+  });
+
   var query = Getonce("importantNotices/");
-  const [importantNotices, setImportantNotices] = useState([]);
   var list = [];
   if (!fetch) {
     for (const key in query) {

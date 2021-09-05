@@ -21,6 +21,7 @@ export default function UserFormServant() {
   const [newVisitorName, setNewVisitorName] = useState("");
   const [newVisitorPurpose, setNewVisitorPurpose] = useState("");
   const [newVisitorContact, setNewVisitorContact] = useState("");
+  const [workingHours, setworkingHours] = useState("")
   const [visitors, setvisitors] = useState();
   // eslint-disable-next-line
   const [error, seterror] = useState("");
@@ -146,6 +147,7 @@ export default function UserFormServant() {
                           name: newVisitorName,
                           contact: newVisitorContact,
                           purpose: newVisitorPurpose,
+                          hours : workingHours
                         });
                       firebase
                         .database()
@@ -206,6 +208,8 @@ export default function UserFormServant() {
                 <div className={styles.gridItem}>{visitor.purpose}</div>
                 <div className={styles.gridItem}>Contact:</div>
                 <div className={styles.gridItem}>{visitor.contact}</div>
+                <div className={styles.gridItem}>Working Hours:</div>
+                <div className={styles.gridItem}>{visitor.hours}</div>
                 <button onClick={(e) => handleDeleteVisitor(keys[index])}>
                   Delete
                 </button>
@@ -276,6 +280,17 @@ export default function UserFormServant() {
                           style={{ width: 300, marginBottom: 30 }}
                           value={newVisitorContact}
                           onChange={(e) => setNewVisitorContact(e.target.value)}
+                        />
+                      </div>
+                      <div className={styles.gridItem}>
+                        <TextField
+                          label="Working Hours"
+                          type="tel"
+                          variant="outlined"
+                          margin="dense"
+                          style={{ width: 300, marginBottom: 30 }}
+                          value={workingHours}
+                          onChange={(e) => setworkingHours(e.target.value)}
                         />
                       </div>
                     </div>
