@@ -12,6 +12,7 @@ import "firebase/auth";
 import {} from "../firebase";
 import AddUsers from "./AdminActions/AddUsers";
 import AddTransaction from "./AdminActions/AddTransaction";
+import AddImportantNotice from "./AdminActions/AddImportantNotice";
 import AddNotification from "./AdminActions/AddNotification";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -19,6 +20,7 @@ import AddEvent from "./AdminActions/AddEvent";
 import Events from "./Events";
 import ManageContractors from "./ManageContractors";
 import ManageTenders from "./ManageTenders";
+import ManageImportantNotices from "./ManageImportantNotices";
 
 function Dashboard() {
   const history = useHistory();
@@ -119,6 +121,13 @@ function Dashboard() {
           >
             <div>Manage Contractors</div>
           </Link>
+          <Link
+            to="/dashboard/manageImportantNotices"
+            style={{ textDecoration: "none" }}
+            onClick={() => setIsNavOpen(!isNavOpen)}
+          >
+            <div>Manage Imp Notices</div>
+          </Link>
         </section>
       </div>
       <div className={styles.main}>
@@ -153,6 +162,16 @@ function Dashboard() {
           <Route
             path="/dashboard/manageContractors"
             component={ManageContractors}
+            exact
+          />
+          <Route
+            path="/dashboard/manageImportantNotices"
+            component={ManageImportantNotices}
+            exact
+          />
+          <Route
+            path="/dashboard/addImportantNotices"
+            component={AddImportantNotice}
             exact
           />
         </Switch>

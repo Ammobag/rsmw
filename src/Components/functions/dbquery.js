@@ -46,14 +46,7 @@ export function Getname(uid) {
   }
 }
 
-export function writeUserData(
-  UID,
-  name,
-  email,
-  phonenumber,
-  lineno,
-  img
-) {
+export function writeUserData(UID, name, email, phonenumber, lineno, img) {
   console.log("in writeuserdata");
   firebase
     .database()
@@ -68,13 +61,10 @@ export function writeUserData(
     });
 }
 
-export function deleteVisitorData(
-  UID,
-  index
-) {
+export function deleteVisitorData(UID, index) {
   firebase
     .database()
-    .ref("users/" + UID + "/visitors/"+index + "/")
+    .ref("users/" + UID + "/visitors/" + index + "/")
     .child("deleted")
     .set(true);
 }
@@ -113,7 +103,7 @@ export function uploadEvent(body, image, name) {
   firebase
     .database()
     .ref("events/" + timestamp + "/")
-    .set({      
+    .set({
       timestamp: timestamp,
       name: name,
       body: body,
@@ -186,6 +176,18 @@ export function postNotification(issuer, designation, subject, body) {
       issuerDesignation: designation,
       issuerName: issuer,
       subject: subject,
+    });
+}
+export function postImpNotification(body) {
+  var timestamp = Date.now();
+  const d = new Date();
+  var i = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+  firebase
+    .database()
+    .ref("importantNotices/" + timestamp + "/")
+    .set({
+      body: body,
+      date: i,
     });
 }
 

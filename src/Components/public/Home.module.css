@@ -21,10 +21,11 @@
   align-items: center;
 }
 
-.imageWrapper img {
-  object-fit: cover;
-  height: 250px;
-  width: 400px;
+.contentWrapper {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .list {
   display: flex;
@@ -45,11 +46,12 @@
   border-radius: 10px;
 }
 .menubar li {
-  height: 33px;
   color: #0b4c7a;
   list-style-type: none;
   border-bottom: 1px solid #aeaeae;
   padding: 5px 10px 3px 3px;
+  display: flex;
+  align-items: center;
 }
 footer {
   display: flex;
