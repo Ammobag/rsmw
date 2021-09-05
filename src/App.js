@@ -18,6 +18,7 @@ import UserFormTenant from "./Components/user/UserFormTenant";
 import UserFormServant from "./Components/user/UserFormServant";
 import Public from "./Components/public/Public";
 import UserFormVehicle from "./Components/user/UserFormVehicle";
+import ApplyTender from "./Components/public/ApplyTender";
 
 const theme = createTheme({
   palette: {
@@ -36,6 +37,7 @@ function App() {
       <div>
         <Switch>
           <Route path="/" component={Public} exact />
+          <Route path="/applyTender" component={ApplyTender} />
           <Route path="/logIn" component={UserLogIn} />
           <Route path="/createAccount" component={UserCreateAccount} />
           <Route path="/basicForm" component={UserFormBasic} />

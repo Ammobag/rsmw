@@ -6,10 +6,13 @@ import {} from "../firebase";
 import Getonce from "../functions/dbquery";
 import sizeObject from "../functions/dataHandling";
 import styles from "./Tender.module.css";
+import { useHistory } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 export default function Tenders() {
   const [data, setData] = useState([]);
   const [fetch, setFetch] = useState(false);
+  const history = useHistory();
   var query = Getonce("tenders/");
   var list = [];
   if (!fetch) {
@@ -23,6 +26,16 @@ export default function Tenders() {
           col3: element.tenderClosingDate,
           col4: element.tenderAmount,
           col5: element.tenderDetails,
+          col6: (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={applyTender}
+              disableElevation
+            >
+              Apply Now
+            </Button>
+          ),
         };
         list.push(insert);
       }
@@ -33,7 +46,9 @@ export default function Tenders() {
       }
     }
   }
-
+  function applyTender() {
+    history.push("/applyTender");
+  }
   const columns = React.useMemo(
     () => [
       {
@@ -55,6 +70,10 @@ export default function Tenders() {
       {
         Header: "Tender Details",
         accessor: "col5",
+      },
+      {
+        Header: "Apply",
+        accessor: "col6",
       },
     ],
     []
