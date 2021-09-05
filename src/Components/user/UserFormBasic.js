@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import styles from "./UserFormBasic.module.css";
-import ImageIcon from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
 import "firebase/database";
@@ -13,6 +12,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import logo from "../../Assets/logo.png";
+import FileCopyIcon from "@material-ui/icons/FileCopy";
 
 export default function UserFormBasic() {
   const [detail, setDetails] = useState({});
@@ -310,7 +310,7 @@ export default function UserFormBasic() {
                 <p>Add Deed:</p>
 
                 <label for="myfile">
-                  <ImageIcon />
+                  <FileCopyIcon />
                 </label>
 
                 <input
@@ -328,7 +328,7 @@ export default function UserFormBasic() {
                 <p>Add Id Proof:</p>
 
                 <label for="myfile2">
-                  <ImageIcon />
+                  <FileCopyIcon />
                 </label>
 
                 <input

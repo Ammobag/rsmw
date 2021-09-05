@@ -10,6 +10,7 @@ import {} from "../firebase";
 import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import logo from "../../Assets/logo.png";
+import FileCopyIcon from "@material-ui/icons/FileCopy";
 
 // var database = firebase.database();
 
@@ -243,7 +244,7 @@ export default function UserFormTenant() {
                 <p>Add Police Verification:</p>
 
                 <label for="myfile">
-                  <ImageIcon />
+                  <FileCopyIcon />
                 </label>
 
                 <input
@@ -261,7 +262,7 @@ export default function UserFormTenant() {
                 <p>Add Rental Agreement:</p>
 
                 <label for="myfile2">
-                  <ImageIcon />
+                  <FileCopyIcon />
                 </label>
 
                 <input

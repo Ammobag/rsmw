@@ -18,7 +18,7 @@ import { TextField } from "@material-ui/core";
 //   console.log(data);
 // });
 
-export default function AddClassified() {
+export default function AddContractor() {
   const [category, setcategory] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -35,47 +35,43 @@ export default function AddClassified() {
   };
 
   const handleSubmit = async (e) => {
-    if (image ) {
+    if (image) {
       setstatus(1);
       const timestamp = Date.now();
       for (let i = 0; i < image.length; i++) {
         const element = image[i];
-        
+
         var storageRef = firebase.storage().ref();
         var filename = element.name;
         // eslint-disable-next-line
         var uploadTask = await storageRef
-          .child("contractor/"+ timestamp + "/" + filename)
+          .child("contractor/" + timestamp + "/" + filename)
           .put(element);
-
-
       }
 
       uploadContactor(timestamp, name, phone, email, category, description);
-      setstatus(2);        
-
+      setstatus(2);
     } else {
       seterror("Enter all the fields");
     }
   };
 
-  const DisplayFiles = ()=>{
-    if (image){
-      let arr = []
-      console.log("Print", image.length)
+  const DisplayFiles = () => {
+    if (image) {
+      let arr = [];
+      console.log("Print", image.length);
       for (let i = 0; i < image.length; i++) {
         const element = image[i];
-        console.log(element.name)
-        arr.push(element)
+        console.log(element.name);
+        arr.push(element);
       }
-      return(arr.map((value, index)=>{
-         return(<div key={index}>{value.name}</div>)
-      }))
-     
-    }else{
-      return( <div></div> )
+      return arr.map((value, index) => {
+        return <div key={index}>{value.name}</div>;
+      });
+    } else {
+      return <div></div>;
     }
-  }
+  };
 
   return (
     <div>
@@ -92,7 +88,6 @@ export default function AddClassified() {
           {status === 0 && (
             <section>
               <form style={{ display: "flex", flexDirection: "column" }}>
-
                 <TextField
                   id="name"
                   label="Name"
@@ -104,7 +99,7 @@ export default function AddClassified() {
                   onChange={(e) => setname(e.target.value)}
                 />
                 <div style={{ height: 30 }} />
-                
+
                 <TextField
                   id="phoneNo"
                   label="Phone Number"
@@ -169,10 +164,8 @@ export default function AddClassified() {
                   onChange={handleImage}
                   multiple
                 />
-                
-                
               </div>
-              <DisplayFiles/>
+              <DisplayFiles />
 
               <div style={{ height: 30 }} />
               <div className={styles.buttonWrapper}>
