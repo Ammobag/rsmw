@@ -34,6 +34,11 @@ export default function Public() {
       {activeTab === "Contractors" && <Contractors />}
       <footer>
         <p>Ideal Villas Owner's Association</p>
+        <div>
+          <p className={styles.TandC}>Terms And Conditions</p>
+          <p>|</p>
+          <p className={styles.TandC}>Privacy Policy</p>
+        </div>
       </footer>
     </div>
   );

@@ -31,3 +31,17 @@
   color: black;
   cursor: pointer;
 }
+footer {
+  display: flex;
+  flex-direction: column;
+}
+footer div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.TandC {
+  font-size: 80%;
+  margin: 0px 0.5rem;
+  cursor: pointer;
+}
