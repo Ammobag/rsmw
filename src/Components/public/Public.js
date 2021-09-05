@@ -7,14 +7,17 @@ import ContactUs from "./ContactUs";
 import Tenders from "./Tenders";
 import AboutUs from "./AboutUs";
 import Contractors from "./Contractors";
+
 export default function Public() {
+
   const [activeTab, setActiveTab] = useState("Home");
+
   return (
     <div>
       <div className={styles.topnav}>
         <div className={styles.brand}>
           <img src={logo} alt="Logo" />
-          <div>IV-Aoa</div>
+          <div>IV-AoA</div>
         </div>
 
         <nav>

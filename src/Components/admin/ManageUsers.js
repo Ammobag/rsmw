@@ -110,7 +110,7 @@ export default function ManageUsers() {
   );
 
   const handleAdd = (e) => {
-    history.push("/dashboard/adduser");
+    history.push("/createAccount");
   };
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =

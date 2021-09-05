@@ -83,6 +83,21 @@ export function uploadPost(UID, body, image) {
     });
 }
 
+export function uploadContactor(id, name, phone, email, category, description) {
+  firebase
+    .database()
+    .ref("contractors/" + id + "/")
+    .set({
+      id: id,
+      contractorCategory: category,
+      contractorContact: phone, 
+      contractorName: name,
+      email: email,
+      description: description,
+      approved: false,
+    });
+}
+
 export function uploadEvent(body, image, name) {
   var timestamp = Date.now();
   firebase

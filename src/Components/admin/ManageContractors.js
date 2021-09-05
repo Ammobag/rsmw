@@ -8,14 +8,15 @@ import sizeObject from "../functions/dataHandling";
 import styles from "./ManageContractors.module.css";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
-import { useHistory } from "react-router-dom";
+
 
 export default function ManageContractors() {
   const [data, setData] = useState([]);
   const [fetch, setFetch] = useState(false);
   var query = Getonce("contractors/");
   var list = [];
-  const history = useHistory();
+  // eslint-disable-next-line
+
   if (!fetch) {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
@@ -26,6 +27,23 @@ export default function ManageContractors() {
           col2: element.contractorCategory,
           col3: element.contractorContact,
           col4: (
+            <div style={{display: "flex", flexDirection: "column"}}>
+            
+            {
+              !element.approved &&
+              <>
+                 <div style={{ height: 10 }} />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleApproveContractor}
+                  disableElevation
+                >
+                  Approve
+                </Button>
+              </>
+            }
+            <div style={{ height: 10 }} />
             <Button
               variant="contained"
               color="primary"
@@ -34,14 +52,32 @@ export default function ManageContractors() {
             >
               Delete
             </Button>
+            <div style={{ height: 10 }} />
+            <a target="_blank"  rel="noreferrer" href={"https://console.firebase.google.com/u/0/project/rsmw-56be8/storage/rsmw-56be8.appspot.com/files/~2Fcontractor~2F"+ element.id}>
+            <Button
+              variant="contained"
+              color="primary"
+              disableElevation
+            >
+              View Files
+            </Button>
+            </a>
+            </div>
           ),
         };
         list.push(insert);
       }
+
+      function handleApproveContractor() {
+        firebase.database().ref("/contractors").child(key).child("approved").set(true);
+        window.location.reload(true)
+      }
+
       function handleDeleteContractor() {
         firebase.database().ref("/contractors").child(key).remove();
-        history.replace("/dashboard/manageTenders");
+        window.location.reload(true)
       }
+
       console.log(list.length, sizeObject(query));
       if (list.length === sizeObject(query)) {
         setData(list);
@@ -65,7 +101,7 @@ export default function ManageContractors() {
         accessor: "col3",
       },
       {
-        Header: "Contractor Contact",
+        Header: "Actions",
         accessor: "col4",
       },
     ],

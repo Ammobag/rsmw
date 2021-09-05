@@ -175,6 +175,7 @@ export default function UserProfile() {
             </div>
             {arr.map((visitor, index) => {
               return (
+                <>
                 <div className={styles.gridContainer} key={index}>
                   <div className={styles.gridItem}>Name:</div>
                   <div className={styles.gridItem}>{visitor.name}</div>
@@ -182,10 +183,14 @@ export default function UserProfile() {
                   <div className={styles.gridItem}>{visitor.purpose}</div>
                   <div className={styles.gridItem}>Contact:</div>
                   <div className={styles.gridItem}>{visitor.contact}</div>
-                  <button onClick={(e) => handleDeleteVisitor(keys[index])}>
+                  <div className={styles.gridItem}>Working Hours:</div>
+                  <div className={styles.gridItem}>{visitor.hours}</div>
+                  
+                </div>
+                <button onClick={(e) => handleDeleteVisitor(keys[index])}>
                     Delete
                   </button>
-                </div>
+                </>
               );
             })}
           </>
@@ -241,6 +246,7 @@ export default function UserProfile() {
               </div>
               {arr.map((visitor, index) => {
                 return (
+                  <>
                   <div className={styles.gridContainer} key={index}>
                     <div className={styles.gridItem}>Name:</div>
                     <div className={styles.gridItem}>{visitor.name}</div>
@@ -248,10 +254,12 @@ export default function UserProfile() {
                     <div className={styles.gridItem}>{visitor.type}</div>
                     <div className={styles.gridItem}>Registration Number:</div>
                     <div className={styles.gridItem}>{visitor.regNo}</div>
-                    <button onClick={(e) => handleDeleteVisitor(keys[index])}>
+                    
+                  </div>
+                  <button onClick={(e) => handleDeleteVisitor(keys[index])}>
                       Delete
                     </button>
-                  </div>
+                    </>
                 );
               })}
             </>
