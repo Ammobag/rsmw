@@ -23,6 +23,7 @@ import ManageTenders from "./ManageTenders";
 import ManageImportantNotices from "./ManageImportantNotices";
 import AddExpense from "./AddExpense";
 import AddTender from "./AdminActions/AddTender";
+import TenderApplication from "./tenderApplication";
 
 function Dashboard() {
   const history = useHistory();
@@ -117,6 +118,13 @@ function Dashboard() {
             <div>Manage Tenders</div>
           </Link>
           <Link
+            to="/dashboard/tenderApplication"
+            style={{ textDecoration: "none" }}
+            onClick={() => setIsNavOpen(!isNavOpen)}
+          >
+            <div>Tender Application</div>
+          </Link>
+          <Link
             to="/dashboard/manageContractors"
             style={{ textDecoration: "none" }}
             onClick={() => setIsNavOpen(!isNavOpen)}
@@ -194,6 +202,8 @@ function Dashboard() {
             exact
           />
           <Route path="/dashboard/addExpense" component={AddExpense} exact />
+
+          <Route path="/dashboard/tenderApplication" component={TenderApplication} exact />
         </Switch>
       </div>
     </div>

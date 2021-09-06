@@ -14,13 +14,11 @@ import {} from "../firebase";
 import { uploadTenderApplication } from "../functions/dbquery";
 
 export default function AddClassified(props) {
-  const [category, setcategory] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [description, setdescription] = useState("");
   const [image, setImage] = useState(null);
   const [status, setstatus] = useState(0);
-  const [error, seterror] = useState("");
   const [name, setname] = useState("");
 
   const handleImage = (e) => {
@@ -32,7 +30,7 @@ export default function AddClassified(props) {
   console.log(props.match.params.id)
 
   const handleSubmit = async (e) => {
-    if (image ) {
+    if (image && phone && email && description && name) {
       setstatus(1);
       const timestamp = Date.now();
       for (let i = 0; i < image.length; i++) {
@@ -48,11 +46,11 @@ export default function AddClassified(props) {
 
       }
 
-      uploadTenderApplication(timestamp, name, phone, email, category, description, props.match.params.id );
+      uploadTenderApplication(timestamp, name, phone, email, description, props.match.params.id );
       setstatus(2);        
 
     } else {
-      seterror("Enter all the fields");
+      alert("Enter all the fields");
     }
   };
 
@@ -81,11 +79,6 @@ export default function AddClassified(props) {
           <div style={{ height: 30 }} />
           <h3>Apply for a Tender</h3>
           <div style={{ height: 30 }} />
-          {error && (
-            <div>
-              <h3 style={{ color: "red" }}>{error}</h3>
-            </div>
-          )}
           {status === 0 && (
             <section>
               <form style={{ display: "flex", flexDirection: "column" }}>
@@ -123,18 +116,6 @@ export default function AddClassified(props) {
                   value={email}
                   fullWidth
                   onChange={(e) => setEmail(e.target.value)}
-                />
-                <div style={{ height: 30 }} />
-
-                <TextField
-                  id="category"
-                  label="Category"
-                  type="category"
-                  variant="outlined"
-                  margin="dense"
-                  value={category}
-                  fullWidth
-                  onChange={(e) => setcategory(e.target.value)}
                 />
                 <div style={{ height: 30 }} />
 
