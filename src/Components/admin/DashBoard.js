@@ -29,7 +29,7 @@ function Dashboard() {
     if (user) {
       var uid = user.uid;
       console.log("User Check : ");
-      if (uid === "6cryi8fnJySKAUBgfq6gPN49Gax1") {
+      if (uid === "IkezoAoumCQvI586zQKCI68yBnH2") {
         console.log(uid);
       } else {
         console.log("User : " + user.uid);

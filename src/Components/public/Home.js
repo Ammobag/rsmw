@@ -5,6 +5,7 @@ import slider3 from "../../Assets/slider3.jpeg";
 import slider4 from "../../Assets/slider4.jpeg";
 import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 
 import firebase from "firebase/app";
 import "firebase/database";
@@ -19,11 +20,13 @@ export default function Home() {
   const [fetch, setFetch] = useState(false);
   const [check, setCheck] = useState(false)
 
+  const history = useHistory();
   
   firebase.auth().onAuthStateChanged((user) => {
-    if (!user && !check) {
-      alert("You are not signed in. Please sign in to your account")
+    if (user) {
       setCheck(true)
+    }else{
+      setCheck(false)
     }
   });
 
@@ -54,8 +57,8 @@ export default function Home() {
     );
     return () => {};
   }, [index]);
+
   const ImportantNotices = () => {
-    console.log(data);
     return (
       <div>
         <li>
@@ -106,7 +109,13 @@ export default function Home() {
               </a>
             </li>
             <li>
-              <Link to="/transactions">
+              <Link onClick={()=>{
+                if(check){
+                  history.replace("/transactions")
+                }else{
+                  alert("Please Log in to continue")
+                }
+              }}>
                 <span className="content1">Pay Online</span>
               </Link>
             </li>

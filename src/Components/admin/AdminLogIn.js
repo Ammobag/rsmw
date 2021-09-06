@@ -30,7 +30,7 @@ export default function UserLogIn() {
         .signInWithEmailAndPassword(userName, password)
         .then((userCredential) => {
           user = userCredential.user;
-          if (user.uid === "6cryi8fnJySKAUBgfq6gPN49Gax1") {
+          if (user.uid === "IkezoAoumCQvI586zQKCI68yBnH2") {
             history.push("/dashboard");
           }
         })

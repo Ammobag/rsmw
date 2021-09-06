@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
@@ -94,11 +94,8 @@ export default function UserLogIn() {
               <button className={styles.loginButton} onClick={handleSubmit}>
                 Log In
               </button>
-              <div style={{ height: 30 }} />
-              <a href="/createAccount">Create New Account</a>
-              <Link to="/admin">
-                <div>Go to Admin Panel</div>
-              </Link>
+
+             
             </div>
           </div>
         </section>

@@ -98,6 +98,21 @@ export function uploadContactor(id, name, phone, email, category, description) {
     });
 }
 
+export function uploadTenderApplication(id, name, phone, email, category, description, tenderID ) {
+  firebase
+    .database()
+    .ref("tenderApplication/" + id + "/")
+    .set({
+      tenderID: tenderID,
+      id: id,
+      contractorCategory: category,
+      contractorContact: phone, 
+      contractorName: name,
+      email: email,
+      description: description,
+    });
+}
+
 export function uploadEvent(body, image, name) {
   var timestamp = Date.now();
   firebase

@@ -160,7 +160,7 @@ export default function AddContractor() {
                   type="file"
                   id="myfile"
                   name="myfile"
-                  accept=".pdf"
+                  accept=".pdf, .jpg, .png, .jpeg, .jfif, .gif, .bmp, .tif, .tiff|image/*"
                   onChange={handleImage}
                   multiple
                 />

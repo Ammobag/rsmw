@@ -74,10 +74,6 @@ export default function UserCreateAccount() {
             <button className={styles.loginButton} onClick={handleSubmit}>
               Create Account
             </button>
-            <div style={{ height: 30 }} />
-            <a style={{ textAlign: "center" }} href="/logIn">
-              Go to Login
-            </a>
           </div>
         </div>
       </section>
