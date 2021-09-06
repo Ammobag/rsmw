@@ -36,8 +36,8 @@ export default function AddComplaint() {
         if (user) {
           var uid = user.uid;
           var timestamp = Date.now();
-          console.log(uid, subject, body, timestamp);
-          postComplaint(uid, subject, body, timestamp);
+          var finalsubject = subject==="Other" ? otherSubjectSpec : subject
+          postComplaint(uid, finalsubject, body, timestamp);
           settoken(timestamp);
           setstatus(1);
         }

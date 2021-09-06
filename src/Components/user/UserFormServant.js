@@ -201,19 +201,22 @@ export default function UserFormServant() {
           <h4>Visitors:</h4>
           {arr.map((visitor, index) => {
             return (
-              <div className={styles.gridContainer} key={index}>
-                <div className={styles.gridItem}>Name:</div>
-                <div className={styles.gridItem}>{visitor.name}</div>
-                <div className={styles.gridItem}>Purpose:</div>
-                <div className={styles.gridItem}>{visitor.purpose}</div>
-                <div className={styles.gridItem}>Contact:</div>
-                <div className={styles.gridItem}>{visitor.contact}</div>
-                <div className={styles.gridItem}>Working Hours:</div>
-                <div className={styles.gridItem}>{visitor.hours}</div>
+              <>
+                <div className={styles.gridContainer} key={index}>
+                  <div className={styles.gridItem}>Name:</div>
+                  <div className={styles.gridItem}>{visitor.name}</div>
+                  <div className={styles.gridItem}>Purpose:</div>
+                  <div className={styles.gridItem}>{visitor.purpose}</div>
+                  <div className={styles.gridItem}>Contact:</div>
+                  <div className={styles.gridItem}>{visitor.contact}</div>
+                  <div className={styles.gridItem}>Working Hours:</div>
+                  <div className={styles.gridItem}>{visitor.hours}</div>
+                  
+                </div>
                 <button onClick={(e) => handleDeleteVisitor(keys[index])}>
-                  Delete
-                </button>
-              </div>
+                    Delete
+                  </button>
+                </>
             );
           })}
         </>
@@ -247,9 +250,11 @@ export default function UserFormServant() {
                 >
                   <ViewVisitor />
                   <>
+                   <div style={{ height: 30 }} />
+                    <div style={{ height: 30 }} />
                     <h4> Add New Visitor</h4>
-                    <div className={styles.gridContainer}>
-                      <div className={styles.gridItem}>
+                    <div >
+                      <div >
                         <TextField
                           label="Name"
                           type="text"
@@ -260,7 +265,7 @@ export default function UserFormServant() {
                           onChange={(e) => setNewVisitorName(e.target.value)}
                         />
                       </div>
-                      <div className={styles.gridItem}>
+                      <div >
                         <TextField
                           label="Purpose"
                           type="text"
@@ -271,7 +276,7 @@ export default function UserFormServant() {
                           onChange={(e) => setNewVisitorPurpose(e.target.value)}
                         />
                       </div>
-                      <div className={styles.gridItem}>
+                      <div >
                         <TextField
                           label="Contact"
                           type="tel"
@@ -282,7 +287,7 @@ export default function UserFormServant() {
                           onChange={(e) => setNewVisitorContact(e.target.value)}
                         />
                       </div>
-                      <div className={styles.gridItem}>
+                      <div >
                         <TextField
                           label="Working Hours"
                           type="tel"
