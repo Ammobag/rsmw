@@ -19,6 +19,7 @@ import UserFormServant from "./Components/user/UserFormServant";
 import Public from "./Components/public/Public";
 import UserFormVehicle from "./Components/user/UserFormVehicle";
 import ApplyTender from "./Components/public/ApplyTender";
+import ForgotPassword from "./Components/user/UserForwardPassword";
 
 const theme = createTheme({
   palette: {
@@ -55,6 +56,7 @@ function App() {
           <Route path="/noticeBoard" component={UserNoticeBoard} />
           <Route path="/complaints" component={UserComplaints} />
           <Route path="/classifiedSection" component={UserClassifiedSection} />
+          <Route path="/forgotpassword" component={ForgotPassword} />
           <Route component={Error} />
         </Switch>
       </div>

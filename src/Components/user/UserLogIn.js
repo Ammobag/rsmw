@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { useHistory} from "react-router-dom";
+import { useHistory, Link} from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
@@ -94,8 +94,13 @@ export default function UserLogIn() {
               <button className={styles.loginButton} onClick={handleSubmit}>
                 Log In
               </button>
-
-             
+              <div style={{ height: 100 }} />
+              <Link
+                to="/forgotpassword"
+                style={{ textDecoration: "none" }}
+              >
+                <div>Forgot Password ?</div>
+              </Link>
             </div>
           </div>
         </section>

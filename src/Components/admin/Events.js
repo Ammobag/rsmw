@@ -10,6 +10,7 @@ import {} from "../firebase";
 import Getonce from "../functions/dbquery";
 import sizeObject from "../functions/dataHandling";
 import { useHistory } from "react-router-dom";
+import firebase from "firebase/app";
 
 export default function Events() {
   const [searchInput, setsearchInput] = useState();
@@ -34,9 +35,25 @@ export default function Events() {
           col1: element.name,
           col2: element.body,
           col3: ViewLink(),
+          col4: (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleDeleteTender}
+              disableElevation
+            >
+              Delete
+            </Button>
+          ),
         };
 
         list.push(insert);
+
+        function handleDeleteTender() {
+          firebase.database().ref("/events").child(key).remove();
+          window.location.reload(true);
+        }
+
         console.log(list.length, sizeObject(query));
         if (list.length === sizeObject(query)) {
           setdata(list);
@@ -85,6 +102,10 @@ export default function Events() {
       {
         Header: "Image",
         accessor: "col3",
+      },
+      {
+        Header: "Actions",
+        accessor: "col4",
       },
     ],
     []

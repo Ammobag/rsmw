@@ -61,9 +61,7 @@ export default function Home() {
   const ImportantNotices = () => {
     return (
       <div>
-        <li>
-          <h4 className="content1">Important Notices</h4>
-        </li>
+        
         {data.map((item) => (
           <li>
             <span className="content1">{item.body}</span>
@@ -89,9 +87,14 @@ export default function Home() {
       </section>
       <section className={styles.content}>
         <div className={styles.contentWrapper}>
-          <ul className={styles.menubar}>
-            <ImportantNotices />
-          </ul>
+          <div style={{display: 'flex', flexDirection: 'column',justifyContent: 'center', alignItems: "center"}}>
+       
+              <h2 className="content1">Important Notices</h2>
+     
+            <ul className={styles.impnotice}>
+              <ImportantNotices />
+            </ul>
+          </div>
           <ul className={styles.menubar}>
             <li id="nav1">
               <Link to="/createAccount">
@@ -102,11 +105,6 @@ export default function Home() {
               <Link to="/logIn">
                 <span className="content1">Consumer Login</span>
               </Link>
-            </li>
-            <li>
-              <a className="clearfix1" href="https://www.google.com/">
-                <span className="content1">Expense Sheet</span>
-              </a>
             </li>
             <li>
               <Link onClick={()=>{

@@ -9,6 +9,8 @@ import styles from "./ManageTenders.module.css";
 import firebase from "firebase/app";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
+
+
 export default function ManageTenders() {
   const [data, setData] = useState([]);
   const [fetch, setFetch] = useState(false);
@@ -38,7 +40,7 @@ export default function ManageTenders() {
           ),
         };
         list.push(insert);
-      }
+      
       function handleDeleteTender() {
         firebase.database().ref("/tenders").child(key).remove();
         window.location.reload(true);
@@ -48,6 +50,7 @@ export default function ManageTenders() {
         setData(list);
         setFetch(true);
       }
+    }
     }
   }
 

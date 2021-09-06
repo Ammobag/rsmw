@@ -1,27 +1,24 @@
-import { useTable } from "react-table";
-import styles from "./NoticeBoard.module.css";
 import React, { useState } from "react";
+import SearchIcon from "@material-ui/icons/Search";
+import { useTable } from "react-table";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import SearchIcon from "@material-ui/icons/Search";
+import styles from "./ManageUsers.module.css";
 import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
 import Getonce from "../functions/dbquery";
+
 import sizeObject from "../functions/dataHandling";
-import { useHistory } from "react-router-dom";
-import firebase from "firebase/app";
 
-
-export default function NoticeBoard() {
+export default function AdminContact() {
   const [searchInput, setsearchInput] = useState();
   const [alldata, setalldata] = useState([]);
   const [data, setdata] = useState([]);
   const [fetch, setFetch] = useState(false)
-  var query = Getonce("notices/");
+  var query = Getonce("contactus/");
 
   var list = [];
-  const history = useHistory();
 
   if (!fetch && !searchInput) {
     for (const key in query) {
@@ -29,30 +26,14 @@ export default function NoticeBoard() {
         const element = query[key];
 
         var insert = {
-          col1: element.issuerName,
-          col2: element.issuerDesignation,
-          col3: element.subject,
-          col4: element.body,
-          col5: element.date,
-          col6: (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleDeleteTender}
-              disableElevation
-            >
-              Delete
-            </Button>
-          ),
+          col1: element.name,
+          col2: element.phone,
+          col3: element.email,
+          col4: element.description,
+
         };
 
         list.push(insert);
-
-        function handleDeleteTender() {
-          firebase.database().ref("/notices").child(key).remove();
-          window.location.reload(true);
-        }
-
         console.log(list.length, sizeObject(query));
         if (list.length === sizeObject(query)) {
           setdata(list);
@@ -68,13 +49,25 @@ export default function NoticeBoard() {
     if (searchInput) {
       for (let i = 0; i < alldata.length; i++) {
         const element = alldata[i];
-        console.log(element.col8, searchInput);
+
         if (
-          element.col1.toLowerCase().includes(searchInput.toLowerCase()) ||
-          element.col2.toLowerCase().includes(searchInput.toLowerCase()) ||
-          element.col3.toLowerCase().includes(searchInput.toLowerCase()) ||
-          element.col4.toLowerCase().includes(searchInput.toLowerCase()) ||
-          element.col5.toLowerCase().includes(searchInput.toLowerCase())
+          element.col1
+            .toString()
+            .toLowerCase()
+            .includes(searchInput.toLowerCase()) ||
+          element.col2
+            .toString()
+            .toLowerCase()
+            .includes(searchInput.toLowerCase()) ||
+          element.col3
+            .toString()
+            .toLowerCase()
+            .includes(searchInput.toLowerCase()) ||
+          element.col4
+            .toString()
+            .toLowerCase()
+            .includes(searchInput.toLowerCase())
+
         ) {
           filteredData.push(element);
         }
@@ -94,37 +87,25 @@ export default function NoticeBoard() {
   const columns = React.useMemo(
     () => [
       {
-        Header: "Issuer Name",
+        Header: "Name",
         accessor: "col1", // accessor is the "key" in the data
       },
       {
-        Header: "Issuer Designation",
+        Header: "Phone",
         accessor: "col2",
       },
       {
-        Header: "Subject",
+        Header: "Email",
         accessor: "col3",
       },
       {
-        Header: "Body",
+        Header: "Description",
         accessor: "col4",
       },
-      {
-        Header: "Date",
-        accessor: "col5",
-      },
-      {
-        Header: "Actions",
-        accessor: "col6",
-      },
-      
     ],
     []
   );
 
-  const handleAdd = (e) => {
-    history.push("/dashboard/addNotification");
-  };
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
@@ -149,17 +130,9 @@ export default function NoticeBoard() {
             </Button>
           </div>
 
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleAdd}
-            disableElevation
-          >
-            Add New Notice
-          </Button>
         </div>
         <div className={styles.tableWrapper}>
-          <table {...getTableProps()}>
+          <table {...getTableProps()} style={{ marginTop: "2rem" }}>
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
@@ -175,19 +148,15 @@ export default function NoticeBoard() {
               {rows.map((row) => {
                 prepareRow(row);
                 return (
-                  <tr
-                    {...row.getRowProps()}
-                    style={{ borderBottom: "1px solid #dedede" }}
-                  >
+                  <tr {...row.getRowProps()}>
                     {row.cells.map((cell) => {
                       return (
                         <td
                           {...cell.getCellProps()}
                           style={{
-                            padding: "30px",
+                            padding: "10px",
                             border: "solid 0px gray",
                             background: "#ffffff",
-                            maxWidth: "600px",
                           }}
                         >
                           {cell.render("Cell")}
