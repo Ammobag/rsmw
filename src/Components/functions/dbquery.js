@@ -90,7 +90,7 @@ export function uploadContactor(id, name, phone, email, category, description) {
     .set({
       id: id,
       contractorCategory: category,
-      contractorContact: phone, 
+      contractorContact: phone,
       contractorName: name,
       email: email,
       description: description,
@@ -98,7 +98,15 @@ export function uploadContactor(id, name, phone, email, category, description) {
     });
 }
 
-export function uploadTenderApplication(id, name, phone, email, category, description, tenderID ) {
+export function uploadTenderApplication(
+  id,
+  name,
+  phone,
+  email,
+  category,
+  description,
+  tenderID
+) {
   firebase
     .database()
     .ref("tenderApplication/" + id + "/")
@@ -106,7 +114,7 @@ export function uploadTenderApplication(id, name, phone, email, category, descri
       tenderID: tenderID,
       id: id,
       contractorCategory: category,
-      contractorContact: phone, 
+      contractorContact: phone,
       contractorName: name,
       email: email,
       description: description,
@@ -191,6 +199,28 @@ export function postNotification(issuer, designation, subject, body) {
       issuerDesignation: designation,
       issuerName: issuer,
       subject: subject,
+    });
+}
+export function addTender(
+  tenderName,
+  tenderOpeningDate,
+  tenderClosingDate,
+  tenderAmount,
+  tenderDetails
+) {
+  var timestamp = Date.now();
+  const d = new Date();
+  var i = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+  firebase
+    .database()
+    .ref("tenders/" + timestamp + "/")
+    .set({
+      id: timestamp,
+      tenderName,
+      tenderOpeningDate,
+      tenderClosingDate,
+      tenderAmount,
+      tenderDetails,
     });
 }
 export function postImpNotification(body) {

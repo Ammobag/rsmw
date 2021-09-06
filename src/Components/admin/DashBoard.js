@@ -22,6 +22,7 @@ import ManageContractors from "./ManageContractors";
 import ManageTenders from "./ManageTenders";
 import ManageImportantNotices from "./ManageImportantNotices";
 import AddExpense from "./AddExpense";
+import AddTender from "./AdminActions/AddTender";
 
 function Dashboard() {
   const history = useHistory();
@@ -176,6 +177,7 @@ function Dashboard() {
             component={ManageTenders}
             exact
           />
+          <Route path="/dashboard/addTender" component={AddTender} exact />
           <Route
             path="/dashboard/manageContractors"
             component={ManageContractors}
@@ -191,11 +193,7 @@ function Dashboard() {
             component={AddImportantNotice}
             exact
           />
-          <Route
-            path="/dashboard/addExpense"
-            component={AddExpense}
-            exact
-          />
+          <Route path="/dashboard/addExpense" component={AddExpense} exact />
         </Switch>
       </div>
     </div>
