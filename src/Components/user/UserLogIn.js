@@ -94,8 +94,8 @@ export default function UserLogIn() {
               <button className={styles.loginButton} onClick={handleSubmit}>
                 Log In
               </button>
-              <div style={{ height: 30 }} />
-              <a href="/createAccount">Create New Account</a>
+
+             
             </div>
           </div>
         </section>
