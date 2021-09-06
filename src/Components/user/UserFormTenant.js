@@ -49,7 +49,7 @@ export default function UserFormTenant() {
   };
 
   const handleSubmit = (e) => {
-    if (image && idproof && user) {
+    if (image && idproof && user && detail.name && detail.phone && detail.email && detail.residents && detail.resdetails ) {
       setstatus(1);
       console.log(user);
       var storageRef = firebase.storage().ref();

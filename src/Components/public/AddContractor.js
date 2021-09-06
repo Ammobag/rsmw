@@ -35,7 +35,7 @@ export default function AddContractor() {
   };
 
   const handleSubmit = async (e) => {
-    if (image) {
+    if (image && category && phone && email && description && name) {
       setstatus(1);
       const timestamp = Date.now();
       for (let i = 0; i < image.length; i++) {

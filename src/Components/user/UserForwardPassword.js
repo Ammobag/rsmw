@@ -39,7 +39,7 @@ export default function ForgotPassword() {
             <h1>Ideal Villas Owner's Association</h1>
             <div style={{ height: 30 }} />
             <input
-              placeholder="Username"
+              placeholder="Your Email"
               type="email"
               value={email}
               onChange={(e) => setemail(e.target.value)}
@@ -56,7 +56,7 @@ export default function ForgotPassword() {
             >
               <div style={{ height: 30 }} />
               <button className={styles.loginButton} onClick={handleSubmit}>
-                Log In
+                Send Reset Password Email
               </button>
 
              

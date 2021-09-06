@@ -69,7 +69,7 @@ export default function UserLogIn() {
             <h1>Ideal Villas Owner's Association</h1>
             <div style={{ height: 30 }} />
             <input
-              placeholder="Username"
+              placeholder="Email"
               type="email"
               value={userName}
               onChange={(e) => setUsername(e.target.value)}

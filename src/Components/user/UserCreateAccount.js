@@ -49,7 +49,7 @@ export default function UserCreateAccount() {
           <h1>Ideal Villas</h1>
           <div style={{ height: 30 }} />
           <input
-            placeholder="Username"
+            placeholder="Email"
             type="email"
             value={userName}
             onChange={(e) => setUsername(e.target.value)}
