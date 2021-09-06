@@ -38,8 +38,8 @@ function App() {
         <Switch>
           <Route path="/" component={Public} exact />
           <Route name="applytender" path="/applyTender/:id" component={ApplyTender} />
-          <Route path="/logIn" component={UserLogIn} />
-          <Route path="/createAccount" component={UserCreateAccount} />
+          <Route path="/logIn" component={UserLogIn} exact />
+          <Route path="/createAccount" component={UserCreateAccount} exact />
           <Route path="/basicForm" component={UserFormBasic} />
           <Route path="/tenantForm" component={UserFormTenant} />
           <Route path="/servantForm" component={UserFormServant} />
