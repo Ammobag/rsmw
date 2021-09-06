@@ -21,6 +21,7 @@ import Events from "./Events";
 import ManageContractors from "./ManageContractors";
 import ManageTenders from "./ManageTenders";
 import ManageImportantNotices from "./ManageImportantNotices";
+import AddExpense from "./AddExpense";
 
 function Dashboard() {
   const history = useHistory();
@@ -128,6 +129,13 @@ function Dashboard() {
           >
             <div>Important Notices</div>
           </Link>
+          <Link
+            to="/dashboard/addExpense"
+            style={{ textDecoration: "none" }}
+            onClick={() => setIsNavOpen(!isNavOpen)}
+          >
+            <div>Expense Sheet</div>
+          </Link>
           <a
             href="https://console.firebase.google.com/u/0/project/rsmw-56be8/storage/rsmw-56be8.appspot.com/files/~2Fgallery"
             style={{ textDecoration: "none" }}
@@ -181,6 +189,11 @@ function Dashboard() {
           <Route
             path="/dashboard/addImportantNotices"
             component={AddImportantNotice}
+            exact
+          />
+          <Route
+            path="/dashboard/addExpense"
+            component={AddExpense}
             exact
           />
         </Switch>

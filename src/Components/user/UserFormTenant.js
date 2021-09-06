@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import styles from "./UserFormTenant.module.css";
-import ImageIcon from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
 import "firebase/database";

@@ -21,6 +21,7 @@ export default function UserNavigation() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [open, setOpen] = useState(false);
+  const [link, setLink] = useState("")
   const anchorRef = useRef(null);
   const history = useHistory();
 
@@ -81,6 +82,10 @@ export default function UserNavigation() {
         var query = snapshot.val();
         setUser(query);
       });
+      database.ref("/").child("expense").once("value", (snapshot) => {
+        var query = snapshot.val();
+        setLink(query)
+      });
     }
   });
 
@@ -112,6 +117,10 @@ export default function UserNavigation() {
           <Link to="/classifiedSection" style={{ textDecoration: "none" }}>
             <div>Classified Section</div>
           </Link>
+
+          <a href={link} style={{ textDecoration: "none" }}>
+            <div>Expense Sheet</div>
+          </a>
         </section>
       </div>
 

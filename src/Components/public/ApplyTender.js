@@ -79,7 +79,7 @@ export default function AddClassified(props) {
       <div className={styles.body}>
         <div className={styles.wrapper}>
           <div style={{ height: 30 }} />
-          <h3>Apply as a Tender</h3>
+          <h3>Apply for a Tender</h3>
           <div style={{ height: 30 }} />
           {error && (
             <div>
