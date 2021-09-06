@@ -25,23 +25,26 @@
   font-size: 17px;
   color: black;
 }
-
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footerWrapper {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 .topnav menu:hover {
   background-color: #ddd;
   color: black;
   cursor: pointer;
 }
-footer {
-  display: flex;
-  flex-direction: column;
+.vl {
+  border-left: 3px solid var(--primary);
+  height: 50px;
 }
-footer div {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-.TandC {
-  font-size: 80%;
-  margin: 0px 0.5rem;
-  cursor: pointer;
+.footer1 p {
+  margin-bottom: 1.5rem;
 }

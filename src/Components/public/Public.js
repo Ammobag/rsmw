@@ -9,7 +9,6 @@ import AboutUs from "./AboutUs";
 import Contractors from "./Contractors";
 
 export default function Public() {
-
   const [activeTab, setActiveTab] = useState("Home");
 
   return (
@@ -36,11 +35,31 @@ export default function Public() {
       {activeTab === "About" && <AboutUs />}
       {activeTab === "Contractors" && <Contractors />}
       <footer>
-        <p>Ideal Villas Owner's Association</p>
-        <div>
-          <p className={styles.TandC}>Terms And Conditions</p>
-          <p>|</p>
-          <p className={styles.TandC}>Privacy Policy</p>
+        <div className={styles.footerWrapper}>
+          <div className={styles.footer1}>
+            <img src={logo} alt="Logo" />
+            <p>Ideal Villas Owner's Association</p>
+          </div>
+          <div className={styles.vl}></div>
+          <div className={styles.footer2}>
+            <div>Terms and Conditions</div>
+            <div>Privacy Policy</div>
+          </div>
+          <div className={styles.vl}></div>
+          <div className={styles.footer3}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <h2>Facility Manager - John Doe</h2>
+              <br />
+              <p>Contact At - 9807000000</p>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
