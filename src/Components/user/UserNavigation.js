@@ -59,13 +59,7 @@ export default function UserNavigation() {
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      var uid = user.uid;
 
-      if (uid !== "IkezoAoumCQvI586zQKCI68yBnH2") {
-      } else {
-        logout();
-        history.replace("/");
-      }
     } else {
       logout();
       history.replace("/");
