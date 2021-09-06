@@ -40,8 +40,10 @@ export default function ContactUs() {
         <h2>Facility Manager - John Doe</h2>
         <br />
         <p>Contact At - 9807000000</p>
-      </div>
-      <div
+
+        <br />
+
+        <div
         style={{
           display: "flex",
           flexDirection: "column",
@@ -49,6 +51,7 @@ export default function ContactUs() {
           alignItems: "center",
         }}
       >
+
         <h2>Contact Us</h2>
         <br />
         <TextField
@@ -95,6 +98,8 @@ export default function ContactUs() {
           Submit
         </Button>
       </div>
+      </div>
+      
     </div>
   );
 }

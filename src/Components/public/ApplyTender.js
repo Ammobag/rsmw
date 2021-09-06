@@ -79,7 +79,7 @@ export default function AddClassified(props) {
       <div className={styles.body}>
         <div className={styles.wrapper}>
           <div style={{ height: 30 }} />
-          <h3>Register as a Contractor</h3>
+          <h3>Apply as a Tender</h3>
           <div style={{ height: 30 }} />
           {error && (
             <div>
@@ -162,7 +162,7 @@ export default function AddClassified(props) {
                   type="file"
                   id="myfile"
                   name="myfile"
-                  accept=".pdf"
+                  accept=".pdf, .jpg, .png, .jpeg, .jfif, .gif, .bmp, .tif, .tiff|image/*"
                   onChange={handleImage}
                   multiple
                 />

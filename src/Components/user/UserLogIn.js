@@ -1,5 +1,6 @@
 import { React, useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory} from "react-router-dom";
+import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
@@ -28,6 +29,10 @@ export default function UserLogIn() {
     }
     setLoading(false);
   });
+
+  const handleAdmin = (e) => {
+    history.replace("/admin");
+  }
 
   const handleSubmit = (e) => {
     if (password && userName) {
@@ -96,9 +101,14 @@ export default function UserLogIn() {
               </button>
               <div style={{ height: 30 }} />
               <a href="/createAccount">Create New Account</a>
-              <Link to="/admin">
-                <div>Go to Admin Panel</div>
-              </Link>
+              <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleAdmin}
+                  disableElevation
+                >
+                  Go to Admin Panel
+                </Button>
             </div>
           </div>
         </section>

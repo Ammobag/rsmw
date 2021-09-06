@@ -18,7 +18,7 @@ import { TextField } from "@material-ui/core";
 //   console.log(data);
 // });
 
-export default function AddClassified() {
+export default function AddContractor() {
   const [category, setcategory] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -165,7 +165,7 @@ export default function AddClassified() {
                   type="file"
                   id="myfile"
                   name="myfile"
-                  accept=".pdf"
+                  accept=".pdf, .jpg, .png, .jpeg, .jfif, .gif, .bmp, .tif, .tiff|image/*"
                   onChange={handleImage}
                   multiple
                 />
