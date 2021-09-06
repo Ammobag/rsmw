@@ -57,8 +57,8 @@ export default function Home() {
     );
     return () => {};
   }, [index]);
+
   const ImportantNotices = () => {
-    console.log(data);
     return (
       <div>
         <li>
