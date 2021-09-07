@@ -40,7 +40,24 @@ export default function UserFormBasic() {
 
   const handleIdProof = (e) => {
     console.log("in handle ID");
-    setidproof(e.target.files[0]);
+    setidproof(e.target.files);
+  };
+
+  const DisplayFiles = () => {
+    if (idproof) {
+      let arr = [];
+      console.log("Print", idproof.length);
+      for (let i = 0; i < idproof.length; i++) {
+        const element = idproof[i];
+        console.log(element.name);
+        arr.push(element);
+      }
+      return arr.map((value, index) => {
+        return <div key={index}>{value.name}</div>;
+      });
+    } else {
+      return <div></div>;
+    }
   };
 
   const handleSubmit = (e) => {
@@ -93,51 +110,18 @@ export default function UserFormBasic() {
         () => {
           // Upload completed successfully, now we can get the download URL
           uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-            uploadTask = storageRef
-              .child("documents/" + user.uid + "/" + idproof.name)
-              .put(idproof);
+            
+                for (let i = 0; i < idproof.length; i++) {
+                  const element = idproof[i];
 
-            // Listen for state changes, errors, and completion of the upload.
-            uploadTask.on(
-              firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-              (snapshot) => {
-                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                var progress =
-                  (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log("Upload is " + progress + "% done");
-                setprogress(progress);
-                switch (snapshot.state) {
-                  case firebase.storage.TaskState.PAUSED: // or 'paused'
-                    console.log("Upload is paused");
-                    break;
-                  case firebase.storage.TaskState.RUNNING: // or 'running'
-                    console.log("Upload is running");
-                    break;
-                  default:
+                  var storageRef = firebase.storage().ref();
+                  var filename = element.name;
+                  // eslint-disable-next-line
+                  var uploadTask = await storageRef
+                    .child("documents/" + user.uid + "/Id Proofs/" + element.name)
+                    .put(element);
                 }
-              },
-              (error) => {
-                // A full list of error codes is available at
-                // https://firebase.google.com/docs/storage/web/handle-errors
-                switch (error.code) {
-                  case "storage/unauthorized":
-                    // User doesn't have permission to access the object
-                    break;
-                  case "storage/canceled":
-                    // User canceled the upload
-                    break;
-
-                  // ...
-
-                  case "storage/unknown":
-                    // Unknown error occurred, inspect error.serverResponse
-                    break;
-                  default:
-                }
-              },
-              () => {
-                // Upload completed successfully, now we can get the download URL
-                uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+           
                   firebase.auth().onAuthStateChanged((user) => {
                     if (user) {
                       var uid = user.uid;
@@ -198,9 +182,9 @@ export default function UserFormBasic() {
                       }, 2000);
                     }
                   });
-                });
-              }
-            );
+               
+              
+            
           });
         }
       );
@@ -337,10 +321,11 @@ export default function UserFormBasic() {
                   name="myfile2"
                   accept=".pdf"
                   onChange={handleIdProof}
+                  multiple
                 />
               </div>
-
-              {idproof && <div>{idproof.name}</div>}
+                <DisplayFiles />
+              
               <div style={{ height: 30 }} />
               <div style={{ height: 30 }} />
               <div className={styles.buttonWrapper}>
