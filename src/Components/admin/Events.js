@@ -54,7 +54,6 @@ export default function Events() {
           window.location.reload(true);
         }
 
-        console.log(list.length, sizeObject(query));
         if (list.length === sizeObject(query)) {
           setdata(list);
           setalldata(list);
@@ -69,7 +68,6 @@ export default function Events() {
     if (searchInput) {
       for (let i = 0; i < alldata.length; i++) {
         const element = alldata[i];
-        console.log(element.col8, searchInput);
         if (
           element.col1.toLowerCase().includes(searchInput.toLowerCase()) ||
           element.col2.toLowerCase().includes(searchInput.toLowerCase())

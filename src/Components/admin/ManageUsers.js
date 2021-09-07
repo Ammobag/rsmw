@@ -34,7 +34,7 @@ export default function ManageUsers() {
         };
 
         list.push(insert);
-        console.log(list.length, sizeObject(query));
+
         if (list.length === sizeObject(query)) {
           setdata(list);
           setalldata(list);
@@ -49,7 +49,7 @@ export default function ManageUsers() {
     if (searchInput) {
       for (let i = 0; i < alldata.length; i++) {
         const element = alldata[i];
-        console.log(element.col8, searchInput);
+
         if (
           element.col1
             .toString()

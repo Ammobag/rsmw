@@ -36,11 +36,9 @@ export default function Home() {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
-        console.log(element);
 
         list.push(element);
       }
-      console.log(list.length, sizeObject(query));
       if (list.length === sizeObject(query)) {
         setData(list);
         setFetch(true);

@@ -34,7 +34,6 @@ export default function AdminContact() {
         };
 
         list.push(insert);
-        console.log(list.length, sizeObject(query));
         if (list.length === sizeObject(query)) {
           setdata(list);
           setalldata(list);

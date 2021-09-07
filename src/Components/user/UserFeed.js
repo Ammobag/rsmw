@@ -208,16 +208,13 @@ class PostObj {
     }, 10);
 
     this.getComment = setTimeout(() => {
-      console.log("Get Comment");
       var database = firebase.database();
       var Ref = database.ref("posts/" + this.id + "/comments/");
       Ref.once("value", (snapshot) => {
         var data = snapshot.val();
-        console.log(data);
         for (const key in data) {
           if (Object.hasOwnProperty.call(data, key)) {
             const element = data[key];
-            console.log(element);
             var Ref = database.ref("users/" + element.UID + "/");
             Ref.once("value", (snapshot) => {
               var query = snapshot.val();
@@ -400,7 +397,6 @@ class PostWall extends React.Component {
           var Ref = database.ref("users/" + element.UID + "/");
           Ref.once("value", (snapshot) => {
             var user = snapshot.val();
-            console.log(user.name);
             if (user) {
               let postObject = new PostObj({
                 list: this.localList,

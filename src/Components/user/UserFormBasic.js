@@ -31,25 +31,20 @@ export default function UserFormBasic() {
     }
   });
 
-  console.log(user);
 
   const handleDeed = (e) => {
-    console.log("in handle Deed");
     setImage(e.target.files[0]);
   };
 
   const handleIdProof = (e) => {
-    console.log("in handle ID");
     setidproof(e.target.files);
   };
 
   const DisplayFiles = () => {
     if (idproof) {
       let arr = [];
-      console.log("Print", idproof.length);
       for (let i = 0; i < idproof.length; i++) {
         const element = idproof[i];
-        console.log(element.name);
         arr.push(element);
       }
       return arr.map((value, index) => {
@@ -63,7 +58,6 @@ export default function UserFormBasic() {
   const handleSubmit = (e) => {
     if (image && idproof && user && detail.name && detail.email && detail.phone && detail.residents && detail.resdetail && detail.type) {
       setstatus(1);
-      console.log(user);
       var storageRef = firebase.storage().ref();
       var uploadTask = storageRef
         .child("documents/" + user.uid + "/" + image.name)
@@ -76,14 +70,11 @@ export default function UserFormBasic() {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           var progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
           setprogress(progress);
           switch (snapshot.state) {
             case firebase.storage.TaskState.PAUSED: // or 'paused'
-              console.log("Upload is paused");
               break;
             case firebase.storage.TaskState.RUNNING: // or 'running'
-              console.log("Upload is running");
               break;
             default:
           }

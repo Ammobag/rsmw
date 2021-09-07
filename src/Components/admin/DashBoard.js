@@ -33,11 +33,10 @@ function Dashboard() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       var uid = user.uid;
-      console.log("User Check : ");
+
       if (uid === "IkezoAoumCQvI586zQKCI68yBnH2") {
-        console.log(uid);
+
       } else {
-        console.log("User : " + user.uid);
         history.replace("/admin");
       }
     }

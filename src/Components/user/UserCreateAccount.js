@@ -23,7 +23,6 @@ export default function UserCreateAccount() {
         .createUserWithEmailAndPassword(userName, password)
         .then((userCredential) => {
           user = userCredential.user;
-          console.log(user);
           history.push("/basicForm");
         })
         .catch((error) => {

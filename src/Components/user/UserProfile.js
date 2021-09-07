@@ -66,14 +66,14 @@ export default function UserProfile() {
       (snapshot) => {
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is " + progress + "% done");
+
         setprogress(progress);
         switch (snapshot.state) {
           case firebase.storage.TaskState.PAUSED: // or 'paused'
-            console.log("Upload is paused");
+
             break;
           case firebase.storage.TaskState.RUNNING: // or 'running'
-            console.log("Upload is running");
+
             break;
           default:
         }
@@ -101,7 +101,7 @@ export default function UserProfile() {
         // Upload completed successfully, now we can get the download URL
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
           if (user) {
-            console.log("File available at", downloadURL);
+
             var uid = user.UID;
             firebase
               .database()
@@ -122,7 +122,7 @@ export default function UserProfile() {
   const handleSubmit = (e) => {
     if (image) {
       setstatus(1);
-      console.log(image);
+
       uploadImage();
     }
     firebase
@@ -139,25 +139,24 @@ export default function UserProfile() {
   };
 
   const handleDeleteVisitor = (index) => {
-    console.log(index);
+
     deleteVisitorData(user.UID, index);
   };
 
   const ViewVisitor = (e) => {
-    console.log(visitors);
+
     if (visitors) {
       let arr = [];
       let keys = [];
       for (let i = 0; i < visitors.length; i++) {
         const element = visitors[i];
-        console.log(element);
+
         if (!element.deleted) {
           arr.push(element);
           keys.push(i);
         }
       }
 
-      console.log(arr, keys);
 
       if(arr.length > 0) {
         return (
@@ -215,20 +214,18 @@ export default function UserProfile() {
   };
 
   const ViewVehicle = (e) => {
-    console.log(vehicle);
+
     if (vehicle) {
       let arr = [];
       let keys = [];
       for (let i = 0; i < vehicle.length; i++) {
         const element = vehicle[i];
-        console.log(element);
         if (!element.deleted) {
           arr.push(element);
           keys.push(i);
         }
       }
 
-      console.log(arr, keys);
 
       if(arr.length > 0) {
           return (

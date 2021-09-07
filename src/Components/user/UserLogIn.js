@@ -18,9 +18,7 @@ export default function UserLogIn() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       var uid = user.uid;
-      console.log("User Check : ");
       if (uid !== undefined) {
-        console.log(uid);
         history.replace("/feed");
       } else {
         console.log("User Logged Out");
@@ -37,7 +35,6 @@ export default function UserLogIn() {
         .signInWithEmailAndPassword(userName, password)
         .then((userCredential) => {
           user = userCredential.user;
-          console.log(user);
           history.push("/feed");
         })
         .catch((error) => {

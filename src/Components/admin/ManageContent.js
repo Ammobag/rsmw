@@ -22,9 +22,6 @@ export default function ManageContent() {
   var list = [];
   var database = firebase.database();
   const history = useHistory();
-  console.log(query);
-
-  console.log(data.length, sizeObject(query));
 
   if (!fetch && !searchInput) {
     for (const key in query) {
@@ -92,7 +89,6 @@ export default function ManageContent() {
     if (searchInput) {
       for (let i = 0; i < alldata.length; i++) {
         const element = alldata[i];
-        console.log(element.col8, searchInput);
         if (
           element.col1
             .toString()

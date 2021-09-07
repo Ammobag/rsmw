@@ -32,7 +32,6 @@ export default function UserComplaints() {
             var query = snapshot.val();
 
             if (query != null) {
-              console.log(query.UID, uid);
               if (query.UID === uid) {
                 setcomplaint(query);
               } else {
@@ -44,7 +43,6 @@ export default function UserComplaints() {
             }
           });
         }
-        console.log(complaint);
       });
     }
   };

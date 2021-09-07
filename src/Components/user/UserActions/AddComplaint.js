@@ -13,13 +13,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-// var database = firebase.database();
-
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
 
 export default function AddComplaint() {
   const [subject, setsubject] = useState("");

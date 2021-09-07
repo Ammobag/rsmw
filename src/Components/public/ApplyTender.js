@@ -22,12 +22,8 @@ export default function AddClassified(props) {
   const [name, setname] = useState("");
 
   const handleImage = (e) => {
-    console.log("in handle image");
-    console.log(e.target.files);
     setImage(e.target.files);
   };
-
-  console.log(props.match.params.id)
 
   const handleSubmit = async (e) => {
     if (image && phone && email && description && name) {
@@ -57,10 +53,8 @@ export default function AddClassified(props) {
   const DisplayFiles = ()=>{
     if (image){
       let arr = []
-      console.log("Print", image.length)
       for (let i = 0; i < image.length; i++) {
         const element = image[i];
-        console.log(element.name)
         arr.push(element)
       }
       return(arr.map((value, index)=>{

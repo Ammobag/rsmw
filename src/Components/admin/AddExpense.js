@@ -7,13 +7,7 @@ import "firebase/auth";
 import "firebase/storage";
 import {} from "../firebase";
 import TextField from "@material-ui/core/TextField";
-// var database = firebase.database();
 
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
 
 export default function AddExpense() {
   const [link, setlink] = useState("");

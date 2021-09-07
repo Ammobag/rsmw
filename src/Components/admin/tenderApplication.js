@@ -21,7 +21,7 @@ export default function TenderApplication() {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
-        console.log(element);
+
         var insert = {
           col1: element.name,
           col2: element.email,
@@ -59,7 +59,6 @@ export default function TenderApplication() {
         window.location.reload(true)
       }
 
-      console.log(list.length, sizeObject(query));
       if (list.length === sizeObject(query)) {
         setData(list);
         setFetch(true);

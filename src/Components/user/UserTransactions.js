@@ -97,7 +97,6 @@ export default function UserTransactions() {
 
     const { REACT_APP_RAZ_TEST_KEY_ID, REACT_APP_RAZ_PRODUCTION_KEY_ID } =
       process.env;
-    console.log("User :", users);
 
     const options = {
       key: __DEV__
@@ -159,7 +158,6 @@ export default function UserTransactions() {
 
     const { REACT_APP_RAZ_TEST_KEY_ID, REACT_APP_RAZ_PRODUCTION_KEY_ID } =
       process.env;
-    console.log("User :", users);
 
     const options = {
       key: __DEV__

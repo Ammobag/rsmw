@@ -10,13 +10,6 @@ import {} from "../../firebase";
 import { postNotification } from "../../functions/dbquery";
 import Select from "react-dropdown-select";
 
-// var database = firebase.database();
-
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
 
 export default function AddNotification() {
   const [issuer, setissuer] = useState("");

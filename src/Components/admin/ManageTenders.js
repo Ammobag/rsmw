@@ -21,7 +21,7 @@ export default function ManageTenders() {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
-        console.log(element);
+
         var insert = {
           col1: element.tenderName,
           col2: element.tenderOpeningDate,
@@ -45,7 +45,7 @@ export default function ManageTenders() {
         firebase.database().ref("/tenders").child(key).remove();
         window.location.reload(true);
       }
-      console.log(list.length, sizeObject(query));
+
       if (list.length === sizeObject(query)) {
         setData(list);
         setFetch(true);

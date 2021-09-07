@@ -47,7 +47,6 @@ export function Getname(uid) {
 }
 
 export function writeUserData(UID, name, email, phonenumber, lineno, img) {
-  console.log("in writeuserdata");
   firebase
     .database()
     .ref("users/" + UID + "/")

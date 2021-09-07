@@ -20,7 +20,7 @@ export default function ManageImportantNotices() {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
-        console.log(element);
+
         var insert = {
           col1: element.date,
           col2: element.body,
@@ -41,7 +41,7 @@ export default function ManageImportantNotices() {
         firebase.database().ref("/importantNotices").child(key).remove();
         history.replace("/dashboard/manageImportantNotices");
       }
-      console.log(list.length, sizeObject(query));
+
       if (list.length === sizeObject(query)) {
         setData(list);
         setFetch(true);

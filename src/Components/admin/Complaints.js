@@ -21,12 +21,11 @@ export default function Complaints() {
   var list = [];
   var database = firebase.database();
 
-  console.log(query);
+
   if (!fetch && !searchInput) {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
-        console.log(element);
         var Ref = database.ref("users/" + element.UID + "/");
         Ref.once("value", (snapshot) => {
           var user = snapshot.val();
@@ -46,7 +45,6 @@ export default function Complaints() {
           };
 
           list.push(insert);
-          console.log(list.length, sizeObject(query));
           if (list.length === sizeObject(query)) {
             setdata(list);
             setalldata(list);
@@ -62,7 +60,6 @@ export default function Complaints() {
     if (searchInput) {
       for (let i = 0; i < alldata.length; i++) {
         const element = alldata[i];
-        console.log(element.col8, searchInput);
         if (
           element.col1.toLowerCase().includes(searchInput.toLowerCase()) ||
           element.col2.toLowerCase().includes(searchInput.toLowerCase()) ||
