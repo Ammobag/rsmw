@@ -21,7 +21,6 @@ export default function ManageContractors() {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
-        console.log(element);
         var insert = {
           col1: element.contractorName,
           col2: element.contractorCategory,
@@ -78,7 +77,6 @@ export default function ManageContractors() {
         window.location.reload(true)
       }
 
-      console.log(list.length, sizeObject(query));
       if (list.length === sizeObject(query)) {
         setData(list);
         setFetch(true);

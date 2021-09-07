@@ -47,7 +47,6 @@ export function Getname(uid) {
 }
 
 export function writeUserData(UID, name, email, phonenumber, lineno, img) {
-  console.log("in writeuserdata");
   firebase
     .database()
     .ref("users/" + UID + "/")
@@ -103,7 +102,6 @@ export function uploadTenderApplication(
   name,
   phone,
   email,
-  category,
   description,
   tenderID
 ) {
@@ -113,9 +111,8 @@ export function uploadTenderApplication(
     .set({
       tenderID: tenderID,
       id: id,
-      contractorCategory: category,
-      contractorContact: phone,
-      contractorName: name,
+      contact: phone,
+      name: name,
       email: email,
       description: description,
     });
@@ -209,8 +206,7 @@ export function addTender(
   tenderDetails
 ) {
   var timestamp = Date.now();
-  const d = new Date();
-  var i = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+  
   firebase
     .database()
     .ref("tenders/" + timestamp + "/")

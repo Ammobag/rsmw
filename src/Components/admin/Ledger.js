@@ -91,8 +91,7 @@ export default function Ledger() {
     if (searchInput) {
       for (let i = 0; i < alldata.length; i++) {
         const element = alldata[i];
-        console.log(element);
-        console.log(element.col1, searchInput);
+
         if (
           element.col1.toLowerCase().includes(searchInput.toLowerCase()) ||
           element.col2.toLowerCase().includes(searchInput.toLowerCase()) ||

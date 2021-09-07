@@ -5,45 +5,58 @@ import "firebase/auth";
 import {} from "../firebase";
 import Getonce from "../functions/dbquery";
 import sizeObject from "../functions/dataHandling";
-import styles from "./ManageTenders.module.css";
-import firebase from "firebase/app";
+import styles from "./ManageContractors.module.css";
 import Button from "@material-ui/core/Button";
-import { useHistory } from "react-router-dom";
+import firebase from "firebase/app";
 
 
-export default function ManageTenders() {
+export default function TenderApplication() {
   const [data, setData] = useState([]);
   const [fetch, setFetch] = useState(false);
-  const history = useHistory();
-  var query = Getonce("tenders/");
+  var query = Getonce("tenderApplication/");
   var list = [];
+  // eslint-disable-next-line
+
   if (!fetch) {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
 
         var insert = {
-          col1: element.tenderName,
-          col2: element.tenderOpeningDate,
-          col3: element.tenderClosingDate,
-          col4: element.tenderAmount,
-          col5: element.tenderDetails,
-          col6: (
+          col1: element.name,
+          col2: element.email,
+          col3: element.contact,
+          col4: element.description,
+          col5: (
+            <div style={{display: "flex", flexDirection: "column"}}>
+            <div style={{ height: 10 }} />
             <Button
               variant="contained"
               color="primary"
-              onClick={handleDeleteTender}
+              onClick={handleDeleteContractor}
               disableElevation
             >
               Delete
             </Button>
+            <div style={{ height: 10 }} />
+            <a target="_blank"  rel="noreferrer" href={"https://console.firebase.google.com/u/0/project/rsmw-56be8/storage/rsmw-56be8.appspot.com/files/~2Ftenderapplication~2F"+ element.id}>
+            <Button
+              variant="contained"
+              color="primary"
+              disableElevation
+            >
+              View Files
+            </Button>
+            </a>
+            </div>
           ),
         };
         list.push(insert);
-      
-      function handleDeleteTender() {
-        firebase.database().ref("/tenders").child(key).remove();
-        window.location.reload(true);
+      }
+
+      function handleDeleteContractor() {
+        firebase.database().ref("tenderApplication/").child(key).remove();
+        window.location.reload(true)
       }
 
       if (list.length === sizeObject(query)) {
@@ -51,57 +64,39 @@ export default function ManageTenders() {
         setFetch(true);
       }
     }
-    }
   }
 
   const columns = React.useMemo(
     () => [
       {
-        Header: "Tender Name",
+        Header: "Name",
         accessor: "col1", // accessor is the "key" in the data
       },
       {
-        Header: "Tender Opening Date",
+        Header: "Email",
         accessor: "col2",
       },
       {
-        Header: "Tender Closing Date",
+        Header: "Contact Number",
         accessor: "col3",
       },
       {
-        Header: "Tender Amount",
+        Header: "Description",
         accessor: "col4",
       },
       {
-        Header: "Tender Details",
+        Header: "Actions",
         accessor: "col5",
-      },
-
-      {
-        Header: "Delete",
-        accessor: "col6",
       },
     ],
     []
   );
-  function handleAddTender() {
-    history.push("/dashboard/addTender");
-  }
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
 
   return (
     <section className={styles.main}>
-      <div style={{ height: 30 }} />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleAddTender}
-        disableElevation
-      >
-        Add Tender
-      </Button>
-      <div style={{ height: 30 }} />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (

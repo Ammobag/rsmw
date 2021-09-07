@@ -123,9 +123,18 @@ export default function Public() {
             <div>Privacy Policy</div>
           </div>
           <div className={styles.footer3}>
-            <h4>Facility Manager - John Doe</h4>
-            <br />
-            <p>Contact At - 9807000000</p>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <p>Download Police Verification Form</p>
+              <br />
+              <h2>Click Here</h2>
+            </div>
           </div>
         </div>
       </footer>

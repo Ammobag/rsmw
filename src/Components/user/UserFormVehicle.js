@@ -11,13 +11,6 @@ import { deleteVisitorData } from "../functions/dbquery";
 import { useHistory } from "react-router-dom";
 import logo from "../../Assets/logo.png";
 
-// var database = firebase.database();
-
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
 
 export default function UserFormVehicle() {
   const [status, setstatus] = useState(0);
@@ -48,7 +41,6 @@ export default function UserFormVehicle() {
   const handleSubmit = (e) => {
     if (user && newVisitorContact && newVisitorName && newVisitorPurpose) {
       setstatus(1);
-      console.log(user);
 
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -81,25 +73,20 @@ export default function UserFormVehicle() {
   };
 
   const handleDeleteVisitor = (index) => {
-    console.log(index);
     deleteVisitorData(user.UID, index);
   };
 
   const ViewVisitor = (e) => {
-    console.log(vehicle);
     if (vehicle) {
       let arr = [];
       let keys = [];
       for (let i = 0; i < vehicle.length; i++) {
         const element = vehicle[i];
-        console.log(element);
         if (!element.deleted) {
           arr.push(element);
           keys.push(i);
         }
       }
-
-      console.log(arr, keys);
 
       if (arr.length > 0) {
         return (

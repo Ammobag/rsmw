@@ -20,7 +20,6 @@ export default function Tenders() {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
-        console.log(element);
         var insert = {
           col1: element.tenderName,
           col2: element.tenderOpeningDate,
@@ -42,7 +41,6 @@ export default function Tenders() {
         };
         list.push(insert);
       }
-      console.log(list.length, sizeObject(query));
       if (list.length === sizeObject(query)) {
         setData(list);
         setFetch(true);

@@ -7,13 +7,6 @@ import "firebase/auth";
 import {} from "../../firebase";
 import { postImpNotification } from "../../functions/dbquery";
 
-// var database = firebase.database();
-
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
 
 export default function AddImportantNotice() {
   const [body, setbody] = useState("");

@@ -17,13 +17,11 @@ export default function UserCreateAccount() {
 
   const handleSubmit = (e) => {
     if (password && userName) {
-      var user;
+
       firebase
         .auth()
         .createUserWithEmailAndPassword(userName, password)
         .then((userCredential) => {
-          user = userCredential.user;
-          console.log(user);
           history.push("/basicForm");
         })
         .catch((error) => {
@@ -49,7 +47,7 @@ export default function UserCreateAccount() {
           <h1>Ideal Villas</h1>
           <div style={{ height: 30 }} />
           <input
-            placeholder="Username"
+            placeholder="Email"
             type="email"
             value={userName}
             onChange={(e) => setUsername(e.target.value)}

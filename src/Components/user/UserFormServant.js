@@ -43,12 +43,10 @@ export default function UserFormServant() {
   }
 
   const handleDeed = (e) => {
-    console.log("in handle Deed");
     setImage(e.target.files[0]);
   };
 
   const handleIdProof = (e) => {
-    console.log("in handle ID");
     setidproof(e.target.files[0]);
   };
 
@@ -62,7 +60,6 @@ export default function UserFormServant() {
       newVisitorPurpose
     ) {
       setstatus(1);
-      console.log(user);
       var storageRef = firebase.storage().ref();
       var uploadTask = storageRef
         .child(
@@ -82,14 +79,11 @@ export default function UserFormServant() {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           var progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
           setprogress(progress);
           switch (snapshot.state) {
             case firebase.storage.TaskState.PAUSED: // or 'paused'
-              console.log("Upload is paused");
               break;
             case firebase.storage.TaskState.RUNNING: // or 'running'
-              console.log("Upload is running");
               break;
             default:
           }
@@ -118,14 +112,11 @@ export default function UserFormServant() {
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 var progress =
                   (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log("Upload is " + progress + "% done");
                 setprogress(progress);
                 switch (snapshot.state) {
                   case firebase.storage.TaskState.PAUSED: // or 'paused'
-                    console.log("Upload is paused");
                     break;
                   case firebase.storage.TaskState.RUNNING: // or 'running'
-                    console.log("Upload is running");
                     break;
                   default:
                 }
@@ -176,44 +167,42 @@ export default function UserFormServant() {
   };
 
   const handleDeleteVisitor = (index) => {
-    console.log(index);
     deleteVisitorData(user.UID, index);
   };
 
   const ViewVisitor = (e) => {
-    console.log(visitors);
     if (visitors) {
       let arr = [];
       let keys = [];
       for (let i = 0; i < visitors.length; i++) {
         const element = visitors[i];
-        console.log(element);
         if (!element.deleted) {
           arr.push(element);
           keys.push(i);
         }
       }
 
-      console.log(arr, keys);
-
       return (
         <>
           <h4>Visitors:</h4>
           {arr.map((visitor, index) => {
             return (
-              <div className={styles.gridContainer} key={index}>
-                <div className={styles.gridItem}>Name:</div>
-                <div className={styles.gridItem}>{visitor.name}</div>
-                <div className={styles.gridItem}>Purpose:</div>
-                <div className={styles.gridItem}>{visitor.purpose}</div>
-                <div className={styles.gridItem}>Contact:</div>
-                <div className={styles.gridItem}>{visitor.contact}</div>
-                <div className={styles.gridItem}>Working Hours:</div>
-                <div className={styles.gridItem}>{visitor.hours}</div>
+              <>
+                <div className={styles.gridContainer} key={index}>
+                  <div className={styles.gridItem}>Name:</div>
+                  <div className={styles.gridItem}>{visitor.name}</div>
+                  <div className={styles.gridItem}>Purpose:</div>
+                  <div className={styles.gridItem}>{visitor.purpose}</div>
+                  <div className={styles.gridItem}>Contact:</div>
+                  <div className={styles.gridItem}>{visitor.contact}</div>
+                  <div className={styles.gridItem}>Working Hours:</div>
+                  <div className={styles.gridItem}>{visitor.hours}</div>
+                  
+                </div>
                 <button onClick={(e) => handleDeleteVisitor(keys[index])}>
-                  Delete
-                </button>
-              </div>
+                    Delete
+                  </button>
+                </>
             );
           })}
         </>
@@ -247,9 +236,11 @@ export default function UserFormServant() {
                 >
                   <ViewVisitor />
                   <>
+                   <div style={{ height: 30 }} />
+                    <div style={{ height: 30 }} />
                     <h4> Add New Visitor</h4>
-                    <div className={styles.gridContainer}>
-                      <div className={styles.gridItem}>
+                    <div >
+                      <div >
                         <TextField
                           label="Name"
                           type="text"
@@ -260,7 +251,7 @@ export default function UserFormServant() {
                           onChange={(e) => setNewVisitorName(e.target.value)}
                         />
                       </div>
-                      <div className={styles.gridItem}>
+                      <div >
                         <TextField
                           label="Purpose"
                           type="text"
@@ -271,7 +262,7 @@ export default function UserFormServant() {
                           onChange={(e) => setNewVisitorPurpose(e.target.value)}
                         />
                       </div>
-                      <div className={styles.gridItem}>
+                      <div >
                         <TextField
                           label="Contact"
                           type="tel"
@@ -282,7 +273,7 @@ export default function UserFormServant() {
                           onChange={(e) => setNewVisitorContact(e.target.value)}
                         />
                       </div>
-                      <div className={styles.gridItem}>
+                      <div >
                         <TextField
                           label="Working Hours"
                           type="tel"

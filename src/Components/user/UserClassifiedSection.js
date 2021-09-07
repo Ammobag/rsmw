@@ -46,7 +46,6 @@ export default function UserClassifiedSection() {
 
   const DisplayImage = ({ url }) => {
     var links = url.split("|||");
-    console.log(links);
     return links.map((link, index) => (
       <span key={index}>
         <img alt="img" src={link} className={styles.img} />
@@ -67,8 +66,6 @@ export default function UserClassifiedSection() {
     })}`;
     return date;    
   }
-
-  console.log(data);
 
   const NoticeBoard = data.map((value, index) => (
     <div className={styles.notice} key={index}>

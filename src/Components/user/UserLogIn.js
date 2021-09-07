@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { useHistory} from "react-router-dom";
+import { useHistory, Link} from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
@@ -18,9 +18,7 @@ export default function UserLogIn() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       var uid = user.uid;
-      console.log("User Check : ");
       if (uid !== undefined) {
-        console.log(uid);
         history.replace("/feed");
       } else {
         console.log("User Logged Out");
@@ -31,13 +29,11 @@ export default function UserLogIn() {
 
   const handleSubmit = (e) => {
     if (password && userName) {
-      var user;
+
       firebase
         .auth()
         .signInWithEmailAndPassword(userName, password)
         .then((userCredential) => {
-          user = userCredential.user;
-          console.log(user);
           history.push("/feed");
         })
         .catch((error) => {
@@ -69,7 +65,7 @@ export default function UserLogIn() {
             <h1>Ideal Villas Owner's Association</h1>
             <div style={{ height: 30 }} />
             <input
-              placeholder="Username"
+              placeholder="Email"
               type="email"
               value={userName}
               onChange={(e) => setUsername(e.target.value)}
@@ -94,8 +90,13 @@ export default function UserLogIn() {
               <button className={styles.loginButton} onClick={handleSubmit}>
                 Log In
               </button>
-
-             
+              <div style={{ height: 100 }} />
+              <Link
+                to="/forgotpassword"
+                style={{ textDecoration: "none" }}
+              >
+                <div>Forgot Password ?</div>
+              </Link>
             </div>
           </div>
         </section>

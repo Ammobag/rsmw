@@ -19,23 +19,14 @@ export default function Gallery() {
     for (let i = 0; i < storageRef.items.length; i++) {
       const element = storageRef.items[i];
       var link = await element.getDownloadURL()
-      console.log(link)
       list.push(link)
     }
-
-    console.log(list.length)
 
     if(list.length > 0){
       setimages(list)
     }
   }
 
-
-  images.forEach((element) => {
-    console.log(element)
-  })
-  console.log("Images", images)
-  console.log("Length", images.length)
   if(images.length > 0){
     return images.map((value, index)=>{
       return(<img alt="img" key={index} src={value} className={styles.img} />)

@@ -13,14 +13,6 @@ import Getonce, {
 import Select from "react-dropdown-select";
 
 
-// var database = firebase.database();
-
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
-
 export default function AddTransaction() {
   const [amount, setamount] = useState("");
   const [month, setmonth] = useState("");

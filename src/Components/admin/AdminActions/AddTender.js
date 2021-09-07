@@ -9,13 +9,6 @@ import "firebase/auth";
 import {} from "../../firebase";
 import { addTender } from "../../functions/dbquery";
 
-// var database = firebase.database();
-
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
 
 export default function AddTender() {
   const [name, setName] = useState();

@@ -97,7 +97,6 @@ export default function UserTransactions() {
 
     const { REACT_APP_RAZ_TEST_KEY_ID, REACT_APP_RAZ_PRODUCTION_KEY_ID } =
       process.env;
-    console.log("User :", users);
 
     const options = {
       key: __DEV__
@@ -159,7 +158,6 @@ export default function UserTransactions() {
 
     const { REACT_APP_RAZ_TEST_KEY_ID, REACT_APP_RAZ_PRODUCTION_KEY_ID } =
       process.env;
-    console.log("User :", users);
 
     const options = {
       key: __DEV__
@@ -242,12 +240,11 @@ export default function UserTransactions() {
   const checkPaid = (month, year) => {
     for (let i = 0; i < data.length; i++) {
       const element = data[i];
-      if(element.col4 === month && element.col5 === year){
+      if(element.col4 === month && element.col5 === year && element.col3 === amount) {
         return true;
-      }else{
-        return false;
       }
     }
+    return false;
   }
 
   const columns = React.useMemo(
@@ -292,7 +289,7 @@ export default function UserTransactions() {
       <UserNavigation />
       <div className={styles.transactionsWrapper}>
         <h1 className={styles.dueSection}>Monthly Maintenance Fees : ₹ {amount}</h1>
-        <div>
+        
           <div style={{flexDirection: 'row'}}>
                 <Select
                   labelId="demo-simple-select-label"
@@ -352,7 +349,7 @@ export default function UserTransactions() {
                   Pay Online
                 </Button>
             </div>
-        </div>
+        
         <div style={{ height: 30 }} />
         <div className={styles.tableWrapper}>
           <table {...getTableProps()}>
@@ -380,6 +377,7 @@ export default function UserTransactions() {
                             padding: "10px",
                             border: "solid 0px gray",
                             background: "#ffffff",
+                            minWidth: "12.5vw",
                           }}
                         >
                           {cell.render("Cell")}

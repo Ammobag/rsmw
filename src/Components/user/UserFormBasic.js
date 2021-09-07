@@ -31,22 +31,45 @@ export default function UserFormBasic() {
     }
   });
 
-  console.log(user);
 
   const handleDeed = (e) => {
-    console.log("in handle Deed");
     setImage(e.target.files[0]);
   };
 
   const handleIdProof = (e) => {
-    console.log("in handle ID");
-    setidproof(e.target.files[0]);
+    setidproof(e.target.files);
   };
 
+  const DisplayFiles = () => {
+    if (idproof) {
+      let arr = [];
+      for (let i = 0; i < idproof.length; i++) {
+        const element = idproof[i];
+        arr.push(element);
+      }
+      return arr.map((value, index) => {
+        return <div key={index}>{value.name}</div>;
+      });
+    } else {
+      return <div></div>;
+    }
+  };
+
+  const uploadFiles = async() =>{
+              for (let i = 0; i < idproof.length; i++) {
+                  const element = idproof[i];
+
+                  var storageRef = firebase.storage().ref();
+                  // eslint-disable-next-line
+                  var uploadTask = await storageRef
+                    .child("documents/" + user.uid + "/Id Proofs/" + element.name)
+                    .put(element);
+                }
+            }
+
   const handleSubmit = (e) => {
-    if (image && idproof && user) {
+    if (image && idproof && user && detail.name && detail.email && detail.phone && detail.residents && detail.resdetail && detail.type) {
       setstatus(1);
-      console.log(user);
       var storageRef = firebase.storage().ref();
       var uploadTask = storageRef
         .child("documents/" + user.uid + "/" + image.name)
@@ -59,14 +82,11 @@ export default function UserFormBasic() {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           var progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
           setprogress(progress);
           switch (snapshot.state) {
             case firebase.storage.TaskState.PAUSED: // or 'paused'
-              console.log("Upload is paused");
               break;
             case firebase.storage.TaskState.RUNNING: // or 'running'
-              console.log("Upload is running");
               break;
             default:
           }
@@ -93,51 +113,10 @@ export default function UserFormBasic() {
         () => {
           // Upload completed successfully, now we can get the download URL
           uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-            uploadTask = storageRef
-              .child("documents/" + user.uid + "/" + idproof.name)
-              .put(idproof);
-
-            // Listen for state changes, errors, and completion of the upload.
-            uploadTask.on(
-              firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-              (snapshot) => {
-                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                var progress =
-                  (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log("Upload is " + progress + "% done");
-                setprogress(progress);
-                switch (snapshot.state) {
-                  case firebase.storage.TaskState.PAUSED: // or 'paused'
-                    console.log("Upload is paused");
-                    break;
-                  case firebase.storage.TaskState.RUNNING: // or 'running'
-                    console.log("Upload is running");
-                    break;
-                  default:
-                }
-              },
-              (error) => {
-                // A full list of error codes is available at
-                // https://firebase.google.com/docs/storage/web/handle-errors
-                switch (error.code) {
-                  case "storage/unauthorized":
-                    // User doesn't have permission to access the object
-                    break;
-                  case "storage/canceled":
-                    // User canceled the upload
-                    break;
-
-                  // ...
-
-                  case "storage/unknown":
-                    // Unknown error occurred, inspect error.serverResponse
-                    break;
-                  default:
-                }
-              },
-              () => {
-                // Upload completed successfully, now we can get the download URL
-                uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            
+                  uploadFiles()
+                
+           
                   firebase.auth().onAuthStateChanged((user) => {
                     if (user) {
                       var uid = user.uid;
@@ -198,9 +177,9 @@ export default function UserFormBasic() {
                       }, 2000);
                     }
                   });
-                });
-              }
-            );
+               
+              
+            
           });
         }
       );
@@ -337,10 +316,11 @@ export default function UserFormBasic() {
                   name="myfile2"
                   accept=".pdf"
                   onChange={handleIdProof}
+                  multiple
                 />
               </div>
-
-              {idproof && <div>{idproof.name}</div>}
+                <DisplayFiles />
+              
               <div style={{ height: 30 }} />
               <div style={{ height: 30 }} />
               <div className={styles.buttonWrapper}>

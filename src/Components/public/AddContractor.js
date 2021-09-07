@@ -10,13 +10,6 @@ import {} from "../firebase";
 import { uploadContactor } from "../functions/dbquery";
 import { TextField } from "@material-ui/core";
 
-// var database = firebase.database();
-
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
 
 export default function AddContractor() {
   const [category, setcategory] = useState("");
@@ -29,13 +22,11 @@ export default function AddContractor() {
   const [name, setname] = useState("");
 
   const handleImage = (e) => {
-    console.log("in handle image");
-    console.log(e.target.files);
     setImage(e.target.files);
   };
 
   const handleSubmit = async (e) => {
-    if (image) {
+    if (image && category && phone && email && description && name) {
       setstatus(1);
       const timestamp = Date.now();
       for (let i = 0; i < image.length; i++) {
@@ -59,10 +50,8 @@ export default function AddContractor() {
   const DisplayFiles = () => {
     if (image) {
       let arr = [];
-      console.log("Print", image.length);
       for (let i = 0; i < image.length; i++) {
         const element = image[i];
-        console.log(element.name);
         arr.push(element);
       }
       return arr.map((value, index) => {

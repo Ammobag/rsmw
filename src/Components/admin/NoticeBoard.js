@@ -10,6 +10,8 @@ import {} from "../firebase";
 import Getonce from "../functions/dbquery";
 import sizeObject from "../functions/dataHandling";
 import { useHistory } from "react-router-dom";
+import firebase from "firebase/app";
+
 
 export default function NoticeBoard() {
   const [searchInput, setsearchInput] = useState();
@@ -32,10 +34,26 @@ export default function NoticeBoard() {
           col3: element.subject,
           col4: element.body,
           col5: element.date,
+          col6: (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleDeleteTender}
+              disableElevation
+            >
+              Delete
+            </Button>
+          ),
         };
 
         list.push(insert);
-        console.log(list.length, sizeObject(query));
+
+        function handleDeleteTender() {
+          firebase.database().ref("/notices").child(key).remove();
+          window.location.reload(true);
+        }
+
+
         if (list.length === sizeObject(query)) {
           setdata(list);
           setalldata(list);
@@ -50,7 +68,7 @@ export default function NoticeBoard() {
     if (searchInput) {
       for (let i = 0; i < alldata.length; i++) {
         const element = alldata[i];
-        console.log(element.col8, searchInput);
+
         if (
           element.col1.toLowerCase().includes(searchInput.toLowerCase()) ||
           element.col2.toLowerCase().includes(searchInput.toLowerCase()) ||
@@ -95,6 +113,11 @@ export default function NoticeBoard() {
         Header: "Date",
         accessor: "col5",
       },
+      {
+        Header: "Actions",
+        accessor: "col6",
+      },
+      
     ],
     []
   );

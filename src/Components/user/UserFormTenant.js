@@ -11,13 +11,6 @@ import TextField from "@material-ui/core/TextField";
 import logo from "../../Assets/logo.png";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 
-// var database = firebase.database();
-
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
 
 export default function UserFormTenant() {
   const [detail, setDetails] = useState({});
@@ -36,22 +29,17 @@ export default function UserFormTenant() {
     }
   });
 
-  console.log(user);
-
   const handleDeed = (e) => {
-    console.log("in handle Deed");
     setImage(e.target.files[0]);
   };
 
   const handleIdProof = (e) => {
-    console.log("in handle ID");
     setidproof(e.target.files[0]);
   };
 
   const handleSubmit = (e) => {
-    if (image && idproof && user) {
+    if (image && idproof && user && detail.name && detail.phone && detail.email && detail.residents && detail.resdetails ) {
       setstatus(1);
-      console.log(user);
       var storageRef = firebase.storage().ref();
       var uploadTask = storageRef
         .child("documents/" + user.uid + "/tenant/" + image.name)
@@ -64,14 +52,11 @@ export default function UserFormTenant() {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           var progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
           setprogress(progress);
           switch (snapshot.state) {
             case firebase.storage.TaskState.PAUSED: // or 'paused'
-              console.log("Upload is paused");
               break;
             case firebase.storage.TaskState.RUNNING: // or 'running'
-              console.log("Upload is running");
               break;
             default:
           }
@@ -109,14 +94,11 @@ export default function UserFormTenant() {
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 var progress =
                   (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log("Upload is " + progress + "% done");
                 setprogress(progress);
                 switch (snapshot.state) {
                   case firebase.storage.TaskState.PAUSED: // or 'paused'
-                    console.log("Upload is paused");
                     break;
                   case firebase.storage.TaskState.RUNNING: // or 'running'
-                    console.log("Upload is running");
                     break;
                   default:
                 }

@@ -21,7 +21,7 @@ export default function Contractors() {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
-        console.log(element);
+
         var insert = {
           col1: element.contractorName,
           col2: element.contractorCategory,
@@ -30,7 +30,6 @@ export default function Contractors() {
         };
         list.push(insert);
       }
-      console.log(list.length, sizeObject(query));
       if (list.length === sizeObject(query)) {
         setData(list.filter((e)=>{return e.state}));
         setFetch(true);

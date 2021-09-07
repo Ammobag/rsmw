@@ -13,13 +13,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-// var database = firebase.database();
-
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
 
 export default function AddComplaint() {
   const [subject, setsubject] = useState("");
@@ -36,8 +29,8 @@ export default function AddComplaint() {
         if (user) {
           var uid = user.uid;
           var timestamp = Date.now();
-          console.log(uid, subject, body, timestamp);
-          postComplaint(uid, subject, body, timestamp);
+          var finalsubject = subject==="Other" ? otherSubjectSpec : subject
+          postComplaint(uid, finalsubject, body, timestamp);
           settoken(timestamp);
           setstatus(1);
         }

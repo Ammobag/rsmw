@@ -10,13 +10,6 @@ import "firebase/auth";
 import {} from "../../firebase";
 import { writeUserData } from "../../functions/dbquery";
 
-// var database = firebase.database();
-
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
 
 export default function AddUsers() {
   const [userName, setUsername] = useState("");

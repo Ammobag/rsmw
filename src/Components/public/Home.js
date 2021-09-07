@@ -19,6 +19,7 @@ export default function Home() {
   const [data, setData] = useState([]);
   const [fetch, setFetch] = useState(false);
   const [check, setCheck] = useState(false);
+  const [images, setimages] = useState([]);
 
   const history = useHistory();
 
@@ -36,11 +37,9 @@ export default function Home() {
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
         const element = query[key];
-        console.log(element);
 
         list.push(element);
       }
-      console.log(list.length, sizeObject(query));
       if (list.length === sizeObject(query)) {
         setData(list);
         setFetch(true);
@@ -61,9 +60,6 @@ export default function Home() {
   const ImportantNotices = () => {
     return (
       <div>
-        <li>
-          <h4 className="content1">Important Notices</h4>
-        </li>
         {data.map((item) => (
           <li>
             <span className="content1">{item.body}</span>
@@ -72,6 +68,42 @@ export default function Home() {
       </div>
     );
   };
+
+  const fetchAsync = async () => {
+    let list = [];
+    var storageRef = await firebase.storage().ref("sliders/").listAll();
+
+    for (let i = 0; i < storageRef.items.length; i++) {
+      const element = storageRef.items[i];
+      var link = await element.getDownloadURL();
+      list.push(link);
+    }
+
+    if (list.length > 0) {
+      setimages(list);
+    }
+  };
+
+  const Gallery = () => {
+    if (images.length > 0) {
+      return images.map((value, index) => {
+        return (
+          <img alt="img" key={index} src={value} className={styles.slide} />
+        );
+      });
+    } else {
+      fetchAsync();
+      return (
+        <>
+          <img alt="img" src={slider1} className={styles.slide} />
+          <img alt="img" src={slider2} className={styles.slide} />
+          <img alt="img" src={slider3} className={styles.slide} />
+          <img alt="img" src={slider4} className={styles.slide} />
+        </>
+      );
+    }
+  };
+
   return (
     <div>
       <section>
@@ -80,19 +112,27 @@ export default function Home() {
             className={styles.slideshowSlider}
             style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
           >
-            <img src={slider1} className={styles.slide} alt="" />
-            <img src={slider2} className={styles.slide} alt="" />
-            <img src={slider3} className={styles.slide} alt="" />
-            <img src={slider4} className={styles.slide} alt="" />
+            <Gallery />
           </div>
         </div>
       </section>
       <section className={styles.content}>
         <div className={styles.contentWrapper}>
-          <ul className={styles.menubar}>
-            <ImportantNotices />
-          </ul>
-          <div style={{ height: 30 }} />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <h2 className="content1">Important Notices</h2>
+            <br />
+
+            <ul className={styles.impnotice}>
+              <ImportantNotices />
+            </ul>
+          </div>
           <ul className={styles.menubar}>
             <li id="nav1">
               <Link to="/createAccount">
@@ -103,11 +143,6 @@ export default function Home() {
               <Link to="/logIn">
                 <span className="content1">Consumer Login</span>
               </Link>
-            </li>
-            <li>
-              <a className="clearfix1" href="https://www.google.com/">
-                <span className="content1">Expense Sheet</span>
-              </a>
             </li>
             <li>
               <Link

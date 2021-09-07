@@ -7,13 +7,6 @@ import "firebase/database";
 import "firebase/auth";
 import {} from "../firebase";
 
-// var database = firebase.database();
-
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
 
 export default function UserLogIn() {
   const [userName, setUsername] = useState("");

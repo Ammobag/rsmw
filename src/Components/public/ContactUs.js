@@ -16,17 +16,21 @@ export default function ContactUs() {
   const [state, setState] = useState(0);
 
   const handleSubmit = (e) => {
-    var timestamp = Date.now();
-    firebase
-      .database()
-      .ref("contactus/" + timestamp + "/")
-      .set({
-        name: name,
-        email: email,
-        description: description,
-        phone: phoneNo,
-      });
-    setState(1);
+    if (name && email && phoneNo && description) {
+      var timestamp = Date.now();
+      firebase
+        .database()
+        .ref("contactus/" + timestamp + "/")
+        .set({
+          name: name,
+          email: email,
+          description: description,
+          phone: phoneNo,
+        });
+      setState(1);
+    } else {
+      alert("Enter all the fields");
+    }
   };
 
   return (

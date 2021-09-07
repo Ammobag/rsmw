@@ -12,13 +12,7 @@ import { useHistory } from "react-router-dom";
 import UserNavigation from "../UserNavigation";
 import { TextField } from "@material-ui/core";
 import logo from "../../../Assets/logo.png";
-// var database = firebase.database();
 
-// var Ref = database.ref('admin/');
-// Ref.on('value', (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
 
 export default function AddClassified() {
   const [message, setMessage] = useState("");
@@ -32,8 +26,7 @@ export default function AddClassified() {
   const history = useHistory();
 
   const handleImage = (e) => {
-    console.log("in handle image");
-    console.log(e.target.files);
+
     setImage(e.target.files);
   };
 
@@ -65,7 +58,6 @@ export default function AddClassified() {
 
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-          console.log("File available at", imageLinks);
           var uid = user.uid;
           uploadClassified(uid, message, imageLinks, phone, email, address);
           setstatus(2);
