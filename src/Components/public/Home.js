@@ -5,7 +5,7 @@ import slider3 from "../../Assets/slider3.jpeg";
 import slider4 from "../../Assets/slider4.jpeg";
 import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
-import { useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import firebase from "firebase/app";
 import "firebase/database";
@@ -18,15 +18,15 @@ import sizeObject from "../functions/dataHandling";
 export default function Home() {
   const [data, setData] = useState([]);
   const [fetch, setFetch] = useState(false);
-  const [check, setCheck] = useState(false)
+  const [check, setCheck] = useState(false);
 
   const history = useHistory();
-  
+
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      setCheck(true)
-    }else{
-      setCheck(false)
+      setCheck(true);
+    } else {
+      setCheck(false);
     }
   });
 
@@ -92,6 +92,7 @@ export default function Home() {
           <ul className={styles.menubar}>
             <ImportantNotices />
           </ul>
+          <div style={{ height: 30 }} />
           <ul className={styles.menubar}>
             <li id="nav1">
               <Link to="/createAccount">
@@ -109,13 +110,15 @@ export default function Home() {
               </a>
             </li>
             <li>
-              <Link onClick={()=>{
-                if(check){
-                  history.replace("/transactions")
-                }else{
-                  alert("Please Log in to continue")
-                }
-              }}>
+              <Link
+                onClick={() => {
+                  if (check) {
+                    history.replace("/transactions");
+                  } else {
+                    alert("Please Log in to continue");
+                  }
+                }}
+              >
                 <span className="content1">Pay Online</span>
               </Link>
             </li>
