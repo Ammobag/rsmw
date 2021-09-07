@@ -17,12 +17,11 @@ export default function UserCreateAccount() {
 
   const handleSubmit = (e) => {
     if (password && userName) {
-      var user;
+
       firebase
         .auth()
         .createUserWithEmailAndPassword(userName, password)
         .then((userCredential) => {
-          user = userCredential.user;
           history.push("/basicForm");
         })
         .catch((error) => {

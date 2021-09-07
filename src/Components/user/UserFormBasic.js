@@ -55,6 +55,18 @@ export default function UserFormBasic() {
     }
   };
 
+  const uploadFiles = async() =>{
+              for (let i = 0; i < idproof.length; i++) {
+                  const element = idproof[i];
+
+                  var storageRef = firebase.storage().ref();
+                  // eslint-disable-next-line
+                  var uploadTask = await storageRef
+                    .child("documents/" + user.uid + "/Id Proofs/" + element.name)
+                    .put(element);
+                }
+            }
+
   const handleSubmit = (e) => {
     if (image && idproof && user && detail.name && detail.email && detail.phone && detail.residents && detail.resdetail && detail.type) {
       setstatus(1);
@@ -102,16 +114,8 @@ export default function UserFormBasic() {
           // Upload completed successfully, now we can get the download URL
           uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
             
-                for (let i = 0; i < idproof.length; i++) {
-                  const element = idproof[i];
-
-                  var storageRef = firebase.storage().ref();
-                  var filename = element.name;
-                  // eslint-disable-next-line
-                  var uploadTask = await storageRef
-                    .child("documents/" + user.uid + "/Id Proofs/" + element.name)
-                    .put(element);
-                }
+                  uploadFiles()
+                
            
                   firebase.auth().onAuthStateChanged((user) => {
                     if (user) {

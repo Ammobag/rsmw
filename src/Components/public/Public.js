@@ -55,9 +55,11 @@ export default function Public() {
                 alignItems: "center",
               }}
             >
-              <h2>Facility Manager - John Doe</h2>
-              <br />
-              <p>Contact At - 9807000000</p>
+             
+      
+              <p>Download Police Verification Form</p>
+                      <br />
+               <h2>Click Here</h2>
             </div>
           </div>
         </div>

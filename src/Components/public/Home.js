@@ -19,6 +19,7 @@ export default function Home() {
   const [data, setData] = useState([]);
   const [fetch, setFetch] = useState(false);
   const [check, setCheck] = useState(false)
+  const [images, setimages] = useState([])
 
   const history = useHistory();
   
@@ -68,6 +69,43 @@ export default function Home() {
       </div>
     );
   };
+
+  const fetchAsync = async() =>{
+    let list = []
+      var storageRef = await firebase.storage().ref("sliders/").listAll();
+
+      for (let i = 0; i < storageRef.items.length; i++) {
+        const element = storageRef.items[i];
+        var link = await element.getDownloadURL()
+        list.push(link)
+      }
+
+      if(list.length > 0){
+        setimages(list)
+      }
+  }
+
+  const Gallery = () => {
+    
+
+    if(images.length > 0){
+      return images.map((value, index)=>{
+        return(<img alt="img" key={index} src={value} className={styles.slide} />)
+      })
+    }else{
+      fetchAsync()
+      return (
+        <>
+          <img alt="img" src={slider1} className={styles.slide} />
+          <img alt="img" src={slider2} className={styles.slide} />
+          <img alt="img" src={slider3} className={styles.slide} />
+          <img alt="img" src={slider4} className={styles.slide} />
+        </>
+      );
+    }
+  }
+
+
   return (
     <div>
       <section>
@@ -76,10 +114,7 @@ export default function Home() {
             className={styles.slideshowSlider}
             style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
           >
-            <img src={slider1} className={styles.slide} alt="" />
-            <img src={slider2} className={styles.slide} alt="" />
-            <img src={slider3} className={styles.slide} alt="" />
-            <img src={slider4} className={styles.slide} alt="" />
+            <Gallery/>
           </div>
         </div>
       </section>
@@ -88,6 +123,7 @@ export default function Home() {
           <div style={{display: 'flex', flexDirection: 'column',justifyContent: 'center', alignItems: "center"}}>
        
               <h2 className="content1">Important Notices</h2>
+              <br />
      
             <ul className={styles.impnotice}>
               <ImportantNotices />

@@ -29,12 +29,11 @@ export default function UserLogIn() {
 
   const handleSubmit = (e) => {
     if (password && userName) {
-      var user;
+
       firebase
         .auth()
         .signInWithEmailAndPassword(userName, password)
         .then((userCredential) => {
-          user = userCredential.user;
           history.push("/feed");
         })
         .catch((error) => {

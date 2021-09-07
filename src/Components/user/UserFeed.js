@@ -541,21 +541,21 @@ class PostWall extends React.Component {
 
   componentDidMount() {
     //instant add first post
-    if (!Object.keys(this.state.postList).length) {
-      let postObject = new PostObj({
-        list: this.localList,
-        update: this.updateState,
-        id: this.idCounter,
-        avatar:
-          "https://justmonk.github.io/react-news-feed-spa-demo/img/user-avatar.jpg",
-        nameLength: Math.round(60 - 0.5 + Math.random() * (100 - 60 + 0.5)),
-        img: "https://justmonk.github.io/react-news-feed-spa-demo/img/blur-min.jpg",
-      });
+    // if (!Object.keys(this.state.postList).length) {
+    //   let postObject = new PostObj({
+    //     list: this.localList,
+    //     update: this.updateState,
+    //     id: this.idCounter,
+    //     avatar:
+    //       "https://justmonk.github.io/react-news-feed-spa-demo/img/user-avatar.jpg",
+    //     nameLength: Math.round(60 - 0.5 + Math.random() * (100 - 60 + 0.5)),
+    //     img: "https://justmonk.github.io/react-news-feed-spa-demo/img/blur-min.jpg",
+    //   });
 
-      this.localList[this.idCounter] = postObject;
-      this.wallUpdate();
-      this.idCounter++;
-    }
+    //   this.localList[this.idCounter] = postObject;
+    //   this.wallUpdate();
+    //   this.idCounter++;
+    // }
 
     this.addPosts();
   }

@@ -162,6 +162,15 @@ function Dashboard() {
           >
             <div>Manage Gallery</div>
           </a>
+          <a
+            href="https://console.firebase.google.com/u/0/project/rsmw-56be8/storage/rsmw-56be8.appspot.com/files/~2Fsliders"
+            style={{ textDecoration: "none" }}
+            rel="noreferrer"
+            target="_blank"
+            onClick={() => setIsNavOpen(!isNavOpen)}
+          >
+            <div>Manage Sliders</div>
+          </a>
         </section>
       </div>
       <div className={styles.main}>
