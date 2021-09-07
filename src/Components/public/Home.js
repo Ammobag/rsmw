@@ -59,7 +59,7 @@ export default function Home() {
 
   const ImportantNotices = () => {
     return (
-      <div>
+      <div className={styles.importantNotice}>
         {data.map((item) => (
           <li>
             <span className="content1">{item.body}</span>
@@ -126,13 +126,14 @@ export default function Home() {
               alignItems: "center",
             }}
           >
-            <h2 className="content1">Important Notices</h2>
+            <h2 styles={{ textAlign: "center" }}>Important Notices</h2>
             <br />
 
             <ul className={styles.impnotice}>
               <ImportantNotices />
             </ul>
           </div>
+          <div style={{ height: 30 }} />
           <ul className={styles.menubar}>
             <li id="nav1">
               <Link to="/createAccount">
