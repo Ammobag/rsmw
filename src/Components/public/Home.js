@@ -59,7 +59,7 @@ export default function Home() {
 
   const ImportantNotices = () => {
     return (
-      <div className={styles.importantNotice}>
+      <div className>
         {data.map((item) => (
           <li>
             <span className="content1">{item.body}</span>
