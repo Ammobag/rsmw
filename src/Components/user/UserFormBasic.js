@@ -68,7 +68,7 @@ export default function UserFormBasic() {
             }
 
   const handleSubmit = (e) => {
-    if (image && idproof && user && detail.name && detail.email && detail.phone && detail.residents && detail.resdetail && detail.type) {
+    if (image && idproof && user && detail.name && detail.email && detail.phone && detail.residents && detail.resdetails && detail.type) {
       setstatus(1);
       var storageRef = firebase.storage().ref();
       var uploadTask = storageRef
