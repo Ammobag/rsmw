@@ -95,8 +95,6 @@ export default function UserTransactions() {
       amount: cartAmount,
     });
 
-    console.log(query);
-
     const { REACT_APP_RAZ_TEST_KEY_ID, REACT_APP_RAZ_PRODUCTION_KEY_ID } =
       process.env;
 
@@ -106,6 +104,7 @@ export default function UserTransactions() {
         : REACT_APP_RAZ_PRODUCTION_KEY_ID,
       currency: "INR",
       amount: query.data.amount,
+      order_id: query.data.id,
       name: "Ideal Villa",
       description: "Make your payment",
 
@@ -157,10 +156,6 @@ export default function UserTransactions() {
       amount: cartAmount,
     });
 
-    console.log(query);
-
-    
-
     const { REACT_APP_RAZ_TEST_KEY_ID, REACT_APP_RAZ_PRODUCTION_KEY_ID } =
       process.env;
 
@@ -170,7 +165,7 @@ export default function UserTransactions() {
         : REACT_APP_RAZ_PRODUCTION_KEY_ID,
       currency: "INR",
       amount: query.data.amount,
-
+      order_id: query.data.id,
       name: "Ideal Villa",
       description: "Make your payment",
 
