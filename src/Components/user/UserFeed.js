@@ -396,30 +396,61 @@ class PostWall extends React.Component {
           console.log(element)
           var Ref = database.ref("users/" + element.UID + "/");
           Ref.once("value", (snapshot) => {
-            var user = snapshot.val();
+            const user = snapshot.val();
+            console.log(user)
             if (user) {
               let postObject = new PostObj({
                 list: this.localList,
                 update: this.updateState,
                 id: element.postID,
                 avatar: user.image
-                  ? user.image
-                  : "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
+                ? user.image
+                : "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
                 nameLength: user.name,
                 img: element.image,
                 message: element.body,
               });
-
+      
+              if (this.props.clearOld) {
+                if (Object.keys(this.localList).length >= this.maxPostCount) {
+                  delete this.localList[Math.min(...Object.keys(this.localList))];
+                }
+              }
+      
               if (Object.keys(this.localList).length < this.maxPostCount) {
                 this.localList[this.idCounter] = postObject;
-
+      
                 this.idCounter++;
               }
-              
-              
+      
+              this.wallUpdate();  
+            }else{
+              let postObject = new PostObj({
+                list: this.localList,
+                update: this.updateState,
+                id: element.postID,
+                avatar: "https://firebasestorage.googleapis.com/v0/b/rsmw-56be8.appspot.com/o/asset%2Fuser.png?alt=media&token=888aa232-bf02-4e35-bd50-d3ba76237c44",
+                nameLength: "Anonymous",
+                img: element.image,
+                message: element.body,
+              });
+      
+              if (this.props.clearOld) {
+                if (Object.keys(this.localList).length >= this.maxPostCount) {
+                  delete this.localList[Math.min(...Object.keys(this.localList))];
+                }
+              }
+      
+              if (Object.keys(this.localList).length < this.maxPostCount) {
+                this.localList[this.idCounter] = postObject;
+      
+                this.idCounter++;
+              }
+      
+              this.wallUpdate();  
             }
           });
-          console.log(this.localList)
+
         }
       }
     });
@@ -568,6 +599,7 @@ class PostWall extends React.Component {
     this.addRandomPost();
     this.addRandomPost();
     this.addRandomPost();
+    this.addPosts();
   }
   componentWillUnmount() {
     clearInterval(this.timerId);
