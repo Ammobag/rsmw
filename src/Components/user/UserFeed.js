@@ -393,7 +393,7 @@ class PostWall extends React.Component {
       for (const key in query) {
         if (Object.hasOwnProperty.call(query, key)) {
           const element = query[key];
-
+          console.log(element)
           var Ref = database.ref("users/" + element.UID + "/");
           Ref.once("value", (snapshot) => {
             var user = snapshot.val();
@@ -415,8 +415,11 @@ class PostWall extends React.Component {
 
                 this.idCounter++;
               }
+              
+              
             }
           });
+          console.log(this.localList)
         }
       }
     });
@@ -468,7 +471,7 @@ class PostWall extends React.Component {
   }
 
   getPostById(id) {
-    if (!this.localList[id]) return;
+    if (!this.localList[id]) return <div>Failed to find post</div>;
     return <Post id={id} key={id} args={this.state.postList[id]} />;
   }
 
@@ -525,8 +528,11 @@ class PostWall extends React.Component {
 
     //default render
     let elem = [];
+    console.log(this.state.postList)
     for (let key in this.state.postList) {
-      elem.unshift(this.getPostById(key));
+      let temp = this.getPostById(key)
+      console.log("Temp :",temp)
+      elem.unshift(temp);
     }
     if (!elem.length)
       elem.push(
@@ -536,6 +542,8 @@ class PostWall extends React.Component {
           </div>
         </div>
       );
+
+    
     return elem;
   }
 
@@ -557,7 +565,9 @@ class PostWall extends React.Component {
     //   this.idCounter++;
     // }
 
-    this.addPosts();
+    this.addRandomPost();
+    this.addRandomPost();
+    this.addRandomPost();
   }
   componentWillUnmount() {
     clearInterval(this.timerId);
@@ -566,7 +576,6 @@ class PostWall extends React.Component {
   render() {
     let content;
     content = this.renderAll();
-
     return <div className="post-wall">{content}</div>;
   }
 }
@@ -612,6 +621,12 @@ class Post extends React.Component {
     this.showComments(e);
     this.props.args.addCommentHandler(e);
   }
+
+  componentDidMount() {
+    console.log(this.props)
+  }
+
+  
 
   render() {
     return (
